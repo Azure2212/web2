@@ -8,7 +8,7 @@ $productAmount = $productAmount->fetch_assoc()["total"];
 $productPerPage = 20;
 $totalPage = Ceil($productAmount / $productPerPage);
 
-$sql = getAllOrderQuery($_REQUEST['page'],$productPerPage);
+$sql = getAllOrderQuery($_REQUEST['page'], $productPerPage);
 
 $result = $connDB->query($sql);
 
@@ -109,6 +109,23 @@ $result = $connDB->query($sql);
                     </div>
                 </div>
             </div>
+
+            <div class="filter-header">
+                <div class="filter-content">
+                    <label for="fromDate">Từ ngày:</label>
+                    <input type="date" id="fromDate" name="fromDate">
+                    <label for="toDate">Đến ngày:</label>
+                    <input type="date" id="toDate" name="toDate">
+                    <select>
+                        <option value="" disabled selected hidden>Trạng Thái</option>
+                        <option value="item1">Tất cả</option>
+                        <option value="item2">Đã hủy</option>
+                        <option value="item1">Đã giao</option>
+                        <option value="item2">Đang đặt</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="table-container">
                 <table>
                     <thead>
@@ -123,50 +140,108 @@ $result = $connDB->query($sql);
                         </tr>
                     </thead>
                     <tbody>
-                    <?php while ($row = $result->fetch_assoc()) { ?>
-                        <tr>
-                            <td><?= $row['date'] ?></td>
-                            <td><?= $row['soluong'] ?></td>
-                            <td><?= $row['name'] ?></td>
-                            <td><?= $row['phone'] ?></td>
-                            <td><?= $row['address'] ?></td>
-                            <td><?= mapping_Status($row['status']) ?></td>
-                            <td>
-                                <div class="dropdown">
-                                    <button><i class="fas fa-edit"></i></button>
-                                    <div class="dropdown-item">
-                                    <a href="create_order_form.php">Xem chi tiết</a>    
-                                    <a href="thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id']?>">Hủy</a>
-                                    <a href="thaotacorder.php?loaithaotacorder=done&mabill=<?= $row['id']?>">Hoàn thành</a>
+                        <?php while ($row = $result->fetch_assoc()) { ?>
+                            <tr>
+                                <td><?= $row['date'] ?></td>
+                                <td><?= $row['soluong'] ?></td>
+                                <td><?= $row['name'] ?></td>
+                                <td><?= $row['phone'] ?></td>
+                                <td><?= $row['address'] ?></td>
+                                <td><?= mapping_Status($row['status']) ?></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button><i class="fas fa-edit"></i></button>
+                                        <div class="dropdown-item">
+                                            <a href="create_order_form.php">Xem chi tiết</a>
+                                            <a href="thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>">Hủy</a>
+                                            <a href="thaotacorder.php?loaithaotacorder=done&mabill=<?= $row['id'] ?>">Hoàn thành</a>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         <?php } ?>
 
                     </tbody>
                 </table>
             </div>
             <ul class="pagination">
-                <li><a href='order_m.php?page=1'><<</a></li>
-                <?php 
-                    if($_REQUEST['page']!= 1) 
-                        echo sprintf("<li><a href='order_m.php?page=%d'><</a></li>",$_REQUEST['page']-1);
-                    else 
-                        echo "<li><a href='#'><</a></li>";    
+                <li><a href='order_m.php?page=1'>
+                        <<< /a>
+                </li>
+                <?php
+                if ($_REQUEST['page'] != 1)
+                    echo sprintf("<li><a href='order_m.php?page=%d'><</a></li>", $_REQUEST['page'] - 1);
+                else
+                    echo "<li><a href='#'><</a></li>";
                 ?>
-                <li><a href="#"><?= $_REQUEST['page'].'/'.$totalPage  ?></a></li>
-                <?php 
-                    if($_REQUEST['page'] != $totalPage) 
-                        echo sprintf("<li><a href='order_m.php?page=%d'>></a></li>",$_REQUEST['page']+1);
-                    else 
-                        echo "<li><a href='#'>></a></li>";           
+                <li><a href="#"><?= $_REQUEST['page'] . '/' . $totalPage  ?></a></li>
+                <?php
+                if ($_REQUEST['page'] != $totalPage)
+                    echo sprintf("<li><a href='order_m.php?page=%d'>></a></li>", $_REQUEST['page'] + 1);
+                else
+                    echo "<li><a href='#'>></a></li>";
                 ?>
-                <li><a href='order_m.php?page=<?=$totalPage?>'>>></a></li>
-            
+                <li><a href='order_m.php?page=<?= $totalPage ?>'>>></a></li>
+
             </ul>
         </div>
     </div>
 </body>
 
 </html>
+
+
+<style>
+    .filter-content {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .filter-content label {
+        margin-right: 10px;
+    }
+
+    .filter-content input[type="date"] {
+        padding: 8px 12px;
+        margin-right: 10px;
+        /* Add margin between inputs */
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .filter-content input[type="date"]:hover {
+        border-color: #aaa;
+    }
+
+    .filter-content input[type="date"]:focus {
+        border-color: #007bff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .filter-content select {
+        width: 150px;
+        padding: 8px 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .filter-content select:hover {
+        border-color: #aaa;
+    }
+
+    .filter-content select:focus {
+        border-color: #007bff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+</style>

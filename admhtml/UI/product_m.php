@@ -8,7 +8,7 @@ $productAmount = $productAmount->fetch_assoc()["total"];
 $productPerPage = 20;
 $totalPage = Ceil($productAmount / $productPerPage);
 
-$sql = getAllProductQuery($_REQUEST['page'],$productPerPage);
+$sql = getAllProductQuery($_REQUEST['page'], $productPerPage);
 
 $result = $connDB->query($sql);
 
@@ -108,6 +108,29 @@ $result = $connDB->query($sql);
                 </div>
             </div>
 
+
+            <div class="filter-header">
+                <div class="filter-content">
+                    <input type="text" placeholder="Tìm kiếm theo tên">
+                    <select>
+                        <!-- Label -->
+                        <option value="" disabled selected hidden>Trạng thái</option>
+
+                        <!-- Du lieu -->
+                        <option value="item1">Hiện hành</option>
+                        <option value="item2">Đã xóa</option>
+                    </select>
+                    <select>
+                        <!-- label -->
+                        <option value="" disabled selected hidden>Loại sản phẩm</option>
+
+                        <!-- Du lieu -->
+                        <option value="item1">Loại 1</option>
+                        <option value="item2">Loại 2</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="table-container">
                 <table>
                     <thead>
@@ -146,25 +169,80 @@ $result = $connDB->query($sql);
             </div>
 
             <ul class="pagination">
-                <li><a href='product_m.php?page=1'><<</a></li>
-                <?php 
-                    if($_REQUEST['page']!= 1) 
-                        echo sprintf("<li><a href='product_m.php?page=%d'><</a></li>",$_REQUEST['page']-1);
-                    else 
-                        echo "<li><a href='#'><</a></li>";    
+                <li><a href='product_m.php?page=1'>
+                        <<< /a>
+                </li>
+                <?php
+                if ($_REQUEST['page'] != 1)
+                    echo sprintf("<li><a href='product_m.php?page=%d'><</a></li>", $_REQUEST['page'] - 1);
+                else
+                    echo "<li><a href='#'><</a></li>";
                 ?>
-                <li><a href="#"><?= $_REQUEST['page'].'/'.$totalPage  ?></a></li>
-                <?php 
-                    if($_REQUEST['page'] != $totalPage) 
-                        echo sprintf("<li><a href='product_m.php?page=%d'>></a></li>",$_REQUEST['page']+1);
-                    else 
-                        echo "<li><a href='#'>></a></li>";           
+                <li><a href="#"><?= $_REQUEST['page'] . '/' . $totalPage  ?></a></li>
+                <?php
+                if ($_REQUEST['page'] != $totalPage)
+                    echo sprintf("<li><a href='product_m.php?page=%d'>></a></li>", $_REQUEST['page'] + 1);
+                else
+                    echo "<li><a href='#'>></a></li>";
                 ?>
-                <li><a href='product_m.php?page=<?=$totalPage?>'>>></a></li>
-            
+                <li><a href='product_m.php?page=<?= $totalPage ?>'>>></a></li>
+
             </ul>
         </div>
     </div>
 </body>
 
 </html>
+
+
+<style>
+    .filter-content {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .filter-content input[type="text"] {
+        width: 200px;
+        padding: 8px 12px;
+        margin-right: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .filter-content input[type="text"]:hover {
+        border-color: #aaa;
+    }
+
+    .filter-content input[type="text"]:focus {
+        border-color: #007bff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .filter-content select {
+        width: 200px;
+        padding: 8px 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        margin-left: 0.5rem;
+    }
+
+    .filter-content select:hover {
+        border-color: #aaa;
+    }
+
+    .filter-content select:focus {
+        border-color: #007bff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+</style>
