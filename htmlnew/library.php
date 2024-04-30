@@ -93,13 +93,13 @@ function TypeProduct($id)
 
 function ConnectDB()
 {
-  // $servername = "127.0.0.1";
-  $servername = "localhost";
+  $servername = "127.0.0.1";
+  //$servername = "localhost";
   $username = "root";
   $password = "";
   $dbname = "projectforweb";
-  $port = 3309;
-  // $port = 3307;
+  //$port = 3309;
+   $port = 3307;
 
   // Create connection
   $conn = new mysqli($servername, $username, $password, $dbname, $port);
@@ -287,7 +287,7 @@ function mapping_Status($status)
   if ($status == 0) {
     return 'Đang đặt hàng';
   } else if ($status == 1) {
-    return 'Đã hoàn thành';
+    return 'Đã giao hàng';
   } else if ($status == 2) {
     return 'Đã hủy';
   } else {
@@ -295,7 +295,27 @@ function mapping_Status($status)
   }
 }
 
+function mapping_Status_revert($status)
+{
+  if ($status == 'Đang đặt hàng') {
+    return 0;
+  } else if ($status == 'Đã giao hàng') {
+    return 1;
+  } else if ($status == 'Đã hủy') {
+    return 2;
+  } else {
+    return 0;
+  }
+}
 
+function mapping_userRole($role)
+{
+  if ($role == 0) {
+    return 'Khách hàng';
+  } else {
+    return 'Quản trị viên';
+  }
+}
 
 
 

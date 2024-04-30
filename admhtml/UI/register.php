@@ -1,8 +1,3 @@
-<?php 
-require("../../htmlnew/library.php");
-
-session_unset();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,31 +11,21 @@ session_unset();
 </head>
 
 <body>
+    <div class="header-content">
+        <a href="index.php"><i class="fas fa-sign-out"></i> Quay lại</a>
+    </div>
     <div class="login-container">
-        
-        <form class="login-form" action="thaotacuser.php" method='post' enctype="multipart/form-data">
-        
-            <h2>Đăng nhập tài khoản </h2>
-            <?php if(isset($_REQUEST['wronglogin'])) echo "<div><a style='color:red;'> Sai tên đăng nhập hoặc mật khẩu</a></div>"?>
+        <form class="login-form" action=">
+            <h2>Đăng nhập tài khoản</h2>
             <div class="input-group">
-                <label for="username">Tên đăng nhập  </label>
+                <label for="username">Tên đăng nhập</label>
                 <input type="text" id="username" name="username" placeholder="Tên đăng nhập" required>
             </div>
             <div class="input-group">
                 <label for="password">Mật khẩu</label>
                 <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
             </div>
-            <select name="role">
-                       
-                        <?php
-                         $loaiTrangThai = ['Khách hàng', "Quản trị viên"];
-                         for($i= 0;$i<count($loaiTrangThai);$i++){
-                                echo " <option >".$loaiTrangThai[$i]."</option> ";
-                        } 
-                        ?>
-                    </select>
             <button type="submit">Đăng nhập</button>
-            <input type='hidden' name="typeForm" value ="login">
         </form>
     </div>
 </body>

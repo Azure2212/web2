@@ -1,15 +1,46 @@
 <?php
-require_once('../../htmlnew/library.php');
+require("../../htmlnew/library.php");
+if(!isset($_SESSION['userInfor'])) {
+    header("location: login.php");
+}
+$productPerPage = 20;
+$errorSearch = false;
 
+$sqlSearch ='';
+$queryCount = "select count(*) as total from bill";
+if(isset($_REQUEST['fromDate'])){
+   
+    if( $_REQUEST['fromDate']=='' && $_REQUEST['toDate']=='' && !isset($_REQUEST['status2Search'])){
+        $errorSearch = true;
+    }else{
+        $start = $_REQUEST['page'] * $productPerPage - $productPerPage;
+        $end = $productPerPage;
+        $condition1 = $condition2 = $condition3 = "";
+        if(isset($_REQUEST["status2Search"])){
+            $condition1 = " and status = ".mapping_Status_revert($_REQUEST["status2Search"]);
+        }
+        if($_REQUEST['fromDate'] != ''){
+              $condition2 = " and bill.date >= '".$_REQUEST['fromDate']."' ";          
+        }
+        if($_REQUEST['toDate']!=''){
+              $condition3 = " and bill.date <= '".$_REQUEST['toDate']."' ";          
+        }
+        $sqlSearch = "SELECT * FROM bill
+        where 1 ". $condition1. $condition2. $condition3."    
+                      limit " . $start . "," . $end;
+
+        $sqlCount = "SELECT count(*) as total FROM bill
+        where 1 ". $condition1. $condition2. $condition3;   
+    }
+}
 $connDB = connectDB();
 #cho phân trang
-$productAmount = $connDB->query("select count(*) as total from bill");
+$productAmount = $connDB->query($queryCount);
 $productAmount = $productAmount->fetch_assoc()["total"];
-$productPerPage = 20;
+
 $totalPage = Ceil($productAmount / $productPerPage);
-
 $sql = getAllOrderQuery($_REQUEST['page'], $productPerPage);
-
+if($sqlSearch !='') $sql = $sqlSearch;
 $result = $connDB->query($sql);
 
 
@@ -47,7 +78,7 @@ $result = $connDB->query($sql);
                 </a>
             </li>
             <li>
-                <a href="product_m.php?page=1">
+                <a href="order_m.php?page=1">
                     <i class="fas fa-tag">
                         <span>Quản Lý Đơn Hàng </span>
                     </i>
@@ -94,6 +125,7 @@ $result = $connDB->query($sql);
             </div>
         </div>
 
+        <form class="product" action="order_m.php" method="get" enctype="multipart/form-data">
         <!-- Table ne -->
         <div class="table--wrapper">
             <div class="table-title">
@@ -102,27 +134,35 @@ $result = $connDB->query($sql);
                 </div>
                 <div class="table-action">
                     <div class="gr-btn2">
-                        <button class="btn-title"><i class="fa-solid fa-search"></i></button>
+                    <button type="submit"><i class="fa-solid fa-search"></i></a>
                     </div>
                     <div class="gr-btn1">
-                        <a class="btn-title" href="create_order_form.php">Tạo đơn hàng</a>
+                        <a class="btn-title" href="detail_order_form.php">Tạo đơn hàng</a>
                     </div>
                 </div>
             </div>
 
             <div class="filter-header">
                 <div class="filter-content">
-                    <label for="fromDate">Từ ngày:</label>
-                    <input type="date" id="fromDate" name="fromDate">
-                    <label for="toDate">Đến ngày:</label>
-                    <input type="date" id="toDate" name="toDate">
-                    <select>
+                    <label for="fromDate" name="fromdate">Từ ngày:</label>
+                    <input type="date" id="fromDate" value="<?php if(isset($_REQUEST['fromDate'])) echo $_REQUEST['fromDate'];  ?>" name="fromDate">
+                    <label for="toDate" name="toDate">Đến ngày:</label>
+                    <input type="date" id="toDate" value="<?php if(isset($_REQUEST['toDate'])) echo $_REQUEST['toDate'];  ?>" name="toDate">
+                    <select name="status2Search">
                         <option value="" disabled selected hidden>Trạng Thái</option>
-                        <option value="item1">Tất cả</option>
-                        <option value="item2">Đã hủy</option>
-                        <option value="item1">Đã giao</option>
-                        <option value="item2">Đang đặt</option>
+                        <?php
+                         $loaiTrangThai = ['Đã hủy', "Đã giao hàng", "Đang đặt"];
+                         for($i= 0;$i<count($loaiTrangThai);$i++){
+                            if(isset($_REQUEST['status2Search']) && $_REQUEST['status2Search'] == $loaiTrangThai[$i]){
+                                echo " <option  selected>".$loaiTrangThai[$i]."</option> ";
+                            }else{
+                                echo " <option >".$loaiTrangThai[$i]."</option> ";
+                            }
+                        } 
+                        ?>
                     </select>
+                    <?php if($errorSearch == true) echo "<h2 style='color:red;margin-left: 5%;'> Bạn tìm kiếm nhưng không chọn điều kiện! <h2>" ?>
+             
                 </div>
             </div>
 
@@ -136,6 +176,7 @@ $result = $connDB->query($sql);
                             <th>Số điện thoại</th>
                             <th>Địa chỉ</th>
                             <th>Tình trạng</th>
+                            <th>Ngày cập nhất cuối cùng</th>
                             <th style="width: 20px;"></th>
                         </tr>
                     </thead>
@@ -148,17 +189,18 @@ $result = $connDB->query($sql);
                                 <td><?= $row['phone'] ?></td>
                                 <td><?= $row['address'] ?></td>
                                 <td><?= mapping_Status($row['status']) ?></td>
+                                <td><?= $row['lastDateUpdated'] ?></td>
                                 <td>
                                     <div class="dropdown">
                                         <button><i class="fas fa-edit"></i></button>
                                         <div class="dropdown-item">
-                                            <a href="create_order_form.php">Xem chi tiết</a>
+                                            <a href="detail_order_form.php?mabill=<?= $row['id'] ?>">Xem chi tiết</a>
                                             <a href="thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>">Hủy</a>
                                             <a href="thaotacorder.php?loaithaotacorder=done&mabill=<?= $row['id'] ?>">Hoàn thành</a>
                                         </div>
                                     </div>
                                 </td>
-                            </tr>
+                              </tr>
                         <?php } ?>
 
                     </tbody>
@@ -166,7 +208,7 @@ $result = $connDB->query($sql);
             </div>
             <ul class="pagination">
                 <li><a href='order_m.php?page=1'>
-                        <<< /a>
+                        <<</a>
                 </li>
                 <?php
                 if ($_REQUEST['page'] != 1)
@@ -186,6 +228,8 @@ $result = $connDB->query($sql);
             </ul>
         </div>
     </div>
+    <input type="hidden" name='page' value= 1>
+    </form>
 </body>
 
 </html>

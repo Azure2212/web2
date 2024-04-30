@@ -77,7 +77,7 @@ if(isset($_POST["mua"])){
             if($i->giamgia != null & $i->giamgia == $i->gia)
                 $sum = $sum + ($i->gia * $i->soLuong);
         }
-        $sql1=sprintf("insert into bill values('%s','%s',%d,'%s','%s','%s','0')",$bill_id,$date,$sum,$_POST['texta'],$_POST['textb'],$_POST['textc']);
+        $sql1=sprintf("insert into bill values('%s','%s',%d,'%s','%s','%s','0','%s')",$bill_id,$date,$sum,$_POST['texta'],$_POST['textb'],$_POST['textc'],$date);
         
         $result=$conn->query($sql1);
         if ($result == false) {

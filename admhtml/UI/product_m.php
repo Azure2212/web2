@@ -1,15 +1,50 @@
 <?php
 require_once('../../htmlnew/library.php');
-
-$connDB = connectDB();
-#cho phân trang
-$productAmount = $connDB->query("select count(*) as total from sanpham where trangthai = 1");
-$productAmount = $productAmount->fetch_assoc()["total"];
+if(!isset($_SESSION['userInfor'])) {
+    header("location: login.php");
+}
 $productPerPage = 20;
+$connDB = connectDB();
+$errorSearch = false;
+$sqlSearch ='';
+
+$sqlCount = "select count(*) as total from sanpham where trangthai = 1";
+if(isset($_REQUEST['nameProduct2Search'])){
+    if(!isset($_REQUEST['status2Search']) && !isset($_REQUEST['category2Search']) && $_REQUEST['nameProduct2Search'] ==''){
+        $errorSearch = true;
+    }else{
+        $start = $_REQUEST['page'] * $productPerPage - $productPerPage;
+        $end = $productPerPage;
+        $condition1 = $condition2 = $condition3 = "";
+        if(isset($_REQUEST["status2Search"])){
+            if($_REQUEST["status2Search"]=="Đã xóa") $condition1 = " and trangthai = 0 ";
+            else $condition1 = " and trangthai = 1";
+        }
+        if(isset($_REQUEST["category2Search"])){
+            $MALoai = mapping_MALSP($_REQUEST["category2Search"]);
+            $condition2 = " and sanpham.MALSP = '".$MALoai."' ";          
+        }
+        if($_REQUEST['nameProduct2Search'] !=''){
+            $condition3 =" and tensp like '%".$_REQUEST['nameProduct2Search']."%' ";
+        }
+        $sqlSearch = "SELECT * FROM sanpham, loaisp
+        where sanpham.MALSP=loaisp.MALSP". $condition1. $condition2. $condition3." 
+                      
+                      limit " . $start . "," . $end;
+
+        $sqlCount = "SELECT count(*) as total FROM sanpham, loaisp
+        where sanpham.MALSP=loaisp.MALSP". $condition1. $condition2. $condition3;
+                      
+        #echo $sqlSearch;
+    }
+}
+#cho phân trang
+$productAmount = $connDB->query($sqlCount);
+$productAmount = $productAmount->fetch_assoc()["total"];
 $totalPage = Ceil($productAmount / $productPerPage);
 
 $sql = getAllProductQuery($_REQUEST['page'], $productPerPage);
-
+if($sqlSearch !='') $sql = $sqlSearch;
 $result = $connDB->query($sql);
 
 
@@ -28,7 +63,7 @@ $result = $connDB->query($sql);
 </head>
 
 <body>
-    <div class="sidebar">
+      <div class="sidebar">
         <div class="logo"></div>
         <ul class="menu">
             <li class="active">
@@ -68,7 +103,6 @@ $result = $connDB->query($sql);
             </li>
         </ul>
     </div>
-
     <div class="main-content">
         <div class="header-wrapper">
             <div class="header-title">
@@ -91,7 +125,7 @@ $result = $connDB->query($sql);
                 </div>
             </div>
         </div>
-
+        <form class="product" action="product_m.php" method="get" enctype="multipart/form-data">
         <!-- Table ne -->
         <div class="table--wrapper">
             <div class="table-title">
@@ -100,36 +134,57 @@ $result = $connDB->query($sql);
                 </div>
                 <div class="table-action">
                     <div class="gr-btn2">
-                        <button class="btn-title"><i class="fa-solid fa-search"></i></button>
+                    <button type="submit"><i class="fa-solid fa-search"></i></a>
                     </div>
                     <div class="gr-btn1">
                         <a class="btn-title" href="create_product_form.php">Tạo sản phẩm</a>
                     </div>
                 </div>
             </div>
-
+        
 
             <div class="filter-header">
                 <div class="filter-content">
-                    <input type="text" placeholder="Tìm kiếm theo tên">
-                    <select>
+                    <input type="text" name="nameProduct2Search" value="<?php if(isset($_REQUEST['nameProduct2Search'])) echo $_REQUEST['nameProduct2Search'] ?>" placeholder="Tìm kiếm theo tên">
+                    <select name="status2Search">
                         <!-- Label -->
-                        <option value="" disabled selected hidden>Trạng thái</option>
+                        <option value=""  disabled selected hidden>Trạng thái</option>
 
                         <!-- Du lieu -->
-                        <option value="item1">Hiện hành</option>
-                        <option value="item2">Đã xóa</option>
+                        <?php
+                         $loaiTrangThai = ['Hiện hành', "Đã xóa"];
+                         for($i= 0;$i<count($loaiTrangThai);$i++){
+                            if(isset($_REQUEST['status2Search']) && $_REQUEST['status2Search'] == $loaiTrangThai[$i]){
+                                echo " <option  selected>".$loaiTrangThai[$i]."</option> ";
+                            }else{
+                                echo " <option >".$loaiTrangThai[$i]."</option> ";
+                            }
+                        } 
+                        ?>
                     </select>
-                    <select>
+                    <select name="category2Search">
                         <!-- label -->
-                        <option value="" disabled selected hidden>Loại sản phẩm</option>
+                        <option value=""  disabled selected hidden>Loại sản phẩm</option>
 
                         <!-- Du lieu -->
-                        <option value="item1">Loại 1</option>
-                        <option value="item2">Loại 2</option>
+                        
+                        <?php
+                         $loaisp = ['Điện thoại', "Laptop", "Đồng Hồ đeo tay","Tai nghe"];
+                         $MALSP = ['00001', '00002', '00003', '00004'];
+                         for($i= 0;$i<count($loaisp);$i++){
+                            if(isset($_REQUEST['category2Search']) && $_REQUEST['category2Search'] == $loaisp[$i]){
+                                echo " <option  selected>".$loaisp[$i]."</option> ";
+                            }else{
+                                echo " <option >".$loaisp[$i]."</option> ";
+                            }
+                        } 
+                        ?>
                     </select>
+                    <?php if($errorSearch == true) echo "<h2 style='color:red;margin-left: 5%;'> Bạn tìm kiếm nhưng không chọn điều kiện! <h2>" ?>
                 </div>
             </div>
+            <!-- <input type='hidden' name='page' value = 1> -->
+            
 
             <div class="table-container">
                 <table>
@@ -170,7 +225,7 @@ $result = $connDB->query($sql);
 
             <ul class="pagination">
                 <li><a href='product_m.php?page=1'>
-                        <<< /a>
+                        <<</a>
                 </li>
                 <?php
                 if ($_REQUEST['page'] != 1)
@@ -190,6 +245,8 @@ $result = $connDB->query($sql);
             </ul>
         </div>
     </div>
+    <input type="hidden" name='page' value= 1>
+    </form>
 </body>
 
 </html>

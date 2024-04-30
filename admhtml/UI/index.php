@@ -1,3 +1,10 @@
+<?php 
+require_once("../../htmlnew/library.php");
+if(!isset($_SESSION['userInfor'])) {
+    header("location: login.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +50,7 @@
                 </a>
             </li>
             <li class="logout">
-                <a href="#">
+                <a href="login.php">
                     <i class="fas fa-sign-out">
                         <span>Đăng xuất</span>
                     </i>
@@ -65,12 +72,12 @@
                     <input type="text" placeholder="Search" />
                 </div>
                 <div class="dropdown">
-                    <img src="assets/10_NMT.jpg" style="width: 50px; height: 50px;">
-                    <div class="dropdown-item">
+                    <img src="<?php echo $_SESSION["userInfor"]["avatar"]; ?>" style="width: 50px; height: 50px;">
+                    <!-- <div class="dropdown-item">-->
                         <!-- Nội dung của dropdown ở đây -->
-                        <a href="login.php">Đăng nhập</a>
-                        <a href="#">Tài Khoản</a>
-                    </div>
+                        <!-- <a href="login.php">Đăng nhập</a> -->
+                       <!--  <a href="#">Tài Khoản</a> -->
+                    </div> 
                 </div>
             </div>
         </div>

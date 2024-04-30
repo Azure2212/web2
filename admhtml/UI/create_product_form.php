@@ -1,5 +1,8 @@
 <?php
 require_once('../../htmlnew/library.php');
+if(!isset($_SESSION['userInfor'])) {
+    header("location: login.php");
+}
 
 $isEditFlag = false;
 $row ='';
