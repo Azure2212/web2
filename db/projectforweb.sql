@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1:3307
--- Thời gian đã tạo: Th4 28, 2024 lúc 03:09 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.0.30
+-- Máy chủ: localhost:3309
+-- Thời gian đã tạo: Th4 30, 2024 lúc 08:45 AM
+-- Phiên bản máy phục vụ: 10.4.25-MariaDB
+-- Phiên bản PHP: 8.0.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,7 +35,7 @@ CREATE TABLE `bill` (
   `phone` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `bill`
@@ -55,7 +55,7 @@ CREATE TABLE `chitietbill` (
   `mabill` varchar(255) NOT NULL,
   `MASP` varchar(255) NOT NULL,
   `soluong` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `chitietbill`
@@ -75,7 +75,7 @@ INSERT INTO `chitietbill` (`id`, `mabill`, `MASP`, `soluong`) VALUES
 CREATE TABLE `loaisp` (
   `MALSP` varchar(255) NOT NULL,
   `tenloaisp` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `loaisp`
@@ -100,74 +100,75 @@ CREATE TABLE `sanpham` (
   `giamgia` int(11) NOT NULL,
   `ngaysx` date NOT NULL,
   `image` varchar(255) NOT NULL,
-  `MALSP` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `MALSP` varchar(255) NOT NULL,
+  `giavon` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `sanpham`
 --
 
-INSERT INTO `sanpham` (`masp`, `tensp`, `gia`, `giamgia`, `ngaysx`, `image`, `MALSP`) VALUES
-('00001', 'phone1', 1, 1, '2024-04-03', 'images/spiphone1.jpg', '00001'),
-('000021', 'Product 1', 100, 10, '2023-12-15', 'images/spiphone1.jpg', '00001'),
-('00002', 'Product 2', 150, 15, '2023-11-20', 'images/spiphone2.jpg', '00001'),
-('00003', 'Product 3', 200, 20, '2023-10-25', 'images/spiphone3.jpg', '00001'),
-('00004', 'Product 4', 250, 25, '2023-09-30', 'images/spiphone4.jpg', '00001'),
-('00005', 'Product 5', 300, 30, '2023-08-05', 'images/spiphone5.jpg', '00001'),
-('00006', 'Product 6', 350, 35, '2023-07-10', 'images/spiphone6.jpg', '00001'),
-('00007', 'Product 7', 400, 40, '2023-06-15', 'images/sphp1.jpg', '00004'),
-('00008', 'Product 8', 450, 45, '2023-05-20', 'images/sphp2.jpg', '00004'),
-('00009', 'Product 9', 500, 50, '2023-04-25', 'images/sphp3.jpg', '00004'),
-('00010', 'Product 10', 550, 55, '2023-03-30', 'images/sphp4.jpg', '00004'),
-('00011', 'Product 11', 600, 60, '2023-02-05', 'images/sphp5.jpg', '00004'),
-('00012', 'Product 12', 650, 65, '2023-01-10', 'images/sphp6.jpg', '00004'),
-('00013', 'Product 13', 700, 70, '2022-12-15', 'images/laptop1.jpg', '00002'),
-('00014', 'Product 14', 750, 75, '2022-11-20', 'images/laptop2.jpg', '00002'),
-('00015', 'Product 15', 800, 80, '2022-10-25', 'images/laptop3.jpg', '00002'),
-('00016', 'Product 16', 850, 85, '2022-09-30', 'images/laptop4.jpg', '00002'),
-('00017', 'Product 17', 900, 90, '2022-08-05', 'images/laptop5.jpg', '00002'),
-('00018', 'Product 18', 950, 95, '2022-07-10', 'images/laptop6.jpg', '00002'),
-('000031', 'Product 1', 100, 10, '2023-12-15', 'images/spiphone1.jpg', '00001'),
-('000032', 'Product 6', 350, 35, '2023-07-10', 'images/spiphone2.jpg', '00001'),
-('000034', 'Product 11', 600, 60, '2023-02-05', 'images/spiphone2.jpg', '00001'),
-('000161', 'Product 16', 850, 85, '2022-09-30', 'images/spiphone3.jpg', '00001'),
-('0002125', 'Product 21', 1100, 110, '2022-05-20', 'images/spiphone4.jpg', '00001'),
-('000261', 'Product 26', 1350, 135, '2022-04-25', 'images/spiphone5.jpg', '00001'),
-('0003126', 'Product 31', 1600, 160, '2022-03-30', 'images/spiphone6.jpg', '00001'),
-('0003685', 'Product 36', 1850, 185, '2022-02-05', 'images/spiphone1.jpg', '00001'),
-('0004112', 'Product 41', 2100, 210, '2021-12-10', 'images/spiphone2.jpg', '00001'),
-('100462', 'Product 46', 2350, 235, '2021-11-15', 'images/spiphone3.jpg', '00001'),
-('10001', 'Product 1', 100, 10, '2023-12-15', 'images/spiphone1.jpg', '00001'),
-('20006', 'Product 6', 350, 35, '2023-07-10', 'images/spiphone5.jpg', '00001'),
-('30011', 'Product 11', 600, 60, '2023-02-05', 'images/spiphone6.jpg', '00001'),
-('40016', 'Product 16', 850, 85, '2022-09-30', 'images/spiphone1.jpg', '00001'),
-('50021', 'Product 21', 1100, 110, '2022-05-20', 'images/spiphone2.jpg', '00001'),
-('60026', 'Product 26', 1350, 135, '2022-04-25', 'images/spiphone3.jpg', '00001'),
-('70031', 'Product 31', 1600, 160, '2022-03-30', 'images/spiphone4.jpg', '00001'),
-('80036', 'Product 36', 1850, 185, '2022-02-05', 'images/spiphone5.jpg', '00001'),
-('10041', 'Product 41', 2100, 210, '2021-12-10', 'images/spiphone6.jpg', '00001'),
-('20046', 'Product 46', 2350, 235, '2021-11-15', 'images/spiphone1.jpg', '00001'),
-('010001', 'Product 1', 100, 10, '2023-12-15', 'images/spiphone1.jpg', '00001'),
-('000306', 'Product 6', 350, 35, '2023-07-10', 'images/spiphone3.jpg', '00001'),
-('000211', 'Product 11', 600, 60, '2023-02-05', 'images/spiphone4.jpg', '00001'),
-('000s16', 'Product 16', 850, 85, '2022-09-30', 'images/spiphone5.jpg', '00001'),
-('0002s1', 'Product 21', 1100, 110, '2022-05-20', 'images/spiphone6.jpg', '00001'),
-('000w26', 'Product 26', 1350, 135, '2022-04-25', 'images/spiphone1.jpg', '00001'),
-('000321', 'Product 31', 1600, 160, '2022-03-30', 'images/spiphone2.jpg', '00001'),
-('000326', 'Product 36', 1850, 185, '2022-02-05', 'images/spiphone3.jpg', '00001'),
-('000451', 'Product 41', 2100, 210, '2021-12-10', 'images/spiphone4.jpg', '00001'),
-('000426', 'Product 46', 2350, 235, '2021-11-15', 'images/spiphone5.jpg', '00001'),
-('000021', 'Product 1', 100, 10, '2023-12-15', 'images/spiphone1.jpg', '00001'),
-('000026', 'Product 6', 350, 35, '2023-07-10', 'images/spiphone1.jpg', '00001'),
-('000111', 'Product 11', 600, 60, '2023-02-05', 'images/spiphone2.jpg', '00001'),
-('0001xs6', 'Product 16', 850, 85, '2022-09-30', 'images/spiphone3.jpg', '00001'),
-('00021yh', 'Product 21', 1100, 110, '2022-05-20', 'images/spiphone4.jpg', '00001'),
-('00026s', 'Product 26', 1350, 135, '2022-04-25', 'images/spiphone5.jpg', '00001'),
-('00031s', 'Product 31', 1600, 160, '2022-03-30', 'images/spiphone6.jpg', '00001'),
-('00036s', 'Product 36', 1850, 185, '2022-02-05', 'images/spiphone1.jpg', '00001'),
-('00041s', 'Product 41', 2100, 210, '2021-12-10', 'images/spiphone2.jpg', '00001'),
-('00046q', 'Product 46', 2350, 235, '2021-11-15', 'images/spiphone3.jpg', '00001'),
-('1', '1', 1, 1, '2024-04-03', 'asdas', '00001');
+INSERT INTO `sanpham` (`masp`, `tensp`, `gia`, `giamgia`, `ngaysx`, `image`, `MALSP`, `giavon`) VALUES
+('00001', 'phone1', 1, 1, '2024-04-03', 'images/spiphone1.jpg', '00001', 0),
+('000021', 'Product 1', 100, 10, '2023-12-15', 'images/spiphone1.jpg', '00001', 0),
+('00002', 'Product 2', 150, 15, '2023-11-20', 'images/spiphone2.jpg', '00001', 0),
+('00003', 'Product 3', 200, 20, '2023-10-25', 'images/spiphone3.jpg', '00001', 0),
+('00004', 'Product 4', 250, 25, '2023-09-30', 'images/spiphone4.jpg', '00001', 0),
+('00005', 'Product 5', 300, 30, '2023-08-05', 'images/spiphone5.jpg', '00001', 0),
+('00006', 'Product 6', 350, 35, '2023-07-10', 'images/spiphone6.jpg', '00001', 0),
+('00007', 'Product 7', 400, 40, '2023-06-15', 'images/sphp1.jpg', '00004', 0),
+('00008', 'Product 8', 450, 45, '2023-05-20', 'images/sphp2.jpg', '00004', 0),
+('00009', 'Product 9', 500, 50, '2023-04-25', 'images/sphp3.jpg', '00004', 0),
+('00010', 'Product 10', 550, 55, '2023-03-30', 'images/sphp4.jpg', '00004', 0),
+('00011', 'Product 11', 600, 60, '2023-02-05', 'images/sphp5.jpg', '00004', 0),
+('00012', 'Product 12', 650, 65, '2023-01-10', 'images/sphp6.jpg', '00004', 0),
+('00013', 'Product 13', 700, 70, '2022-12-15', 'images/laptop1.jpg', '00002', 0),
+('00014', 'Product 14', 750, 75, '2022-11-20', 'images/laptop2.jpg', '00002', 0),
+('00015', 'Product 15', 800, 80, '2022-10-25', 'images/laptop3.jpg', '00002', 0),
+('00016', 'Product 16', 850, 85, '2022-09-30', 'images/laptop4.jpg', '00002', 0),
+('00017', 'Product 17', 900, 90, '2022-08-05', 'images/laptop5.jpg', '00002', 0),
+('00018', 'Product 18', 950, 95, '2022-07-10', 'images/laptop6.jpg', '00002', 0),
+('000031', 'Product 1', 100, 10, '2023-12-15', 'images/spiphone1.jpg', '00001', 0),
+('000032', 'Product 6', 350, 35, '2023-07-10', 'images/spiphone2.jpg', '00001', 0),
+('000034', 'Product 11', 600, 60, '2023-02-05', 'images/spiphone2.jpg', '00001', 0),
+('000161', 'Product 16', 850, 85, '2022-09-30', 'images/spiphone3.jpg', '00001', 0),
+('0002125', 'Product 21', 1100, 110, '2022-05-20', 'images/spiphone4.jpg', '00001', 0),
+('000261', 'Product 26', 1350, 135, '2022-04-25', 'images/spiphone5.jpg', '00001', 0),
+('0003126', 'Product 31', 1600, 160, '2022-03-30', 'images/spiphone6.jpg', '00001', 0),
+('0003685', 'Product 36', 1850, 185, '2022-02-05', 'images/spiphone1.jpg', '00001', 0),
+('0004112', 'Product 41', 2100, 210, '2021-12-10', 'images/spiphone2.jpg', '00001', 0),
+('100462', 'Product 46', 2350, 235, '2021-11-15', 'images/spiphone3.jpg', '00001', 0),
+('10001', 'Product 1', 100, 10, '2023-12-15', 'images/spiphone1.jpg', '00001', 0),
+('20006', 'Product 6', 350, 35, '2023-07-10', 'images/spiphone5.jpg', '00001', 0),
+('30011', 'Product 11', 600, 60, '2023-02-05', 'images/spiphone6.jpg', '00001', 0),
+('40016', 'Product 16', 850, 85, '2022-09-30', 'images/spiphone1.jpg', '00001', 0),
+('50021', 'Product 21', 1100, 110, '2022-05-20', 'images/spiphone2.jpg', '00001', 0),
+('60026', 'Product 26', 1350, 135, '2022-04-25', 'images/spiphone3.jpg', '00001', 0),
+('70031', 'Product 31', 1600, 160, '2022-03-30', 'images/spiphone4.jpg', '00001', 0),
+('80036', 'Product 36', 1850, 185, '2022-02-05', 'images/spiphone5.jpg', '00001', 0),
+('10041', 'Product 41', 2100, 210, '2021-12-10', 'images/spiphone6.jpg', '00001', 0),
+('20046', 'Product 46', 2350, 235, '2021-11-15', 'images/spiphone1.jpg', '00001', 0),
+('010001', 'Product 1', 100, 10, '2023-12-15', 'images/spiphone1.jpg', '00001', 0),
+('000306', 'Product 6', 350, 35, '2023-07-10', 'images/spiphone3.jpg', '00001', 0),
+('000211', 'Product 11', 600, 60, '2023-02-05', 'images/spiphone4.jpg', '00001', 0),
+('000s16', 'Product 16', 850, 85, '2022-09-30', 'images/spiphone5.jpg', '00001', 0),
+('0002s1', 'Product 21', 1100, 110, '2022-05-20', 'images/spiphone6.jpg', '00001', 0),
+('000w26', 'Product 26', 1350, 135, '2022-04-25', 'images/spiphone1.jpg', '00001', 0),
+('000321', 'Product 31', 1600, 160, '2022-03-30', 'images/spiphone2.jpg', '00001', 0),
+('000326', 'Product 36', 1850, 185, '2022-02-05', 'images/spiphone3.jpg', '00001', 0),
+('000451', 'Product 41', 2100, 210, '2021-12-10', 'images/spiphone4.jpg', '00001', 0),
+('000426', 'Product 46', 2350, 235, '2021-11-15', 'images/spiphone5.jpg', '00001', 0),
+('000021', 'Product 1', 100, 10, '2023-12-15', 'images/spiphone1.jpg', '00001', 0),
+('000026', 'Product 6', 350, 35, '2023-07-10', 'images/spiphone1.jpg', '00001', 0),
+('000111', 'Product 11', 600, 60, '2023-02-05', 'images/spiphone2.jpg', '00001', 0),
+('0001xs6', 'Product 16', 850, 85, '2022-09-30', 'images/spiphone3.jpg', '00001', 0),
+('00021yh', 'Product 21', 1100, 110, '2022-05-20', 'images/spiphone4.jpg', '00001', 0),
+('00026s', 'Product 26', 1350, 135, '2022-04-25', 'images/spiphone5.jpg', '00001', 0),
+('00031s', 'Product 31', 1600, 160, '2022-03-30', 'images/spiphone6.jpg', '00001', 0),
+('00036s', 'Product 36', 1850, 185, '2022-02-05', 'images/spiphone1.jpg', '00001', 0),
+('00041s', 'Product 41', 2100, 210, '2021-12-10', 'images/spiphone2.jpg', '00001', 0),
+('00046q', 'Product 46', 2350, 235, '2021-11-15', 'images/spiphone3.jpg', '00001', 0),
+('1', '1', 1, 1, '2024-04-03', 'asdas', '00001', 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
