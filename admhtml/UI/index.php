@@ -29,7 +29,7 @@
                 </a>
             </li>
             <li>
-                <a href="order_m.php">
+                <a href="order_m.php?page=1">
                     <i class="fas fa-tag">
                         <span>Quản Lý Đơn Hàng </span>
                     </i>

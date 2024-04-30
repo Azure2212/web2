@@ -2,18 +2,18 @@
 require_once('../../htmlnew/library.php');
 
 $connDB = connectDB();
+#cho phân trang
+$productAmount = $connDB->query("select count(*) as total from sanpham where trangthai = 1");
+$productAmount = $productAmount->fetch_assoc()["total"];
+$productPerPage = 20;
+$totalPage = Ceil($productAmount / $productPerPage);
 
-$sql = getAllProductQuery($_REQUEST['page']);
+$sql = getAllProductQuery($_REQUEST['page'],$productPerPage);
 
-$result =  $result = $connDB->query($sql);
-function TypeProduct($id)
-{
-    if ($id === '00001') return 'Điện thoại';
-    if ($id === '00002') return 'Laptop';
-    if ($id === '00003') return 'Đồng Hồ đeo tay';
-    if ($id === '00004') return 'Tai nghe';
-    return $id;
-}
+$result = $connDB->query($sql);
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +46,7 @@ function TypeProduct($id)
                 </a>
             </li>
             <li>
-                <a href="order_m.php">
+                <a href="order_m.php?page=1">
                     <i class="fas fa-tag">
                         <span>Quản Lý Đơn Hàng </span>
                     </i>
@@ -124,7 +124,7 @@ function TypeProduct($id)
                     <tbody>
                         <?php while ($row = $result->fetch_assoc()) { ?>
                             <tr>
-                                <td><img src="../<?= $row['image'] ?>" style="width: 40px; height: 40px;"></td>
+                                <td><img src="<?= $row['image'] ?>" style="width: 40px; height: 40px;"></td>
                                 <td><?= $row['tensp'] ?></td>
                                 <td><?= $row['giavon'] ?></td>
                                 <td><?= $row['gia'] ?></td>
@@ -134,8 +134,8 @@ function TypeProduct($id)
                                     <div class="dropdown">
                                         <button><i class="fas fa-edit"></i></button>
                                         <div class="dropdown-item">
-                                            <a>Xóa</a>
-                                            <a href="create_product_form.php">Sửa</a>
+                                            <a href="thaotacsanpham.php?loaithaotacsanpham=xoa&idsp=<?= $row['masp'] ?>">Xóa</a>
+                                            <a href="create_product_form.php?typePage=chinhsuasp&idsp=<?= $row['masp'] ?>">Sửa</a>
                                         </div>
                                     </div>
                                 </td>
@@ -146,15 +146,22 @@ function TypeProduct($id)
             </div>
 
             <ul class="pagination">
-                <li><a href="#">
-                        << /a>
-                </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">></a></li>
+                <li><a href='product_m.php?page=1'><<</a></li>
+                <?php 
+                    if($_REQUEST['page']!= 1) 
+                        echo sprintf("<li><a href='product_m.php?page=%d'><</a></li>",$_REQUEST['page']-1);
+                    else 
+                        echo "<li><a href='#'><</a></li>";    
+                ?>
+                <li><a href="#"><?= $_REQUEST['page'].'/'.$totalPage  ?></a></li>
+                <?php 
+                    if($_REQUEST['page'] != $totalPage) 
+                        echo sprintf("<li><a href='product_m.php?page=%d'>></a></li>",$_REQUEST['page']+1);
+                    else 
+                        echo "<li><a href='#'>></a></li>";           
+                ?>
+                <li><a href='product_m.php?page=<?=$totalPage?>'>>></a></li>
+            
             </ul>
         </div>
     </div>

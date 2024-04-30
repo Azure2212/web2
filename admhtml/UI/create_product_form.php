@@ -1,3 +1,18 @@
+<?php
+require_once('../../htmlnew/library.php');
+
+$isEditFlag = false;
+$row ='';
+if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp'){
+    $conn = connectDB();
+    $isEditFlag = true;
+    $result = $conn->query(sprintf("select * from sanpham where masp ='%s'",$_REQUEST['idsp']));
+    $row=$result->fetch_assoc();
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,7 +71,8 @@
         <div class="header-wrapper">
             <div class="header-title">
                 <span>Danh mục</span>
-                <h2>Tạo sản phẩm</h2>
+             <?php if($isEditFlag == true ){echo '<h2>Chỉnh sửa sản phẩm</h2>'; } else echo '<h2>Tạo sản phẩm</h2>'; ?>
+             
             </div>
             <div class="user-info">
                 <div class="search-box">
@@ -77,41 +93,55 @@
 
         <!-- Form -->
         <div class="form-wrapper">
-            <h2>Thông Tin Sản Phẩm</h2>
-            <form class="product-form" enctype="multipart/form-data">
+            <h2>Thông Tin Sản Phẩm <?= $row['MALSP'] ?></h2>
+            <form action="thaotacsanpham.php" class="product-form" method="post" enctype="multipart/form-data">
                 <div class="input-group">
                     <label for="product-name">Tên Sản Phẩm</label>
-                    <input type="text" id="product-name" name="product-name" placeholder="Tên sản phẩm" required>
-                </div>
-                <div class="input-group">
-                    <label for="price">Giá</label>
-                    <input type="number" id="price" name="price" placeholder="Giá sản phẩm" step="10000" required>
-                </div>
-                <div class="input-group">
-                    <label for="discount">Giảm Giá</label>
-                    <input type="number" id="discount" name="discount" placeholder="Giá được giảm" step="10000" required>
-                </div>
-                <div class="input-group">
-                    <label for="date-up">Ngày sản xuất</label>
-                    <input type="date" id="date-up" name="date-up" placeholder="Ngày sản xuất" required>
-                </div>
-                <div class="input-group">
-                    <label for="image">Hình ảnh</label>
-                    <input type="file" id="image" name="image" accept="image/*" required>
-                </div>
-                <div class="input-group">
-                    <label for="product-type">Loại sản phẩm</label>
-                    <select id="product-type" name="product-type">
-                        <option value="option1">Sản phẩm xxxx</option>
-                        <option value="option2">Sản phẩm xxxxdefe</option>
-                        <option value="option3">Sản phẩm xxxxferf78e</option>
-                    </select>
+                    <input type="text" id="product-name" name="product-name" placeholder="Tên sản phẩm" value="<?= $row['tensp'] ?>" required>
                 </div>
                 <div class="input-group">
                     <label for="pre-price">Giá vốn</label>
-                    <input type="number" id="pre-price" name="pre-price" placeholder="Giá vốn" step="10000" required>
+                    <input type="number" id="pre-price" name="pre-price" placeholder="Giá vốn" step="10000" value="<?= $row['giavon'] ?>" required>
                 </div>
-                <button type="submit">Tạo Sản Phẩm</button>
+                <div class="input-group">
+                    <label for="price">Giá</label>
+                    <input type="number" id="price" name="price" placeholder="Giá sản phẩm" step="10000" value="<?= $row['gia'] ?>" required>
+                </div>
+                <div class="input-group">
+                    <label for="discount">Giảm Giá</label>
+                    <input type="number" id="discount" name="discount" placeholder="Giá được giảm" step="10000" value="<?= $row['giamgia'] ?>" required>
+                </div>
+                <div class="input-group">
+                    <label for="date-up">Ngày sản xuất</label>
+                    <input type="date" id="date-up" name="date-up" placeholder="Ngày sản xuất" value="<?= $row['ngaysx'] ?>" required>
+                </div>
+             
+                <div class="input-group">
+                    <label for="product-type">Loại sản phẩm</label>
+                    <select id="product-type" name="product-type">
+                        <?php
+                         $loaisp = ['Điện thoại', "Laptop", "Đồng Hồ đeo tay","Tai nghe"];
+                         $MALSP = ['00001', '00002', '00003', '00004'];
+                        for($i= 0;$i<count($loaisp);$i++){
+                           
+                            if($row['MALSP'] == $MALSP[$i]){
+                                echo " <option  selected>".$loaisp[$i]."</option> ";
+                            }else{
+                                echo " <option >".$loaisp[$i]."</option> ";
+                            }
+                        } 
+                        ?>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="image">Hình ảnh</label>
+                    <input type="file" name="fileToUpload" id="fileToUpload" <?php if($isEditFlag!=true) echo 'required' ?> >
+                   
+                </div>
+               
+                <button type="submit"> <?php if($isEditFlag==true) echo 'Sửa Sản Phẩm'; else echo 'Tạo Sản Phẩm' ?></button>
+                <input type="hidden" name="loaithaotacsanpham" value="<?php if($isEditFlag==true)echo 'sua'; else echo 'them' ?>">
+                <input type="hidden" name="idsp" value="<?php if($isEditFlag==true)echo $row['masp']; else echo '' ?>">
             </form>
         </div>
     </div>

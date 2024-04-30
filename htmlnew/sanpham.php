@@ -8,7 +8,7 @@ $title="??";
 $sql="??";
 $count='';
 $sql = checkTypeAction($title,$count);
-echo $sql;
+echo 'concho'.$sql;
 $number=$conn->query($count);
   
 $temp=$number->fetch_assoc();
@@ -141,7 +141,7 @@ if($row!=null){?>
 <div class="sp4444">
        <div class="sp444">
        <div class="sp44">
-         <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>"><img class="sp44-4" src="<?php echo '../admhtml/'.$row["image"]?>" alt="" width="370px" height="391px">
+         <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>"><img class="sp44-4" src="<?php echo '../admhtml/'.str_replace('../', '', $row["image"])?>" alt="" width="370px" height="391px">
          </a>
          <div class="sp4-4">
          <h4 class="sp4-1"> <a  class="sp4-1-1" href=""> <?= $row["tensp"] ?></a> </h4>
@@ -166,7 +166,7 @@ if($row!=null){?>
 $row=$result->fetch_assoc();
 if($row!=null){?>
       <div class="sp44">
-      <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>"><img class="sp44-4" src="<?php echo '../admhtml/'.$row["image"]?>" alt="" width="370px" height="391px">
+      <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>"><img class="sp44-4" src="<?php echo '../admhtml/'.str_replace('../', '', $row["image"])?>" alt="" width="370px" height="391px">
          </a>
          <div class="sp4-4">
          <h4 class="sp4-1"> <a  class="sp4-1-1" href=""><?= $row["tensp"] ?></a> </h4>
@@ -190,7 +190,7 @@ if($row!=null){?>
 $row=$result->fetch_assoc();
 if($row!=null){?>
       <div class="sp44">
-      <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>"><img class="sp44-4" src="<?php echo '../admhtml/'.$row["image"]?>" alt="" width="370px" height="391px">
+      <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>"><img class="sp44-4" src="<?php echo '../admhtml/'.str_replace('../', '', $row["image"])?>" alt="" width="370px" height="391px">
          </a>
          <div class="sp4-4">
          <h4 class="sp4-1"> <a  class="sp4-1-1" href=""><?= $row["tensp"] ?></a> </h4>
@@ -218,7 +218,7 @@ if($row!=null){?>
 $row=$result->fetch_assoc();
 if($row!=null){?>
        <div class="sp44">
-       <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>"><img class="sp44-4" src="<?php echo '../admhtml/'.$row["image"]?>" alt="" width="370px" height="391px">
+       <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>"><img class="sp44-4" src="<?php echo '../admhtml/'.str_replace('../', '', $row["image"])?>" alt="" width="370px" height="391px">
          </a>
          <div class="sp4-4">
          <h4 class="sp4-1"> <a  class="sp4-1-1" href=""><?= $row["tensp"] ?></a> </h4>
@@ -242,7 +242,7 @@ if($row!=null){?>
 $row=$result->fetch_assoc();
 if($row!=null){?>
       <div class="sp44">
-      <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>"><img class="sp44-4" src="<?php echo '../admhtml/'.$row["image"]?>" alt="" width="370px" height="391px">
+      <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>"><img class="sp44-4" src="<?php echo '../admhtml/'.str_replace('../', '', $row["image"])?>" alt="" width="370px" height="391px">
          </a>
          <div class="sp4-4">
          <h4 class="sp4-1"> <a  class="sp4-1-1" href=""><?= $row["tensp"] ?></a> </h4>
@@ -266,7 +266,7 @@ if($row!=null){?>
 $row=$result->fetch_assoc();
 if($row!=null){?>
       <div class="sp44">
-      <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>"><img class="sp44-4" src="<?php echo '../admhtml/'.$row["image"]?>" alt="" width="370px" height="391px">
+      <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>"><img class="sp44-4" src="<?php echo '../admhtml/'.str_replace('../', '', $row["image"])?>" alt="" width="370px" height="391px">
          </a>
          <div class="sp4-4">
          <h4 class="sp4-1"> <a  class="sp4-1-1" href=""><?= $row["tensp"] ?></a> </h4>

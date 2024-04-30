@@ -1,3 +1,21 @@
+<?php
+require_once('../../htmlnew/library.php');
+
+$connDB = connectDB();
+#cho phân trang
+$productAmount = $connDB->query("select count(*) as total from bill");
+$productAmount = $productAmount->fetch_assoc()["total"];
+$productPerPage = 20;
+$totalPage = Ceil($productAmount / $productPerPage);
+
+$sql = getAllOrderQuery($_REQUEST['page'],$productPerPage);
+
+$result = $connDB->query($sql);
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +47,7 @@
                 </a>
             </li>
             <li>
-                <a href="order_m.php">
+                <a href="product_m.php?page=1">
                     <i class="fas fa-tag">
                         <span>Quản Lý Đơn Hàng </span>
                     </i>
@@ -96,8 +114,8 @@
                     <thead>
                         <tr>
                             <th>Ngày lập</th>
-                            <th>Tên đơn</th>
                             <th>Số lượng</th>
+                            <th>Tên Khách hàng</th>
                             <th>Số điện thoại</th>
                             <th>Địa chỉ</th>
                             <th>Tình trạng</th>
@@ -105,37 +123,47 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php while ($row = $result->fetch_assoc()) { ?>
                         <tr>
-                            <td>2024-04-28</td>
-                            <td>DASAD</td>
-                            <td>12</td>
-                            <td>09775305884</td>
-                            <td>Q1</td>
-                            <td>Chưa hoàn tất</td>
+                            <td><?= $row['date'] ?></td>
+                            <td><?= $row['soluong'] ?></td>
+                            <td><?= $row['name'] ?></td>
+                            <td><?= $row['phone'] ?></td>
+                            <td><?= $row['address'] ?></td>
+                            <td><?= mapping_Status($row['status']) ?></td>
                             <td>
                                 <div class="dropdown">
                                     <button><i class="fas fa-edit"></i></button>
                                     <div class="dropdown-item">
-                                        <a>Xóa</a>
-                                        <a href="create_order_form.php">Sửa</a>
+                                    <a href="create_order_form.php">Xem chi tiết</a>    
+                                    <a href="thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id']?>">Hủy</a>
+                                    <a href="thaotacorder.php?loaithaotacorder=done&mabill=<?= $row['id']?>">Hoàn thành</a>
                                     </div>
                                 </div>
                             </td>
                         </tr>
+                        <?php } ?>
 
                     </tbody>
                 </table>
             </div>
             <ul class="pagination">
-                <li><a href="#">
-                        << /a>
-                </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">></a></li>
+                <li><a href='order_m.php?page=1'><<</a></li>
+                <?php 
+                    if($_REQUEST['page']!= 1) 
+                        echo sprintf("<li><a href='order_m.php?page=%d'><</a></li>",$_REQUEST['page']-1);
+                    else 
+                        echo "<li><a href='#'><</a></li>";    
+                ?>
+                <li><a href="#"><?= $_REQUEST['page'].'/'.$totalPage  ?></a></li>
+                <?php 
+                    if($_REQUEST['page'] != $totalPage) 
+                        echo sprintf("<li><a href='order_m.php?page=%d'>></a></li>",$_REQUEST['page']+1);
+                    else 
+                        echo "<li><a href='#'>></a></li>";           
+                ?>
+                <li><a href='order_m.php?page=<?=$totalPage?>'>>></a></li>
+            
             </ul>
         </div>
     </div>

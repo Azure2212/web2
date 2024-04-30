@@ -70,19 +70,23 @@ class SP{
 }
 
 
-
-function showProduct(){
-    ConnectDB();
+function TypeProduct($id)
+{
+    if ($id === '00001') return 'Điện thoại';
+    if ($id === '00002') return 'Laptop';
+    if ($id === '00003') return 'Đồng Hồ đeo tay';
+    if ($id === '00004') return 'Tai nghe';
+    return $id;
 }
 
 function ConnectDB(){
-    // $servername = "127.0.0.1";
-    $servername = "localhost";
+    $servername = "127.0.0.1";
+    // $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "projectforweb";
-    $port = 3309;
-    // $port = 3306;
+    // $port = 3309;
+    $port = 3307;
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname, $port);
@@ -237,8 +241,7 @@ function checkConnectFromAnotherPHP(&$sql,&$title){
       }
 }
 
-function getAllProductQuery($current_page){
-  $product_per_page = 20;
+function getAllProductQuery($current_page,$product_per_page){
  
   $start=$current_page*$product_per_page-$product_per_page;
   $end=$product_per_page;
@@ -249,5 +252,48 @@ function getAllProductQuery($current_page){
                       limit ".$start.",".$end;
   return $sql;
 }
+
+
+function getAllOrderQuery($current_page,$order_per_page){
+ 
+  $start=$current_page*$order_per_page-$order_per_page;
+  $end=$order_per_page;
+  
+  $sql = "SELECT * FROM bill limit ".$start.",".$end;
+  return $sql;
+}
+
+
+
+
+function mapping_MALSP($tenloai){
+  if($tenloai == 'Điện thoại'){
+      return '00001';
+  }else if($tenloai == 'Laptop'){
+      return '00002';
+  }else if($tenloai == 'Đồng Hồ đeo tay'){
+      return '00003';
+  }else {
+      return '00004';
+  }
+}
+
+function mapping_Status($status){
+  if($status == 0){
+      return 'Đang đặt hàng';
+  }else if($status == 1){
+      return 'Đã hoàn thành';
+  }else if($status == 2){
+      return 'Đã hủy';
+  }else {
+      return 'lỗi';
+  }
+}
+
+
+
+
+
+
 
 ?>
