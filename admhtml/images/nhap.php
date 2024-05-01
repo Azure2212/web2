@@ -101,73 +101,100 @@ $result = $conn->query($sql2);
 </style>
 
 <body>
-  
-<form action="" method="get" name="frm1" onsubmit="return validateForm()">
+  <form action="" method="get" name="frm1" onsubmit="return validateForm()">
+
     <div class="menutren">
-    <ul class="menungang">
-      <li class="a2"><a href=""><img class="a5" src="../admhtml/images/icon1.png" alt="erro" > SVT@gmail.com</a> </li>
-      <!-- <li class="a1" ><a  class="hi" href=""><img class="a5-1" src="../image/icon2.png" alt=""> 0941235169</a> </li> -->
-      <li class="a1" ><a href="daily.php" >Hệ thống phân phối </a> </li>
-      <li class="p1" ><a href="giohang.php" >  <img class="a5-2" src="../admhtml/images/cart-73-24.png" alt="">Giỏ Hàng </a> </li>
-      <?php if(isset($_SESSION['khachhang'])) { ?>
+      <nav>
+        <ul>
+          <li class="logo"><a href="#"><i class="fas fa-home"></i> Logo</a></li>
+          <li><a href="#"><i class="fas fa-dolly"></i> Hệ Thống phân phối</a></li>
+          <li><a href="#"><i class="fas fa-shopping-cart"></i> Giỏ hàng</a></li>
+          <li class="user"><a href="#"><i class="fas fa-user"></i> Đăng nhập</a></li>
+          <li><a href="#"><i class="fas fa-user-plus"></i> Đăng ký</a></li>
+          <li><a href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+        </ul>
+      </nav>
+    </div>
 
-        <li><a class='p1' href='#'><img class='a5-2' src="<?= '../admhtml/'.str_replace('../', '', $_SESSION['khachhang']['avatar'])?>" alt=""><?= $_SESSION['khachhang']['username']?></a>
-        <ul class="cap_2">
-                      
-                      <li> <a href="../htmlnew/sanpham.php?productType=phone&page=1"> Phone</a> </li>
-                      <li> <a href="../htmlnew/sanpham.php?productType=laptop&page=1"> Latop</a> </li>
 
-                      <ul></ul>
-      
-      </li>
-            
-      
-            <?php } else echo "<li><a class='p1' href='../admhtml/UI/login.php'>Đăng nhập</a></li>"; ?>
-    </ul>
-    
-        </div>
-        <div class="sidebar">
-          <div class="logo"> <a href="../htmlnew/nhap.php"> <img class="aa" src="../admhtml/images/ganmac.jpg" alt=""></a></div>
-          <nav>
-              <ul>
-                <li> <a href="../htmlnew/gioithieu.php" class="b1">Giới thiệu</a>
-            </li>
-            
-              <li><a href="../htmlnew/sanpham.php?productType=All&page=1" class="b2">Sản Phẩm</a>
-                      <ul class="cap_2">
-                      
-                        <li> <a href="../htmlnew/sanpham.php?productType=phone&page=1"> Phone</a> </li>
-                        <li> <a href="../htmlnew/sanpham.php?productType=laptop&page=1"> Latop</a> </li>
-                        <li> <a href="../htmlnew/sanpham.php?productType=watch&page=1"> Watch</a> </li>
-                        <li> <a href="../htmlnew/sanpham.php?productType=headphone&page=1"> HeadPhone</a> </li>
-                        
-                        
-                      </ul></li>
-           
-                  <li><a href="../htmlnew/tuyendung.php">Tuyển Dụng</a></li>
-                  <li><a href="../htmlnew/tintuc.php">Tin Tức</a></li>
-                
-                  <li> <input type="text"class="a6" placeholder=" <?php if(isset($_GET["nvn"])){ 
-                                                                          if(strlen(str_replace(" ","",$_GET["nvn"]))==0)
-                                                                            echo "bạn chưa nhập gì cả!";
-                                                                          else 
-                                                                            findSomeThing($_GET["nvn"]);
-                                                                        }
-                                                                        else echo "Bạn tìm gì?"; ?>"
-                                                                         name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;"><input type="submit" name="find" value=""  class="b21"  /></li>
-                  <input type="hidden" name="productType" value="find"/>
-                  <input type="hidden" name="page" value="1"/>
-                  
-                </ul>
-          </nav>
-      </div>       
-     
+    <style>
+      nav {
+        background-color: #333;
+      }
+
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      li {
+        display: inline;
+        margin-right: 100px;
+        /* Thay đổi khoảng cách giữa các mục menu */
+      }
+
+      a {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 8px;
+        /* Thay đổi padding ngang và dọc */
+        text-decoration: none;
+      }
+
+      .fa-user:before {
+        content: "\f007";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        font-size: 20px;
+      }
+    </style>
+
+    <script>
+      // Lấy phần tử select
+      var selectOption = document.getElementById("selectOption");
+
+      // Thêm sự kiện onchange
+      selectOption.onchange = function() {
+        // Lấy giá trị của option được chọn
+        var selectedValue = this.value;
+        // Chuyển hướng đến trang được chọn
+        window.location.href = selectedValue;
+      };
+    </script>
+    <div class="sidebar">
+      <div class="logo"> <a href="../htmlnew/nhap.php"> <img class="aa" src="../image/ganmac.jpg" alt=""></a></div>
+      <nav>
+        <ul>
+          <li> <a href="../htmlnew/gioithieu.php" class="b1">Giới thiệu</a>
+          </li>
+          <li><a href="../htmlnew/sanpham.php?productType=All&page=1" class="b2">Sản Phẩm</a>
+            <ul class="cap_2">
+              <li> <a href="../htmlnew/sanpham.php?productType=phone&page=1"> Phone</a> </li>
+              <li> <a href="../htmlnew/sanpham.php?productType=laptop&page=1"> Latop</a> </li>
+              <li> <a href="../htmlnew/sanpham.php?productType=watch&page=1"> Watch</a> </li>
+              <li> <a href="../htmlnew/sanpham.php?productType=headphone&page=1"> HeadPhone</a> </li>
+            </ul>
+          </li>
+          <li><a href="../htmlnew/tuyendung.php">Tuyển Dụng</a></li>
+          <li><a href="../htmlnew/tintuc.php">Tin Tức</a></li>
+          <li> <input type="text" class="a6" placeholder=" <?php if (isset($_GET["nvn"])) {
+                                                              if (strlen(str_replace(" ", "", $_GET["nvn"])) == 0)
+                                                                echo "bạn chưa nhập gì cả!";
+                                                              else
+                                                                findSomeThing($_GET["nvn"]);
+                                                            } else echo "Bạn tìm gì?"; ?>" name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;"><input type="submit" name="find" value="" class="b21" /></li>
+          <input type="hidden" name="productType" value="find" />
+        </ul>
+      </nav>
+    </div>
   </form>
 
   <div class="slideShow" style="position: relative; bottom: 17px;">
-    <img class="mySlides fade" src="../admhtml/images/anhdong1.jpg" style="width:100%;height: 500px;">
-    <img class="mySlides fade" src="../admhtml/images/anhdong2.jpg" style="width:100%;height: 500px;">
-    <img class="mySlides fade" src="../admhtml/images/anhdong4.jpg" style="width:100%;height: 500px;">
+    <img class="mySlides fade" src="../image/anhdong1.jpg" style="width:100%;height: 500px;">
+    <img class="mySlides fade" src="../image/anhdong2.jpg" style="width:100%;height: 500px;">
+    <img class="mySlides fade" src="../image/anhdong4.jpg" style="width:100%;height: 500px;">
     <button class="btn btnPrev" onclick="plusDivs(-1)">&#10094;</button>
     <button class="btn btnNext" onclick="plusDivs(1)">&#10095;</button>
   </div>

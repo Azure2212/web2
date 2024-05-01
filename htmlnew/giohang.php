@@ -76,15 +76,13 @@ $sum=0;
                   <li><a href="../htmlnew/tuyendung.php">Tuyển Dụng</a></li>
                   <li><a href="../htmlnew/tintuc.php">Tin Tức</a></li>
                 
-                  <li> <input type="text"class="a6" placeholder=" <?php if(isset($_GET["nvn"])){
+                  <li> <input type="text"class="a6" placeholder=" <?php if(isset($_GET["nvn"])){ 
                                                                           if(strlen(str_replace(" ","",$_GET["nvn"]))==0)
                                                                             echo "bạn chưa nhập gì cả!";
-                                                                          else echo "Bạn cần tìm gì?";
-                                                                          }    
-                                                                      
-                                                            
-                                                                    
-                                                                        else echo "Bạn cần tìm gì?"; ?>"
+                                                                          else 
+                                                                            findSomeThing($_GET["nvn"]);
+                                                                        }
+                                                                        else echo "Bạn tìm gì?"; ?>"
                                                                          name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;"><input type="submit" name="find" value=""  class="b21"  /></li>
                   <input type="hidden" name="productType" value="find"/>
                   <input type="hidden" name="page" value="1"/>

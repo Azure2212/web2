@@ -8,7 +8,6 @@ $title="??";
 $sql="??";
 $count='';
 $sql = checkTypeAction($title,$count);
-echo 'concho'.$sql;
 $number=$conn->query($count);
   
 $temp=$number->fetch_assoc();
@@ -52,26 +51,29 @@ $conn->close();
 <form action="" method="get" name="frm1" onsubmit="return validateForm()">
     <div class="menutren">
     <ul class="menungang">
-      <li class="a2"><a href=""><img class="a5" src="../image/icon1.png" alt="erro" > SVT@gmail.com</a> </li>
-      <li class="a1" ><a  class="hi" href=""><img class="a5-1" src="../image/icon2.png" alt=""> 0941235169</a> </li>
-      <li class="p1" ><a href="daily.php" >Hệ thống phân phối </a> </li>
-      <li class="p2" ><a href="giohang.php" >  <img class="a5-2" src="../image/cart-73-24.png" alt="">Giỏ Hàng </a> </li>
-      <li class="p2"><a> <img src="../admhtml/UI/assets/10_NMT.jpg" style="width: 35px; height: 35px; border-radius: 10px;"></a>
-          <div class="option">
-            <select id="selectOption">
-              <option value="#"></option>
-              <option value="../htmlnew/dangky.php">Đăng ký</option>
-              <!-- Thêm một option với giá trị là đường dẫn của trang -->
-              <option value="../admhtml/UI/login.php">Đăng nhập</option>
-              <option value="#">Đăng xuất</option>
-            </select>
-          </div>
-        </li>
+      <li class="a2"><a href=""><img class="a5" src="../admhtml/images/icon1.png" alt="erro" > SVT@gmail.com</a> </li>
+      <!-- <li class="a1" ><a  class="hi" href=""><img class="a5-1" src="../image/icon2.png" alt=""> 0941235169</a> </li> -->
+      <li class="a1" ><a href="daily.php" >Hệ thống phân phối </a> </li>
+      <li class="p1" ><a href="giohang.php" >  <img class="a5-2" src="../admhtml/images/cart-73-24.png" alt="">Giỏ Hàng </a> </li>
+      <?php if(isset($_SESSION['khachhang'])) { ?>
+
+        <li><a class='p1' href='#'><img class='a5-2' src="<?= '../admhtml/'.str_replace('../', '', $_SESSION['khachhang']['avatar'])?>" alt=""><?= $_SESSION['khachhang']['username']?></a>
+        <ul class="cap_2">
+                      
+                      <li> <a href="../htmlnew/sanpham.php?productType=phone&page=1"> Phone</a> </li>
+                      <li> <a href="../htmlnew/sanpham.php?productType=laptop&page=1"> Latop</a> </li>
+
+                      <ul></ul>
+      
+      </li>
+            
+      
+            <?php } else echo "<li><a class='p1' href='../admhtml/UI/login.php'>Đăng nhập</a></li>"; ?>
     </ul>
     
         </div>
         <div class="sidebar">
-          <div class="logo"> <a href="../htmlnew/nhap.php"> <img class="aa" src="../image/ganmac.jpg" alt=""></a></div>
+          <div class="logo"> <a href="../htmlnew/nhap.php"> <img class="aa" src="../admhtml/images/ganmac.jpg" alt=""></a></div>
           <nav>
               <ul>
                 <li> <a href="../htmlnew/gioithieu.php" class="b1">Giới thiệu</a>

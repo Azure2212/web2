@@ -16,11 +16,15 @@ if($_REQUEST['typeForm'] == "login"){
         if($role != mapping_userRole($row["role"])) header("location: login.php?wronglogin=1");
         else {
             echo $role;
-            $_SESSION['userInfor'] = $row;
-            if($role == 'Quản trị viên')
+           
+            if($role == 'Quản trị viên'){
                 header("location: index.php");
-            else
+                $_SESSION['userInfor'] = $row;
+            }
+            else{
                 header("location: ../../htmlnew/nhap.php");
+                $_SESSION['khachhang'] = $row;
+            }
         }
     }
 }
