@@ -209,6 +209,7 @@ $result = $connDB->query($sql);
                         </tbody>
                     </table>
                 </div>
+                
                 <ul class="pagination">
                     <li><a href='order_m.php?page=1'>
                             <<< /a>
