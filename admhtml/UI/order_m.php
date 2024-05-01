@@ -115,7 +115,7 @@ $result = $connDB->query($sql);
                     <input type="text" placeholder="Search" />
                 </div>
                 <div class="dropdown">
-                    <img src="assets/10_NMT.jpg" style="width: 50px; height: 50px;">
+                    <img src="<?php echo $_SESSION["userInfor"]["avatar"]; ?>" style="width: 50px; height: 50px;">
                     <div class="dropdown-item">
                         <!-- Nội dung của dropdown ở đây -->
                     </div>
