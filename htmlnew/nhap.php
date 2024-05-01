@@ -101,67 +101,63 @@ $result = $conn->query($sql2);
 </style>
 
 <body>
-  
-<form action="" method="get" name="frm1" onsubmit="return validateForm()">
+
+  <form action="" method="get" name="frm1" onsubmit="return validateForm()">
     <div class="menutren">
-    <ul class="menungang">
-      <li class="a2"><a href=""><img class="a5" src="../admhtml/images/icon1.png" alt="erro" > SVT@gmail.com</a> </li>
-      <!-- <li class="a1" ><a  class="hi" href=""><img class="a5-1" src="../image/icon2.png" alt=""> 0941235169</a> </li> -->
-      <li class="a1" ><a href="daily.php" >Hệ thống phân phối </a> </li>
-      <li class="p1" ><a href="giohang.php" >  <img class="a5-2" src="../admhtml/images/cart-73-24.png" alt="">Giỏ Hàng </a> </li>
-      <?php if(isset($_SESSION['khachhang'])) { ?>
+      <ul class="menungang">
+        <li class="a2"><a href=""><img class="a5" src="../admhtml/images/icon1.png" alt="erro"> SVT@gmail.com</a> </li>
+        <!-- <li class="a1" ><a  class="hi" href=""><img class="a5-1" src="../image/icon2.png" alt=""> 0941235169</a> </li> -->
+        <li class="a1"><a href="daily.php">Hệ thống phân phối </a> </li>
+        <li class="p1"><a href="giohang.php"> <img class="a5-2" src="../admhtml/images/cart-73-24.png" alt="">Giỏ Hàng </a> </li>
+        <?php if (isset($_SESSION['khachhang'])) { ?>
 
-        <li><a class='p1' href='#'><img class='a5-2' src="<?= '../admhtml/'.str_replace('../', '', $_SESSION['khachhang']['avatar'])?>" alt=""><?= $_SESSION['khachhang']['username']?></a>
-        <ul class="cap_2">
-                      
-                      <li> <a href="../htmlnew/sanpham.php?productType=phone&page=1"> Phone</a> </li>
-                      <li> <a href="../htmlnew/sanpham.php?productType=laptop&page=1"> Latop</a> </li>
+          <li><a class='p1' href='#'><img class='a5-2' src="<?= '../admhtml/' . str_replace('../', '', $_SESSION['khachhang']['avatar']) ?>" alt=""><?= $_SESSION['khachhang']['username'] ?></a>
+            <ul class="cap_2">
+              <li> <a href="../htmlnew/sanpham.php?productType=phone&page=1"> Đăng xuất</a> </li>
+              <li> <a href="../htmlnew/sanpham.php?productType=laptop&page=1"> Khác</a> </li>
+            </ul>
+          </li>
 
-                      <ul></ul>
-      
-      </li>
-            
-      
-            <?php } else echo "<li><a class='p1' href='../admhtml/UI/login.php'>Đăng nhập</a></li>"; ?>
-    </ul>
-    
-        </div>
-        <div class="sidebar">
-          <div class="logo"> <a href="../htmlnew/nhap.php"> <img class="aa" src="../admhtml/images/ganmac.jpg" alt=""></a></div>
-          <nav>
-              <ul>
-                <li> <a href="../htmlnew/gioithieu.php" class="b1">Giới thiệu</a>
-            </li>
-            
-              <li><a href="../htmlnew/sanpham.php?productType=All&page=1" class="b2">Sản Phẩm</a>
-                      <ul class="cap_2">
-                      
-                        <li> <a href="../htmlnew/sanpham.php?productType=phone&page=1"> Phone</a> </li>
-                        <li> <a href="../htmlnew/sanpham.php?productType=laptop&page=1"> Latop</a> </li>
-                        <li> <a href="../htmlnew/sanpham.php?productType=watch&page=1"> Watch</a> </li>
-                        <li> <a href="../htmlnew/sanpham.php?productType=headphone&page=1"> HeadPhone</a> </li>
-                        
-                        
-                      </ul></li>
-           
-                  <li><a href="../htmlnew/tuyendung.php">Tuyển Dụng</a></li>
-                  <li><a href="../htmlnew/tintuc.php">Tin Tức</a></li>
-                
-                  <li> <input type="text"class="a6" placeholder=" <?php if(isset($_GET["nvn"])){ 
-                                                                          if(strlen(str_replace(" ","",$_GET["nvn"]))==0)
-                                                                            echo "bạn chưa nhập gì cả!";
-                                                                          else 
-                                                                            findSomeThing($_GET["nvn"]);
-                                                                        }
-                                                                        else echo "Bạn tìm gì?"; ?>"
-                                                                         name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;"><input type="submit" name="find" value=""  class="b21"  /></li>
-                  <input type="hidden" name="productType" value="find"/>
-                  <input type="hidden" name="page" value="1"/>
-                  
-                </ul>
-          </nav>
-      </div>       
-     
+
+        <?php } else echo "<li><a class='p1' href='login.php'>Đăng nhập</a></li>"; ?>
+      </ul>
+
+    </div>
+    <div class="sidebar">
+      <div class="logo"> <a href="../htmlnew/nhap.php"> <img class="aa" src="../admhtml/images/ganmac.jpg" alt=""></a></div>
+      <nav>
+        <ul>
+          <li> <a href="../htmlnew/gioithieu.php" class="b1">Giới thiệu</a>
+          </li>
+
+          <li><a href="../htmlnew/sanpham.php?productType=All&page=1" class="b2">Sản Phẩm</a>
+            <ul class="cap_2">
+
+              <li> <a href="../htmlnew/sanpham.php?productType=phone&page=1"> Phone</a> </li>
+              <li> <a href="../htmlnew/sanpham.php?productType=laptop&page=1"> Latop</a> </li>
+              <li> <a href="../htmlnew/sanpham.php?productType=watch&page=1"> Watch</a> </li>
+              <li> <a href="../htmlnew/sanpham.php?productType=headphone&page=1"> HeadPhone</a> </li>
+
+
+            </ul>
+          </li>
+
+          <li><a href="../htmlnew/tuyendung.php">Tuyển Dụng</a></li>
+          <li><a href="../htmlnew/tintuc.php">Tin Tức</a></li>
+
+          <li> <input type="text" class="a6" placeholder=" <?php if (isset($_GET["nvn"])) {
+                                                              if (strlen(str_replace(" ", "", $_GET["nvn"])) == 0)
+                                                                echo "bạn chưa nhập gì cả!";
+                                                              else
+                                                                findSomeThing($_GET["nvn"]);
+                                                            } else echo "Bạn tìm gì?"; ?>" name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;"><input type="submit" name="find" value="" class="b21" /></li>
+          <input type="hidden" name="productType" value="find" />
+          <input type="hidden" name="page" value="1" />
+
+        </ul>
+      </nav>
+    </div>
+
   </form>
 
   <div class="slideShow" style="position: relative; bottom: 17px;">
@@ -239,12 +235,12 @@ $result = $conn->query($sql2);
 
   <?php $row = $result->fetch_assoc();
   if ($row != null) {
-  
+
   ?>
     <h2>SmartPhone</h2>
     <div class="menu4">
       <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>">
-        <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"])?>" cellpadding="5" cellspacing="0">
+        <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
           <tr>
             <td valign="bottom">
               <p><b>
@@ -261,7 +257,7 @@ $result = $conn->query($sql2);
     ?>
       <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>" style="margin-left: 25px">
 
-        <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+        <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
           <tr>
             <td valign="bottom">
               <p><b>
@@ -281,7 +277,7 @@ $result = $conn->query($sql2);
 
       <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>" style="margin-left: 25px;">
 
-        <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+        <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
           <tr>
             <td valign="bottom">
               <p><b>
@@ -297,7 +293,7 @@ $result = $conn->query($sql2);
     if ($row != null) {
     ?>
       <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>" style="margin-left: 30px;">
-        <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+        <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
           <tr>
             <td valign="bottom">
               <p><b>
@@ -324,7 +320,7 @@ $result = $conn->query($sql2);
     <h2>Laptop</h2>
     <div class="menu4">
       <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>">
-        <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+        <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
           <tr>
             <td valign="bottom">
               <p><b>
@@ -340,7 +336,7 @@ $result = $conn->query($sql2);
     if ($row != null) {
     ?>
       <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>" style="margin-left: 25px;">
-        <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+        <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
           <tr>
             <td valign="bottom">
               <p><b>
@@ -357,7 +353,7 @@ $result = $conn->query($sql2);
     if ($row != null) {
     ?>
       <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>" style="margin-left: 25px;">
-        <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+        <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
           <tr>
             <td valign="bottom">
               <p><b>
@@ -373,7 +369,7 @@ $result = $conn->query($sql2);
     ?>
       <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>" style="margin-left: 30px;">
 
-        <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+        <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
           <tr>
             <td valign="bottom">
               <p><b>
@@ -401,7 +397,7 @@ $result = $conn->query($sql2);
 
       <div class="menu4">
         <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>">
-          <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+          <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
             <tr>
               <td valign="bottom">
                 <p><b>
@@ -417,7 +413,7 @@ $result = $conn->query($sql2);
       if ($row != null) {
       ?>
         <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>" style="margin-left: 25px;">
-          <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+          <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
             <tr>
               <td valign="bottom">
                 <p><b>
@@ -434,7 +430,7 @@ $result = $conn->query($sql2);
       if ($row != null) {
       ?>
         <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>" style="margin-left: 30px;">
-          <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+          <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
             <tr>
               <td valign="bottom">
                 <p><b>
@@ -449,7 +445,7 @@ $result = $conn->query($sql2);
       if ($row != null) {
       ?>
         <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>" style="margin-left: 30px;">
-          <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+          <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
             <tr>
               <td valign="bottom">
                 <p><b>
@@ -475,7 +471,7 @@ $result = $conn->query($sql2);
         <h2>AIRPOD_headphone</h2>
         <div class="menu4">
           <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>">
-            <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+            <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
               <tr>
                 <td valign="bottom">
                   <p><b>
@@ -491,7 +487,7 @@ $result = $conn->query($sql2);
         if ($row != null) {
         ?>
           <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>" style="margin-left: 25px;">
-            <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+            <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
               <tr>
                 <td valign="bottom">
                   <p><b>
@@ -508,7 +504,7 @@ $result = $conn->query($sql2);
         if ($row != null) {
         ?>
           <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>" style="margin-left: 30px;">
-            <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+            <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
               <tr>
                 <td valign="bottom">
                   <p><b>
@@ -524,7 +520,7 @@ $result = $conn->query($sql2);
         ?>
           <a href="../htmlnew/sanpham1.php?&code=<?= $row['masp'] ?>" style="margin-left: 33px;">
 
-            <table width="265px" height="325px" background="<?php echo '../admhtml/'.str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
+            <table width="265px" height="325px" background="<?php echo '../admhtml/' . str_replace('../', '', $row["image"]) ?>" cellpadding="5" cellspacing="0">
               <tr>
                 <td valign="bottom">
                   <p><b>
@@ -663,7 +659,7 @@ $result = $conn->query($sql2);
 
         </table>
         <button onclick="topFunction()" id="myBtn" title="Go to top">&#8593;</button>
-<?php $conn->close(); ?>
+        <?php $conn->close(); ?>
 
 </body>
 
