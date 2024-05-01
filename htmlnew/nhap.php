@@ -104,26 +104,52 @@ $conn->close();
   <form action="" method="get" name="frm1" onsubmit="return validateForm()">
 
     <div class="menutren">
-      <ul class="menungang">
-        <li class="a2"><a href=""><img class="a5" src="../image/icon1.png" alt="erro"> SVT@gmail.com</a> </li>
-        <li class="p1"><a href="daily.php">Hệ thống phân phối </a> </li>
-        <li class="p2"><a href="giohang.php"> <img class="a5-2" src="../image/cart-73-24.png" alt="">Giỏ Hàng </a> </li>
-        <li class="p2"><a> <img src="../admhtml/UI/assets/10_NMT.jpg" style="width: 35px; height: 35px; border-radius: 10px;"></a>
-          <div class="option">
-            <select id="selectOption">
-              <option value="#"></option>
-              <option value="../htmlnew/dangky.php">Đăng ký</option>
-              <!-- Thêm một option với giá trị là đường dẫn của trang -->
-              <option value="../admhtml/UI/login.php">Đăng nhập</option>
-              <option value="#">Đăng xuất</option>
-            </select>
-          </div>
-        </li>
-        <!-- Neu dang nhap thi set lai status duoi -->
-        <li class="p1"><span style="color: #fff;">Chưa đăng nhập</a> </li>
-      </ul>
+      <nav>
+        <ul>
+          <li class="logo"><a href="#"><i class="fas fa-home"></i> Logo</a></li>
+          <li><a href="#"><i class="fas fa-dolly"></i> Hệ Thống phân phối</a></li>
+          <li><a href="#"><i class="fas fa-shopping-cart"></i> Giỏ hàng</a></li>
+          <li class="user"><a href="#"><i class="fas fa-user"></i> Đăng nhập</a></li>
+          <li><a href="#"><i class="fas fa-user-plus"></i> Đăng ký</a></li>
+          <li><a href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+        </ul>
+      </nav>
     </div>
 
+
+    <style>
+      nav {
+        background-color: #333;
+      }
+
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      li {
+        display: inline;
+        margin-right: 100px;
+        /* Thay đổi khoảng cách giữa các mục menu */
+      }
+
+      a {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 8px;
+        /* Thay đổi padding ngang và dọc */
+        text-decoration: none;
+      }
+
+      .fa-user:before {
+        content: "\f007";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        font-size: 20px;
+      }
+    </style>
 
     <script>
       // Lấy phần tử select
