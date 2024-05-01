@@ -1,20 +1,20 @@
-<?php 
-require_once("../../htmlnew/library.php");
-if(!isset($_SESSION['userInfor'])) {
-    header("location: login.php");
-}
-$connectDB = ConnectDB();
+<?php
+// require_once("../../htmlnew/library.php");
+// if(!isset($_SESSION['userInfor'])) {
+//     header("location: login.php");
+// }
+// $connectDB = ConnectDB();
 
-$bill = $connectDB->query("select * from bill where id ='".$_REQUEST['mabill']."'");
-$bill = $bill->fetch_assoc();
+// $bill = $connectDB->query("select * from bill where id ='".$_REQUEST['mabill']."'");
+// $bill = $bill->fetch_assoc();
 
-$details = $connectDB->query("select * from chitietbill where mabill ='".$_REQUEST['mabill']."'");
+// $details = $connectDB->query("select * from chitietbill where mabill ='".$_REQUEST['mabill']."'");
 
-$sp = $connectDB->query("select * from sanpham");
-$sanpham = array();
-while($row = $sp->fetch_assoc()){
-    $sanpham[$row['masp']] = $row;
-}
+// $sp = $connectDB->query("select * from sanpham");
+// $sanpham = array();
+// while($row = $sp->fetch_assoc()){
+//     $sanpham[$row['masp']] = $row;
+// }
 
 
 ?>
@@ -88,82 +88,196 @@ while($row = $sp->fetch_assoc()){
                     <img src="assets/10_NMT.jpg" style="width: 50px; height: 50px;">
                     <div class="dropdown-item">
                         <!-- Nội dung của dropdown ở đây -->
-                        <a href="login.php">Đăng nhập</a>
-                        <a href="#">Tài Khoản</a>
+                        <!-- <a href="login.php">Đăng nhập</a>
+                        <a href="#">Tài Khoản</a> -->
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Form -->
+
+
+        <!-- -------------------------- -->
+        <!-- new Detail  -->
         <div class="form-wrapper">
-        <div id="myModal" class="modal">
-        <div class="modal-content">
+
             <div class="modal-header">
                 <h5 class="modal-title">Chi tiết đơn hàng</h5>
-                <span class="close">&times;</span>
             </div>
             <div class="modal-body">
                 <div class="cart-row">
                     <span class="cart-item cart-header cart-column">Sản Phẩm</span>
                     <span class="cart-price cart-header cart-column">Giá</span>
                     <span class="cart-quantity cart-header cart-column">Số Lượng</span>
+                    <span class="cart-delete cart-header cart-column"></span>
                 </div>
-            </div>
                 <div class="cart-items">
-                    
-                    <!-- php cho nay -->
-                    
-                    <?php 
-                   while($row = $details->fetch_assoc()){
-                            
-                        $rowSP= $sanpham[$row['MASP']];
-                        $sum =0;
-                           ?>
-                            
-                            <div class="cart-row">
-                                <div class="cart-item cart-column">
-                                    <img class="cart-item-image" src="<?=$rowSP['image'] ?>" width="100" height="100">
-                                    <span class="cart-item-title"><?=$rowSP['tensp']?></span>
-                                </div>
-                                <span class="cart-price cart-column"><?php if($rowSP['gia']==$rowSP['giamgia']){ $sum=$sum+$rowSP["gia"]*($row['soluong']); echo $rowSP['gia'];} else{$sum=$sum+$rowSP["giamgia"]*($row['soluong']); echo $rowSP['giamgia'];} ?></span>
-                                <div class="cart-quantity cart-column">
-                                    <input class="cart-quantity-input" type="text"  value="<?php echo $rowSP["gia"]*($row['soluong']); ?>">
-                    
-                                </div>
-                            </div>
-                        <?php } ?>
-                    <?php  $connectDB->close(); ?>
-
-                    
-                    
+                    <div class="cart-row">
+                        <div class="cart-item cart-column">
+                            <img class="cart-item-image" src="path/to/image.jpg" width="100" height="100">
+                            <span class="cart-item-title">Tên sản phẩm 1</span>
+                        </div>
+                        <span class="cart-price cart-column">100 USD</span>
+                        <div class="cart-quantity cart-column">
+                            <input class="cart-quantity-input" type="text" value="1">
+                        </div>
+                        <div class="cart-delete cart-column">
+                            <button class="btn btn-danger">Xóa</button>
+                        </div>
+                    </div>
+                    <div class="cart-row">
+                        <div class="cart-item cart-column">
+                            <img class="cart-item-image" src="path/to/image.jpg" width="100" height="100">
+                            <span class="cart-item-title">Tên sản phẩm 2</span>
+                        </div>
+                        <span class="cart-price cart-column">150 USD</span>
+                        <div class="cart-quantity cart-column">
+                            <input class="cart-quantity-input" type="text" value="12">
+                        </div>
+                        <div class="cart-delete cart-column">
+                            <button class="btn btn-danger">Xóa</button>
+                        </div>
+                    </div>
                 </div>
-         <form action="thaotacmua.php" method="post" onsubmit="return validateForm1()">
                 <div class="cart-total">
                     <strong class="cart-total-title">Tổng Cộng:</strong>
-                    <span class="cart-total-price"><?=$sum?>USD</span>
+                    <span class="cart-total-price">250 USD</span>
                 </div>
-        
-           
-          
-            <input type="hidden" name="mua" value="1">
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary order">Thanh Toán</button>
+                <form action="thaotacmua.php" method="post" onsubmit="return validateForm1()">
+                    <input type="hidden" name="mua" value="1">
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary order">Thanh Toán</button>
+                    </div>
+                </form>
             </div>
-            </div>
-            <?php if(isset($_REQUEST['done'])){ 
-                echo "<br>";
-                if($_REQUEST['done']==1){
-                    echo "<b><i style='color:red;font-size:25px;margin-left:35%;font-weight;text-shadow:2px 2px 2px orange;'>cảm ơn quý khách đã mua hàng tại SVT!</i></b>";
-                }
-                else if($_REQUEST['done']==2){
-                     echo "<b><i style='color:red;font-size:25px;margin-left:40%;font-weight;text-shadow:2px 2px 2px aqua;'>quý khách chưa có gì trong giỏ hàng!</i></b>";
-                }
-
-            } ?>
-            <br><br><br><br><br><br>
         </div>
+
+        <h1>Gắn lại event PHP cho form mới ở đây, cái cũ ko xài đc :))</h1>
+        <h1>Cái cũ trong thư file</h1>
+        <h3>detail_old.php</h3>
     </div>
 </body>
 
+</div>
+
 </html>
+
+
+<style>
+    .form-wrapper {
+        background: #fff;
+        margin-top: 1rem;
+        border-radius: 10px;
+        padding: 2rem;
+    }
+
+
+
+    .modal-header {
+        padding: 10px 0;
+        border-bottom: 5px solid #ddd;
+    }
+
+    .modal-title {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal-body {
+        padding: 10px 0;
+    }
+
+    .cart-row {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cart-item {
+        flex: 2;
+        display: flex;
+        align-items: center;
+    }
+
+    .cart-price,
+    .cart-quantity {
+        flex: 1;
+        text-align: center;
+    }
+
+    .cart-quantity-input {
+        text-align: center;
+    }
+
+    .cart-item-image {
+        margin-right: 10px;
+    }
+
+    .cart-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        border-top: 5px solid #ddd;
+        padding-top: 10px;
+    }
+
+    .cart-total-title {
+        font-weight: bold;
+    }
+
+    .cart-total-price {
+        font-weight: bold;
+        color: #555;
+    }
+
+    .order {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .order:hover {
+        background-color: #0056b3;
+    }
+
+    .cart-delete {
+        flex: 0.5;
+        text-align: center;
+    }
+
+    .cart-delete button {
+        padding: 5px 10px;
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .cart-delete button:hover {
+        background-color: #c82333;
+    }
+</style>

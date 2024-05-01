@@ -118,8 +118,6 @@ $result = $connDB->query($sql);
                     <img src="assets/10_NMT.jpg" style="width: 50px; height: 50px;">
                     <div class="dropdown-item">
                         <!-- Nội dung của dropdown ở đây -->
-                        <a href="login.php">Đăng nhập</a>
-                        <a href="#">Tài Khoản</a>
                     </div>
                 </div>
             </div>

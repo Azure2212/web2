@@ -73,10 +73,8 @@ if(!isset($_SESSION['userInfor'])) {
                 </div>
                 <div class="dropdown">
                     <img src="<?php echo $_SESSION["userInfor"]["avatar"]; ?>" style="width: 50px; height: 50px;">
-                    <!-- <div class="dropdown-item">-->
+                    <div class="dropdown-item">
                         <!-- Nội dung của dropdown ở đây -->
-                        <!-- <a href="login.php">Đăng nhập</a> -->
-                       <!--  <a href="#">Tài Khoản</a> -->
                     </div> 
                 </div>
             </div>
