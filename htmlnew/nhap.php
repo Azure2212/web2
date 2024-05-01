@@ -111,8 +111,9 @@ $result = $conn->query($sql2);
         <li class="p1"><a href="giohang.php"> <img class="a5-2" src="../admhtml/images/cart-73-24.png" alt="">Giỏ Hàng </a> </li>
         <?php if (isset($_SESSION['khachhang'])) { ?>
 
-          <li style="width: 500px;"><aclass='p1' href='#'><img class='a5-2' src="<?= '../admhtml/' . str_replace('../', '', $_SESSION['khachhang']['avatar']) ?>" alt=""><?= $_SESSION['khachhang']['username'] ?></a>
-            <ul class="cap_2" style="left: 30px;">
+          <li style="width: 500px; background-color: #424245;">
+            <a class='p1' href='#'><img class='a5-2' src="<?= '../admhtml/' . str_replace('../', '', $_SESSION['khachhang']['avatar']) ?>" alt=""><?= $_SESSION['khachhang']['username'] ?></a>
+            <ul class="cap_2" style="left: 60px; height: auto;">
               <li class="fs fa-box"> <a href="login.php"> Đăng xuất</a> </li>
               <li class="fs fa-history"> <a href="history.php"> Lịch sử mua hàng</a> </li>
             </ul>
