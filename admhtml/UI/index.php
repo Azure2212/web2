@@ -3,6 +3,16 @@ require_once("../../htmlnew/library.php");
 if(!isset($_SESSION['userInfor'])) {
     header("location: login.php");
 }
+$connectDB = ConnectDB();
+$mydate=getdate(date("U"));
+    $date="$mydate[year]/$mydate[mon]/$mydate[mday]";
+
+$sql1 ="select count(*) as amount_bill from bill where date='".$date."'";
+
+$sql2 ="select sum(soluong) as revenue from bill where date='".$date."'";
+$sql3 ="select count(*) as amount_new_user from user where role = 0 and dateCreated='".$date."'";
+$sql4 ="select count(*) as amount_done from bill where status =1 and date='".$date."'";
+$sql5 ="select count(*) as amount_booking from bill where status =0 and date='".$date."'";
 ?>
 
 <!DOCTYPE html>
@@ -87,9 +97,9 @@ if(!isset($_SESSION['userInfor'])) {
                     <div class="card-header">
                         <div class="amount">
                             <span class="title">
-                                Tổng doanh thu
+                                Tổng doanh thu ước tính
                             </span>
-                            <span class="amount-value">27.000.000 đ</span>
+                            <span class="amount-value"><?php $revenue = $connectDB->query($sql2)->fetch_assoc()['revenue']; if($revenue ==null) echo "0"; else echo $revenue; ?></span>
                         </div>
                         <i class="fas fa-dollar-sign icon"></i>
                     </div>
@@ -103,9 +113,9 @@ if(!isset($_SESSION['userInfor'])) {
                     <div class="card-header">
                         <div class="amount">
                             <span class="title">
-                                Tổng đơn đặt hàng
+                                Tổng đơn hàng
                             </span>
-                            <span class="amount-value">1228</span>
+                            <span class="amount-value"><?php $revenue = $connectDB->query($sql1)->fetch_assoc()['amount_bill']; if($revenue ==0) echo "0"; else echo $revenue; ?></span>
                         </div>
                         <i class="fas fa-list icon dark-purple"></i>
                     </div>
@@ -119,9 +129,9 @@ if(!isset($_SESSION['userInfor'])) {
                     <div class="card-header">
                         <div class="amount">
                             <span class="title">
-                                Khách mua hàng
+                                Khách hàng mới
                             </span>
-                            <span class="amount-value">569</span>
+                            <span class="amount-value"><?php $revenue = $connectDB->query($sql3)->fetch_assoc()['amount_new_user']; if($revenue ==0) echo "0"; else echo $revenue; ?></span>
                         </div>
                         <i class="fas fa-users icon dark-green"></i>
                     </div>
@@ -135,9 +145,9 @@ if(!isset($_SESSION['userInfor'])) {
                     <div class="card-header">
                         <div class="amount">
                             <span class="title">
-                                Hoàn tất thanh toán
+                                Đơn hàng đang chờ
                             </span>
-                            <span class="amount-value">275</span>
+                            <span class="amount-value"><?php $revenue = $connectDB->query($sql5)->fetch_assoc()['amount_booking']; if($revenue ==0) echo "0"; else echo $revenue; ?></span>
                         </div>
                         <i class="fas fa-solid fa-check icon dark-blue"></i>
                     </div>
@@ -151,9 +161,9 @@ if(!isset($_SESSION['userInfor'])) {
                     <div class="card-header">
                         <div class="amount">
                             <span class="title">
-                                Ai biet
+                                Đơn hàng đã giao
                             </span>
-                            <span class="amount-value">0</span>
+                            <span class="amount-value"><?php $revenue = $connectDB->query($sql4)->fetch_assoc()['amount_done']; if($revenue ==0) echo "0"; else echo $revenue; ?></span>
                         </div>
                         <i class="fas fa-solid fa-house icon"></i>
                     </div>
@@ -166,49 +176,51 @@ if(!isset($_SESSION['userInfor'])) {
         </div>
 
         <!-- Table ne -->
-        <div class="table--wrapper">
-            <h3 class="main-title">Dữ liệu</h3>
-            <div class="table-container">
+        <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Ngày lập</th>
-                            <th>Giao dịch</th>
-                            <th>Mô tả</th>
-                            <th>Tổng tiền</th>
-                            <th>Loại</th>
+                            <th>Số lượng</th>
+                            <th>Tên Khách hàng</th>
+                            <th>Số điện thoại</th>
+                            <th>Địa chỉ</th>
                             <th>Tình trạng</th>
+                            <th>Ngày cập nhất cuối cùng</th>
                             <th style="width: 20px;"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>2024-04-28</td>
-                            <td>Online</td>
-                            <td>Đặt hàng trong ngày</td>
-                            <td>999.000</td>
-                            <td>Bán hàng</td>
-                            <td>Chưa hoàn tất</td>
-                            <td>
-                                <div class="dropdown">
-                                    <button><i class="fas fa-edit"></i></button>
-                                    <div class="dropdown-item">
-                                        <a>Xóa</a>
-                                        <a>Sửa</a>
+                        <?php 
+                        
+                        $result = $connectDB->query("select * from bill where date ='".$date."' limit 10");
+                        
+                        
+                            while ($row = $result->fetch_assoc()) { ?>
+                            <tr>
+                                <td><?= $row['date'] ?></td>
+                                <td><?= $row['soluong'] ?></td>
+                                <td><?= $row['name'] ?></td>
+                                <td><?= $row['phone'] ?></td>
+                                <td><?= $row['address'] ?></td>
+                                <td><?= mapping_Status($row['status']) ?></td>
+                                <td><?= $row['lastDateUpdated'] ?></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button><i class="fas fa-edit"></i></button>
+                                        <div class="dropdown-item">
+                                            <a href="detail_order_form.php?mabill=<?= $row['id'] ?>">Xem chi tiết</a>
+                                            <a href="thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>">Hủy</a>
+                                            <a href="thaotacorder.php?loaithaotacorder=done&mabill=<?= $row['id'] ?>">Hoàn thành</a>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                                </td>
+                              </tr>
+                        <?php } ?>
 
-                    <tfoot>
-                        <tr>
-                            <td colspan="7">Tổng cộng: 999.000 đ</td>
-                        </tr>
-                    </tfoot>
+                    </tbody>
                 </table>
             </div>
-        </div>
     </div>
 </body>
 

@@ -1,20 +1,20 @@
 <?php
-// require_once("../../htmlnew/library.php");
-// if(!isset($_SESSION['userInfor'])) {
-//     header("location: login.php");
-// }
-// $connectDB = ConnectDB();
+require_once("../../htmlnew/library.php");
+if(!isset($_SESSION['userInfor'])) {
+    header("location: login.php");
+}
+$connectDB = ConnectDB();
 
-// $bill = $connectDB->query("select * from bill where id ='".$_REQUEST['mabill']."'");
-// $bill = $bill->fetch_assoc();
+$bill = $connectDB->query("select * from bill where id ='".$_REQUEST['mabill']."'");
+$bill = $bill->fetch_assoc();
 
-// $details = $connectDB->query("select * from chitietbill where mabill ='".$_REQUEST['mabill']."'");
+$details = $connectDB->query("select * from chitietbill where mabill ='".$_REQUEST['mabill']."'");
 
-// $sp = $connectDB->query("select * from sanpham");
-// $sanpham = array();
-// while($row = $sp->fetch_assoc()){
-//     $sanpham[$row['masp']] = $row;
-// }
+$sp = $connectDB->query("select * from sanpham");
+$sanpham = array();
+while($row = $sp->fetch_assoc()){
+    $sanpham[$row['masp']] = $row;
+}
 
 
 ?>
@@ -76,7 +76,7 @@
         <div class="header-wrapper">
             <div class="header-title">
                 <span>Danh mục</span>
-                <h2>Tạo sản phẩm</h2>
+                <h2>Chi tiết đơn hàng</h2>
             </div>
             <div class="user-info">
                 <div class="search-box">
@@ -112,50 +112,37 @@
                     <span class="cart-quantity cart-header cart-column">Số Lượng</span>
                     <span class="cart-delete cart-header cart-column"></span>
                 </div>
+                <?php $sum =0; while($row = $details->fetch_assoc()){  $indexSP = $sanpham[$row['MASP']]; ?>
                 <div class="cart-items">
                     <div class="cart-row">
                         <div class="cart-item cart-column">
-                            <img class="cart-item-image" src="path/to/image.jpg" width="100" height="100">
-                            <span class="cart-item-title">Tên sản phẩm 1</span>
+                            <img class="cart-item-image" src="<?= $indexSP['image'] ?>" width="100" height="100">
+                            <span class="cart-item-title"><?= $indexSP['tensp']; ?></span>
                         </div>
-                        <span class="cart-price cart-column">100 USD</span>
+                        <span class="cart-price cart-column"><?= $indexSP['giamgia']; ?></span>
                         <div class="cart-quantity cart-column">
-                            <input class="cart-quantity-input" type="text" value="1">
-                        </div>
-                        <div class="cart-delete cart-column">
-                            <button class="btn btn-danger">Xóa</button>
+                            <input class="cart-quantity-input" type="text" value="<?= $row['soluong']; ?>">
                         </div>
                     </div>
-                    <div class="cart-row">
-                        <div class="cart-item cart-column">
-                            <img class="cart-item-image" src="path/to/image.jpg" width="100" height="100">
-                            <span class="cart-item-title">Tên sản phẩm 2</span>
-                        </div>
-                        <span class="cart-price cart-column">150 USD</span>
-                        <div class="cart-quantity cart-column">
-                            <input class="cart-quantity-input" type="text" value="12">
-                        </div>
-                        <div class="cart-delete cart-column">
-                            <button class="btn btn-danger">Xóa</button>
-                        </div>
-                    </div>
+                <?php $sum = $sum +($indexSP['giamgia'] * $row['soluong']); } ?>
                 </div>
                 <div class="cart-total">
                     <strong class="cart-total-title">Tổng Cộng:</strong>
-                    <span class="cart-total-price">250 USD</span>
+                    <span class="cart-total-price"><?= $sum ?>USD</span>
                 </div>
                 <form action="thaotacmua.php" method="post" onsubmit="return validateForm1()">
-                    <input type="hidden" name="mua" value="1">
+                    
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary order">Thanh Toán</button>
+                    <a href="thaotacorder.php?loaithaotacorder=book&mabill=<?= $_REQUEST['mabill']?>">Giao Hàng</a>
                     </div>
-                </form>
+                    <div class="modal-footer">
+                    <a href="thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $_REQUEST['mabill'] ?>">Hủy</a>
+                    </div>
+                    <a href="thaotacorder.php?loaithaotacorder=done&mabill=<?= $_REQUEST['mabill'] ?>">Hoàn thành</a>
             </div>
         </div>
 
-        <h1>Gắn lại event PHP cho form mới ở đây, cái cũ ko xài đc :))</h1>
-        <h1>Cái cũ trong thư file</h1>
-        <h3>detail_old.php</h3>
+      
     </div>
 </body>
 

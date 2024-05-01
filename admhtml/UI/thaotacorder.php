@@ -26,6 +26,16 @@ if(isset($_REQUEST["loaithaotacorder"])){
         $conn->close();
         header("location: order_m.php?page=1");
     }
+    if($_REQUEST["loaithaotacorder"] == 'book'){
+        $conn=ConnectDB();
+        $result=$conn->query(sprintf("update bill set status = 0, lastDateUpdated ='%s' where id ='%s'",$date,$mabill));
+          if ($result == false) {
+           echo " error! ". $conn->error;
+            exit();
+        }   
+        $conn->close();
+        header("location: order_m.php?page=1");
+    }
        
         
 }

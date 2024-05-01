@@ -123,7 +123,7 @@ $sum=0;
                             
                             <div class="cart-row">
                                 <div class="cart-item cart-column">
-                                    <img class="cart-item-image" src="<?='../admhtml/'.$row['image']?>" width="100" height="100">
+                                    <img class="cart-item-image" src="<?= '../admhtml/'.str_replace('../', '', $row["image"])?>" width="100" height="100">
                                     <span class="cart-item-title"><?=$row['tensp']?></span>
                                 </div>
                                 <span class="cart-price cart-column"><?php if($row['gia']==$row['giamgia']){ $sum=$sum+$row["gia"]*($i->soLuong); echo $row['gia'];} else{$sum=$sum+$row["giamgia"]*$i->soLuong; echo $row['giamgia'];} ?></span>

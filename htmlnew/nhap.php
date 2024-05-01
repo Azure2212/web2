@@ -26,7 +26,7 @@ $sql2 = "select * from sanpham where malsp=00001 order by rand()";
 
 $result = $conn->query($sql2);
 
-
+$conn->close();
 
 
 ?>
@@ -239,6 +239,7 @@ $result = $conn->query($sql2);
 
   <?php $row = $result->fetch_assoc();
   if ($row != null) {
+    echo '../admhtml/' . $row["image"];
   ?>
     <h2>SmartPhone</h2>
     <div class="menu4">
@@ -467,7 +468,7 @@ $result = $conn->query($sql2);
 
       $result = $conn->query($sql2);
 
-      $conn->close();
+      
 
       $row = $result->fetch_assoc();
       if ($row != null) { ?>
