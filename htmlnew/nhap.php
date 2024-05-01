@@ -106,7 +106,6 @@ $conn->close();
     <div class="menutren">
       <ul class="menungang">
         <li class="a2"><a href=""><img class="a5" src="../image/icon1.png" alt="erro"> SVT@gmail.com</a> </li>
-        <li class="a1"><a class="hi" href=""><img class="a5-1" src="../image/icon2.png" alt=""> 0941235169</a> </li>
         <li class="p1"><a href="daily.php">Hệ thống phân phối </a> </li>
         <li class="p2"><a href="giohang.php"> <img class="a5-2" src="../image/cart-73-24.png" alt="">Giỏ Hàng </a> </li>
         <li class="p2"><a> <img src="../admhtml/UI/assets/10_NMT.jpg" style="width: 35px; height: 35px; border-radius: 10px;"></a>
@@ -120,6 +119,8 @@ $conn->close();
             </select>
           </div>
         </li>
+        <!-- Neu dang nhap thi set lai status duoi -->
+        <li class="p1"><span style="color: #fff;">Chưa đăng nhập</a> </li>
       </ul>
     </div>
 
@@ -468,7 +469,7 @@ $conn->close();
 
       $result = $conn->query($sql2);
 
-      
+
 
       $row = $result->fetch_assoc();
       if ($row != null) { ?>

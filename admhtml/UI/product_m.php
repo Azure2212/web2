@@ -134,7 +134,7 @@ $result = $connDB->query($sql);
                 </div>
                 <div class="table-action">
                     <div class="gr-btn2">
-                    <button type="submit"><i class="fa-solid fa-search"></i></a>
+                    <button type="submit" style="background-color: blue; color: #fff;"><i class="fa-solid fa-search" style="cursor: pointer;"></i></a>
                     </div>
                     <div class="gr-btn1">
                         <a class="btn-title" href="create_product_form.php">Tạo sản phẩm</a>

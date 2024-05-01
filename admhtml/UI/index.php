@@ -1,18 +1,18 @@
-<?php 
+<?php
 require_once("../../htmlnew/library.php");
-if(!isset($_SESSION['userInfor'])) {
+if (!isset($_SESSION['userInfor'])) {
     header("location: login.php");
 }
 $connectDB = ConnectDB();
-$mydate=getdate(date("U"));
-    $date="$mydate[year]/$mydate[mon]/$mydate[mday]";
+$mydate = getdate(date("U"));
+$date = "$mydate[year]/$mydate[mon]/$mydate[mday]";
 
-$sql1 ="select count(*) as amount_bill from bill where date='".$date."'";
+$sql1 = "select count(*) as amount_bill from bill where date='" . $date . "'";
 
-$sql2 ="select sum(soluong) as revenue from bill where date='".$date."'";
-$sql3 ="select count(*) as amount_new_user from user where role = 0 and dateCreated='".$date."'";
-$sql4 ="select count(*) as amount_done from bill where status =1 and date='".$date."'";
-$sql5 ="select count(*) as amount_booking from bill where status =0 and date='".$date."'";
+$sql2 = "select sum(soluong) as revenue from bill where date='" . $date . "'";
+$sql3 = "select count(*) as amount_new_user from user where role = 0 and dateCreated='" . $date . "'";
+$sql4 = "select count(*) as amount_done from bill where status =1 and date='" . $date . "'";
+$sql5 = "select count(*) as amount_booking from bill where status =0 and date='" . $date . "'";
 ?>
 
 <!DOCTYPE html>
@@ -79,13 +79,16 @@ $sql5 ="select count(*) as amount_booking from bill where status =0 and date='".
                 <div class="search-box">
                     <i class="fa-solid fa-search">
                     </i>
-                    <input type="text" placeholder="Search" />
+                    <input type="text" placeholder="Bạn cần tìm gì ?" />
+                </div>
+                <div class="btn-search-full">
+                    <button class="btn-search-content"><i class="fa-solid fa-search"></i></button>
                 </div>
                 <div class="dropdown">
                     <img src="<?php echo $_SESSION["userInfor"]["avatar"]; ?>" style="width: 50px; height: 50px;">
                     <div class="dropdown-item">
                         <!-- Nội dung của dropdown ở đây -->
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -99,7 +102,9 @@ $sql5 ="select count(*) as amount_booking from bill where status =0 and date='".
                             <span class="title">
                                 Tổng doanh thu ước tính
                             </span>
-                            <span class="amount-value"><?php $revenue = $connectDB->query($sql2)->fetch_assoc()['revenue']; if($revenue ==null) echo "0"; else echo $revenue; ?></span>
+                            <span class="amount-value"><?php $revenue = $connectDB->query($sql2)->fetch_assoc()['revenue'];
+                                                        if ($revenue == null) echo "0";
+                                                        else echo $revenue; ?></span>
                         </div>
                         <i class="fas fa-dollar-sign icon"></i>
                     </div>
@@ -115,7 +120,9 @@ $sql5 ="select count(*) as amount_booking from bill where status =0 and date='".
                             <span class="title">
                                 Tổng đơn hàng
                             </span>
-                            <span class="amount-value"><?php $revenue = $connectDB->query($sql1)->fetch_assoc()['amount_bill']; if($revenue ==0) echo "0"; else echo $revenue; ?></span>
+                            <span class="amount-value"><?php $revenue = $connectDB->query($sql1)->fetch_assoc()['amount_bill'];
+                                                        if ($revenue == 0) echo "0";
+                                                        else echo $revenue; ?></span>
                         </div>
                         <i class="fas fa-list icon dark-purple"></i>
                     </div>
@@ -131,7 +138,9 @@ $sql5 ="select count(*) as amount_booking from bill where status =0 and date='".
                             <span class="title">
                                 Khách hàng mới
                             </span>
-                            <span class="amount-value"><?php $revenue = $connectDB->query($sql3)->fetch_assoc()['amount_new_user']; if($revenue ==0) echo "0"; else echo $revenue; ?></span>
+                            <span class="amount-value"><?php $revenue = $connectDB->query($sql3)->fetch_assoc()['amount_new_user'];
+                                                        if ($revenue == 0) echo "0";
+                                                        else echo $revenue; ?></span>
                         </div>
                         <i class="fas fa-users icon dark-green"></i>
                     </div>
@@ -147,7 +156,9 @@ $sql5 ="select count(*) as amount_booking from bill where status =0 and date='".
                             <span class="title">
                                 Đơn hàng đang chờ
                             </span>
-                            <span class="amount-value"><?php $revenue = $connectDB->query($sql5)->fetch_assoc()['amount_booking']; if($revenue ==0) echo "0"; else echo $revenue; ?></span>
+                            <span class="amount-value"><?php $revenue = $connectDB->query($sql5)->fetch_assoc()['amount_booking'];
+                                                        if ($revenue == 0) echo "0";
+                                                        else echo $revenue; ?></span>
                         </div>
                         <i class="fas fa-solid fa-check icon dark-blue"></i>
                     </div>
@@ -163,7 +174,9 @@ $sql5 ="select count(*) as amount_booking from bill where status =0 and date='".
                             <span class="title">
                                 Đơn hàng đã giao
                             </span>
-                            <span class="amount-value"><?php $revenue = $connectDB->query($sql4)->fetch_assoc()['amount_done']; if($revenue ==0) echo "0"; else echo $revenue; ?></span>
+                            <span class="amount-value"><?php $revenue = $connectDB->query($sql4)->fetch_assoc()['amount_done'];
+                                                        if ($revenue == 0) echo "0";
+                                                        else echo $revenue; ?></span>
                         </div>
                         <i class="fas fa-solid fa-house icon"></i>
                     </div>
@@ -177,51 +190,75 @@ $sql5 ="select count(*) as amount_booking from bill where status =0 and date='".
 
         <!-- Table ne -->
         <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Ngày lập</th>
-                            <th>Số lượng</th>
-                            <th>Tên Khách hàng</th>
-                            <th>Số điện thoại</th>
-                            <th>Địa chỉ</th>
-                            <th>Tình trạng</th>
-                            <th>Ngày cập nhất cuối cùng</th>
-                            <th style="width: 20px;"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                        
-                        $result = $connectDB->query("select * from bill where date ='".$date."' limit 10");
-                        
-                        
-                            while ($row = $result->fetch_assoc()) { ?>
-                            <tr>
-                                <td><?= $row['date'] ?></td>
-                                <td><?= $row['soluong'] ?></td>
-                                <td><?= $row['name'] ?></td>
-                                <td><?= $row['phone'] ?></td>
-                                <td><?= $row['address'] ?></td>
-                                <td><?= mapping_Status($row['status']) ?></td>
-                                <td><?= $row['lastDateUpdated'] ?></td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button><i class="fas fa-edit"></i></button>
-                                        <div class="dropdown-item">
-                                            <a href="detail_order_form.php?mabill=<?= $row['id'] ?>">Xem chi tiết</a>
-                                            <a href="thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>">Hủy</a>
-                                            <a href="thaotacorder.php?loaithaotacorder=done&mabill=<?= $row['id'] ?>">Hoàn thành</a>
-                                        </div>
-                                    </div>
-                                </td>
-                              </tr>
-                        <?php } ?>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ngày lập</th>
+                        <th>Số lượng</th>
+                        <th>Tên Khách hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Tình trạng</th>
+                        <th>Ngày cập nhất cuối cùng</th>
+                        <th style="width: 20px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
 
-                    </tbody>
-                </table>
-            </div>
+                    $result = $connectDB->query("select * from bill where date ='" . $date . "' limit 10");
+
+
+                    while ($row = $result->fetch_assoc()) { ?>
+                        <tr>
+                            <td><?= $row['date'] ?></td>
+                            <td><?= $row['soluong'] ?></td>
+                            <td><?= $row['name'] ?></td>
+                            <td><?= $row['phone'] ?></td>
+                            <td><?= $row['address'] ?></td>
+                            <td><?= mapping_Status($row['status']) ?></td>
+                            <td><?= $row['lastDateUpdated'] ?></td>
+                            <td>
+                                <div class="dropdown">
+                                    <button><i class="fas fa-edit"></i></button>
+                                    <div class="dropdown-item">
+                                        <a href="detail_order_form.php?mabill=<?= $row['id'] ?>">Xem chi tiết</a>
+                                        <a href="thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>">Hủy</a>
+                                        <a href="thaotacorder.php?loaithaotacorder=done&mabill=<?= $row['id'] ?>">Hoàn thành</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php } ?>
+
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 
 </html>
+
+<style>
+    .btn-search-full {
+        background-color: blue;
+        padding: 10px;
+        width: 30px;
+        border-radius: 5px;
+        width: 40px;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .btn-search-content {
+        background-color: blue;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .btn-search-content :hover {
+        transform: scale(1.2);
+    }
+
+</style>

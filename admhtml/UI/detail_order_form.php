@@ -1,18 +1,18 @@
 <?php
 require_once("../../htmlnew/library.php");
-if(!isset($_SESSION['userInfor'])) {
+if (!isset($_SESSION['userInfor'])) {
     header("location: login.php");
 }
 $connectDB = ConnectDB();
 
-$bill = $connectDB->query("select * from bill where id ='".$_REQUEST['mabill']."'");
+$bill = $connectDB->query("select * from bill where id ='" . $_REQUEST['mabill'] . "'");
 $bill = $bill->fetch_assoc();
 
-$details = $connectDB->query("select * from chitietbill where mabill ='".$_REQUEST['mabill']."'");
+$details = $connectDB->query("select * from chitietbill where mabill ='" . $_REQUEST['mabill'] . "'");
 
 $sp = $connectDB->query("select * from sanpham");
 $sanpham = array();
-while($row = $sp->fetch_assoc()){
+while ($row = $sp->fetch_assoc()) {
     $sanpham[$row['masp']] = $row;
 }
 
@@ -110,39 +110,40 @@ while($row = $sp->fetch_assoc()){
                     <span class="cart-item cart-header cart-column">Sản Phẩm</span>
                     <span class="cart-price cart-header cart-column">Giá</span>
                     <span class="cart-quantity cart-header cart-column">Số Lượng</span>
-                    <span class="cart-delete cart-header cart-column"></span>
                 </div>
-                <?php $sum =0; while($row = $details->fetch_assoc()){  $indexSP = $sanpham[$row['MASP']]; ?>
-                <div class="cart-items">
-                    <div class="cart-row">
-                        <div class="cart-item cart-column">
-                            <img class="cart-item-image" src="<?= $indexSP['image'] ?>" width="100" height="100">
-                            <span class="cart-item-title"><?= $indexSP['tensp']; ?></span>
+                <?php $sum = 0;
+                while ($row = $details->fetch_assoc()) {
+                    $indexSP = $sanpham[$row['MASP']]; ?>
+                    <div class="cart-items">
+                        <div class="cart-row">
+                            <div class="cart-item cart-column">
+                                <img class="cart-item-image" src="<?= $indexSP['image'] ?>" width="100" height="100">
+                                <span class="cart-item-title"><?= $indexSP['tensp']; ?></span>
+                            </div>
+                            <span class="cart-price cart-column"><?= $indexSP['giamgia']; ?></span>
+                            <div class="cart-quantity cart-column">
+                                <input class="cart-quantity-input" type="text" value="<?= $row['soluong']; ?>">
+                            </div>
                         </div>
-                        <span class="cart-price cart-column"><?= $indexSP['giamgia']; ?></span>
-                        <div class="cart-quantity cart-column">
-                            <input class="cart-quantity-input" type="text" value="<?= $row['soluong']; ?>">
+                    <?php $sum = $sum + ($indexSP['giamgia'] * $row['soluong']);
+                } ?>
+                    </div>
+                    <div class="cart-total">
+                        <strong class="cart-total-title">Tổng Cộng:</strong>
+                        <span class="cart-total-price"><?= $sum ?>USD</span>
+                    </div>
+
+                    <form action="thaotacmua.php" method="post" onsubmit="return validateForm1()">
+                        <div class="modal-footer">
+                            <a href="thaotacorder.php?loaithaotacorder=book&mabill=<?= $_REQUEST['mabill'] ?>">Giao Hàng</a>
+                            <a href="thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $_REQUEST['mabill'] ?>">Hủy</a>
+                            <a href="thaotacorder.php?loaithaotacorder=done&mabill=<?= $_REQUEST['mabill'] ?>">Hoàn thành</a>
                         </div>
-                    </div>
-                <?php $sum = $sum +($indexSP['giamgia'] * $row['soluong']); } ?>
-                </div>
-                <div class="cart-total">
-                    <strong class="cart-total-title">Tổng Cộng:</strong>
-                    <span class="cart-total-price"><?= $sum ?>USD</span>
-                </div>
-                <form action="thaotacmua.php" method="post" onsubmit="return validateForm1()">
-                    
-                    <div class="modal-footer">
-                    <a href="thaotacorder.php?loaithaotacorder=book&mabill=<?= $_REQUEST['mabill']?>">Giao Hàng</a>
-                    </div>
-                    <div class="modal-footer">
-                    <a href="thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $_REQUEST['mabill'] ?>">Hủy</a>
-                    </div>
-                    <a href="thaotacorder.php?loaithaotacorder=done&mabill=<?= $_REQUEST['mabill'] ?>">Hoàn thành</a>
+                    </form>
             </div>
         </div>
 
-      
+
     </div>
 </body>
 
@@ -250,21 +251,26 @@ while($row = $sp->fetch_assoc()){
         background-color: #0056b3;
     }
 
-    .cart-delete {
-        flex: 0.5;
-        text-align: center;
+
+    /* Functional */
+    .modal-footer{
+        margin-top: 1rem;
     }
 
-    .cart-delete button {
-        padding: 5px 10px;
-        background-color: #dc3545;
-        color: #fff;
+    .modal-footer a {
+        display: inline-block;
+        padding: 10px 20px;
+        text-decoration: none;
         border: none;
         border-radius: 5px;
+        background-color: blue;
+        color: #fff;
         cursor: pointer;
+        transition: background-color 0.3s ease;
     }
 
-    .cart-delete button:hover {
-        background-color: #c82333;
+    /* Đổi màu nền khi di chuột vào */
+    .modal-footer a:hover {
+        background-color: #007bff;
     }
 </style>
