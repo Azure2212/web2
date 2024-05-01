@@ -1,5 +1,5 @@
 <?php 
-require("../../htmlnew/library.php");
+require("library.php");
 
 session_unset();
 ?>
@@ -10,7 +10,7 @@ session_unset();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập tài khoản</title>
-    <link href="../../css/login.css" rel="stylesheet">
+    <link href="../css/login.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&display=swap">
 </head>
@@ -18,7 +18,7 @@ session_unset();
 <body>
     <div class="login-container">
         
-        <form class="login-form" action="thaotacuser.php" method='post' enctype="multipart/form-data">
+        <form class="login-form" action="../admhtml/UI/thaotacuser.php" method='post' enctype="multipart/form-data">
         
             <h2>Đăng nhập tài khoản </h2>
             <?php if(isset($_REQUEST['wronglogin'])) echo "<div><a style='color:red;'> Sai tên đăng nhập hoặc mật khẩu</a></div>"?>
@@ -41,7 +41,7 @@ session_unset();
                     </select> -->
             <button type="submit">Đăng nhập</button>
             <input type='hidden' name="typeForm" value ="login">
-            <input type='hidden' name="role" value ="Quản trị viên">
+            <input type='hidden' name="role" value ="Khách hàng">
         </form>
     </div>
 </body>
