@@ -63,6 +63,14 @@ if(isset($_REQUEST['SPbiXoa'])){
 }
 
 if(isset($_POST["mua"])){
+    if(!isset($_SESSION['khachhang'])){
+        header("location: giohang.php?loginRequired=1");
+        return;
+    }
+    if(!isset($_SESSION["cart"]) || count($_SESSION["cart"])==0){
+        header("location: giohang.php?amount=0");
+        return;
+    }
     $mydate=getdate(date("U"));
     $date="$mydate[year]/$mydate[mon]/$mydate[mday]";
     echo($date);
@@ -73,12 +81,9 @@ if(isset($_POST["mua"])){
 
     if(count($_SESSION["cart"])!=0){
         foreach($_SESSION["cart"] as $i){
-            if($i->giamgia != null & $i->giamgia < $i->gia)
-                $sum = $sum + ($i->giamgia * $i->soLuong);
-            if($i->giamgia != null & $i->giamgia == $i->gia)
-                $sum = $sum + ($i->gia * $i->soLuong);
+            $sum = $sum + ($i->giamgia * $i->soLuong);
         }
-        $sql1=sprintf("insert into bill values('%s','%s',%d,'%s','%s','%s','0','%s')",$bill_id,$date,$sum,$_POST['texta'],$_POST['textb'],$_POST['textc'],$date);
+        $sql1=sprintf("insert into bill values('%s','%s',%d,'%s','%s','%s','0','%s','%s')",$bill_id,$date,$sum,$_SESSION['khachhang']['fullname'],$_SESSION['khachhang']['phone'],$_SESSION['khachhang']['address'],$date,$_SESSION['khachhang']['id']);
         
         $result=$conn->query($sql1);
         if ($result == false) {

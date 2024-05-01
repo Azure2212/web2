@@ -113,9 +113,8 @@ $result = $conn->query($sql2);
 
           <li><a class='p1' href='#'><img class='a5-2' src="<?= '../admhtml/' . str_replace('../', '', $_SESSION['khachhang']['avatar']) ?>" alt=""><?= $_SESSION['khachhang']['username'] ?></a>
             <ul class="cap_2">
-              <li> <a href="../htmlnew/sanpham.php?productType=laptop&page=1"> Đăng ký</a> </li>
-              <li class="fs fa-box"> <a href="../htmlnew/sanpham.php?productType=phone&page=1"> Đăng xuất</a> </li>
-              <li class="fs fa-history"> <a href="../htmlnew/sanpham.php?productType=laptop&page=1"> Lịch sử mua hàng</a> </li>
+            <li class="fs fa-box"> <a href="login.php"> Đăng xuất</a> </li>
+              <li class="fs fa-history"> <a href="history.php"> Lịch sử mua hàng</a> </li>
             </ul>
           </li>
 

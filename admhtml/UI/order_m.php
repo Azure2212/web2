@@ -4,6 +4,7 @@ if (!isset($_SESSION['userInfor'])) {
     header("location: login.php");
 }
 $productPerPage = 20;
+
 $errorSearch = false;
 
 $sqlSearch = '';
@@ -20,10 +21,10 @@ if (isset($_REQUEST['fromDate'])) {
             $condition1 = " and status = " . mapping_Status_revert($_REQUEST["status2Search"]);
         }
         if ($_REQUEST['fromDate'] != '') {
-            $condition2 = " and bill.date >= '" . $_REQUEST['fromDate'] . "' ";
+            $condition2 = " and bill.lastDateUpdated >= '" . $_REQUEST['fromDate'] . "' ";
         }
         if ($_REQUEST['toDate'] != '') {
-            $condition3 = " and bill.date <= '" . $_REQUEST['toDate'] . "' ";
+            $condition3 = " and bill.lastDateUpdated <= '" . $_REQUEST['toDate'] . "' ";
         }
         $sqlSearch = "SELECT * FROM bill
         where 1 " . $condition1 . $condition2 . $condition3 . "    
@@ -41,6 +42,10 @@ $productAmount = $productAmount->fetch_assoc()["total"];
 $totalPage = Ceil($productAmount / $productPerPage);
 $sql = getAllOrderQuery($_REQUEST['page'], $productPerPage);
 if ($sqlSearch != '') $sql = $sqlSearch;
+
+
+
+
 $result = $connDB->query($sql);
 
 
@@ -134,9 +139,9 @@ $result = $connDB->query($sql);
                         <div class="gr-btn2">
                             <button type="submit" style="background-color: blue; color: #fff;"><i class="fa-solid fa-search" style="cursor: pointer;"></i></a>
                         </div>
-                        <div class="gr-btn1">
+                        <!-- <div class="gr-btn1">
                             <a class="btn-title" href="detail_order_form.php">Tạo đơn hàng</a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 

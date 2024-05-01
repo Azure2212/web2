@@ -53,7 +53,7 @@ $sql5 = "select count(*) as amount_booking from bill where status =0 and date='"
                 </a>
             </li>
             <li>
-                <a href="report_m.php">
+                <a href="report_m.php?page=1">
                     <i class="fas fa-chart-area">
                         <span>Báo cáo </span>
                     </i>

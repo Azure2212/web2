@@ -92,83 +92,140 @@ $sum=0;
       </div>       
    </form>     
         
-        
-      <div id="myModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Giỏ Hàng <?php if(isset($_REQUEST['loginRequired'])) echo "<a style='color:red'>Bạn phải đăng nhập trước</a>" ;
-                                                        else if(isset($_REQUEST['amount'])) echo "<a style='color:red'>Bạn chưa chọn sản phẩm nào cả </a>";
-                
-                ?></h5>
-                <span class="close">&times;</span>
+   <div class="main-content">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <span>Danh mục</span>
+                <h2>Quản lý đơn đặt hàng</h2>
             </div>
-            <div class="modal-body">
-                <div class="cart-row">
-                    <span class="cart-item cart-header cart-column">Sản Phẩm</span>
-                    <span class="cart-price cart-header cart-column">Giá</span>
-                    <span class="cart-quantity cart-header cart-column">Số Lượng</span>
+            <div class="user-info">
+                <div class="search-box">
+                    <i class="fa-solid fa-search">
+                    </i>
+                    <input type="text" placeholder="Search" />
+                </div>
+                <div class="dropdown">
+                    <img src="<?php echo $_SESSION["userInfor"]["avatar"]; ?>" style="width: 50px; height: 50px;">
+                    <div class="dropdown-item">
+                        <!-- Nội dung của dropdown ở đây -->
+                    </div>
                 </div>
             </div>
-                <div class="cart-items">
-                    
-                    <!-- php cho nay -->
-                    
-                    <?php 
-                    if(isset($_SESSION["cart"])){
-                    if(count($_SESSION["cart"])!=0){
-                        foreach($_SESSION["cart"] as $i){
-                            
-                            $result=$conn->query("select * from sanpham where masp='".($i->masp)."'");
-                            
-                            $row=$result->fetch_assoc(); ?>
-                            
-                            <div class="cart-row">
-                                <div class="cart-item cart-column">
-                                    <img class="cart-item-image" src="<?= '../admhtml/'.str_replace('../', '', $row["image"])?>" width="100" height="100">
-                                    <span class="cart-item-title"><?=$row['tensp']?></span>
-                                </div>
-                                <span class="cart-price cart-column"><?php if($row['gia']==$row['giamgia']){ $sum=$sum+$row["gia"]*($i->soLuong); echo $row['gia'];} else{$sum=$sum+$row["giamgia"]*$i->soLuong; echo $row['giamgia'];} ?></span>
-                                <div class="cart-quantity cart-column">
-                                    <input class="cart-quantity-input" type="text"  value="<?php echo $i->soLuong; ?>">
-                       <form action="thaotacmua.php" method="get">
-                                    <button class="btn btn-danger" type="submit">Xóa</button>
-                                    <input type="hidden" name="SPbiXoa" value="<?=$row['masp']?>">
-                        </form>
-                                </div>
-                            </div>
-                        <?php } ?>
-                    <?php } $conn->close(); }?>
+        </div>
 
-                    
-                    
+        <form class="product" action="order_m.php" method="get" enctype="multipart/form-data">
+            <!-- Table ne -->
+            <div class="table--wrapper">
+                <div class="table-title">
+                    <div class="table-header">
+                        <h3 class="main-title">Danh Sách Đơn Đặt Hàng</h3>
+                    </div>
+                    <div class="table-action">
+                        <div class="gr-btn2">
+                            <button type="submit" style="background-color: blue; color: #fff;"><i class="fa-solid fa-search" style="cursor: pointer;"></i></a>
+                        </div>
+                        <div class="gr-btn1">
+                            <a class="btn-title" href="detail_order_form.php">Tạo đơn hàng</a>
+                        </div>
+                    </div>
                 </div>
-         <form action="thaotacmua.php" method="post" onsubmit="return validateForm1()">
-                <div class="cart-total">
-                    <strong class="cart-total-title">Tổng Cộng:</strong>
-                    <span class="cart-total-price"><?=$sum?>USD</span>
-                </div>
-        
-           
-          
-            <input type="hidden" name="mua" value="1">
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary order">Thanh Toán</button>
-            </div>
-            </div>
-            <?php if(isset($_REQUEST['done'])){ 
-                echo "<br>";
-                if($_REQUEST['done']==1){
-                    echo "<b><i style='color:red;font-size:25px;margin-left:35%;font-weight;text-shadow:2px 2px 2px orange;'>cảm ơn quý khách đã mua hàng tại SVT!</i></b>";
-                }
-                else if($_REQUEST['done']==2){
-                     echo "<b><i style='color:red;font-size:25px;margin-left:40%;font-weight;text-shadow:2px 2px 2px aqua;'>quý khách chưa có gì trong giỏ hàng!</i></b>";
-                }
 
-            } ?>
+                <div class="filter-header">
+                    <div class="filter-content">
+                        <label for="fromDate" name="fromdate">Từ ngày:</label>
+                        <input type="date" id="fromDate" value="<?php if (isset($_REQUEST['fromDate'])) echo $_REQUEST['fromDate'];  ?>" name="fromDate">
+                        <label for="toDate" name="toDate">Đến ngày:</label>
+                        <input type="date" id="toDate" value="<?php if (isset($_REQUEST['toDate'])) echo $_REQUEST['toDate'];  ?>" name="toDate">
+                        <select name="status2Search">
+                            <option value="" disabled selected hidden>Trạng Thái</option>
+                            <?php
+                            $loaiTrangThai = ['Đã hủy', "Đã giao hàng", "Đang đặt"];
+                            for ($i = 0; $i < count($loaiTrangThai); $i++) {
+                                if (isset($_REQUEST['status2Search']) && $_REQUEST['status2Search'] == $loaiTrangThai[$i]) {
+                                    echo " <option  selected>" . $loaiTrangThai[$i] . "</option> ";
+                                } else {
+                                    echo " <option >" . $loaiTrangThai[$i] . "</option> ";
+                                }
+                            }
+                            ?>
+                        </select>
+                        <?php if ($errorSearch == true) echo "<h2 style='color:red;margin-left: 5%;'> Bạn tìm kiếm nhưng không chọn điều kiện! <h2>" ?>
+
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ngày lập</th>
+                                <th>Số lượng</th>
+                                <th>Tên Khách hàng</th>
+                                <th>Số điện thoại</th>
+                                <th>Địa chỉ</th>
+                                <th>Tình trạng</th>
+                                <th>Ngày cập nhất cuối cùng</th>
+                                <th style="width: 20px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $result->fetch_assoc()) { ?>
+                                <tr>
+                                    <td><?= $row['date'] ?></td>
+                                    <td><?= $row['soluong'] ?></td>
+                                    <td><?= $row['name'] ?></td>
+                                    <td><?= $row['phone'] ?></td>
+                                    <td><?= $row['address'] ?></td>
+                                    <td><?= mapping_Status($row['status']) ?></td>
+                                    <td><?= $row['lastDateUpdated'] ?></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button><i class="fas fa-edit"></i></button>
+                                            <div class="dropdown-item">
+                                                <a href="detail_order_form.php?mabill=<?= $row['id'] ?>">Xem chi tiết</a>
+                                                <a href="thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>">Hủy</a>
+                                                <a href="thaotacorder.php?loaithaotacorder=done&mabill=<?= $row['id'] ?>">Hoàn thành</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+
+                        </tbody>
+                    </table>
+                </div>
+                <ul class="pagination">
+                    <li><a href='order_m.php?page=1'>
+                            <<< /a>
+                    </li>
+                    <?php
+                    if ($_REQUEST['page'] != 1)
+                        echo sprintf("<li><a href='order_m.php?page=%d'><</a></li>", $_REQUEST['page'] - 1);
+                    else
+                        echo "<li><a href='#'><</a></li>";
+                    ?>
+                    <li><a href="#"><?= $_REQUEST['page'] . '/' . $totalPage  ?></a></li>
+                    <?php
+                    if ($_REQUEST['page'] != $totalPage)
+                        echo sprintf("<li><a href='order_m.php?page=%d'>></a></li>", $_REQUEST['page'] + 1);
+                    else
+                        echo "<li><a href='#'>></a></li>";
+                    ?>
+                    <li><a href='order_m.php?page=<?= $totalPage ?>'>>></a></li>
+
+                </ul>
+            </div>
+    </div>
+    <input type="hidden" name='page' value=1>
+    </form>
+
+
+        
+      
             <br><br><br><br><br><br>
     
                     
-         ?>
+         
                         </div>
     
     <!-- endgiohang -->
@@ -319,3 +376,59 @@ $sum=0;
 <script src="../js/link.js"></script>
 <script src="../js/giohang.js"></script>
 </html>
+
+
+<style>
+    .filter-content {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .filter-content label {
+        margin-right: 10px;
+    }
+
+    .filter-content input[type="date"] {
+        padding: 8px 12px;
+        margin-right: 10px;
+        /* Add margin between inputs */
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .filter-content input[type="date"]:hover {
+        border-color: #aaa;
+    }
+
+    .filter-content input[type="date"]:focus {
+        border-color: #007bff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .filter-content select {
+        width: 150px;
+        padding: 8px 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .filter-content select:hover {
+        border-color: #aaa;
+    }
+
+    .filter-content select:focus {
+        border-color: #007bff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+</style>
