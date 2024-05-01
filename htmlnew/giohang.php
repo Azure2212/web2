@@ -117,7 +117,7 @@ $sum=0;
                     if(count($_SESSION["cart"])!=0){
                         foreach($_SESSION["cart"] as $i){
                             
-                            $result=$conn->query("select * from sanpham where masp=".($i->masp));
+                            $result=$conn->query("select * from sanpham where masp='".($i->masp)."'");
                             
                             $row=$result->fetch_assoc(); ?>
                             
@@ -165,41 +165,7 @@ $sum=0;
 
             } ?>
             <br><br><br><br><br><br>
-    <?php 
-     if(isset($_SESSION["cart"])){
-    if(count($_SESSION['cart'])!=0){ ?>
-     <div style="background-color:#DCDCDC;width:50%;margin-left:25%;">
-            
-            <br><br>
-           <table>
-           <tr>
-            <h1  style="margin-left:35%">Thông tin khách hàng</h1>
-                <br> 
-				<a style="color:black;font-size:25px;margin-left:20%;"><i class="far fa-user"style="margin-right:10px; font-size:20px;height:15px;color:black"></i>Họ & Tên:</a>
-                
- 
-         <input type="text" name="texta" id="texta" class="form-input" style="color:black;font-size:25px;margin-left:6%;background-color:white;" >
-      
-                 <br>
-                 
-    <a style="color:black;font-size:25px;margin-left:19.5%;"><i class="fas fa-phone"style="margin-right:10px; height:15px;font-size:20px;"></i>Số điện thoại:</a>
-                
-            <input type="text" name="textb" id="textb" class="form-input" style="color:black;font-size:25px;margin-left:1.9%;background-color:white;" >
-         	 
-              <br>
-			
-    <a style="color:black;font-size:25px;margin-left:20%;"><i class="fas fa-home" style="margin-right:5px; font-size:20px;"></i>Địa chỉ:</a>
-                
-            
-            
-      <input type="text" name="textc" id="textc" class="form-input" style="color:black;font-size:25px;margin-left:9.15%;background-color:white;" >
-         <tr>
-                </table>
-              <br><br>
-                       
-        </div>
-        <?php }
-     }
+    
                     
          ?>
                         </div>
@@ -207,7 +173,6 @@ $sum=0;
     <!-- endgiohang -->
 
      
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
         <table style="width: 100%;background-color:rgba(0,0,0,0.8);" >
             <tr>
