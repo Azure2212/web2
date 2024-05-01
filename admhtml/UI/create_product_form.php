@@ -96,27 +96,43 @@ if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp'){
 
         <!-- Form -->
         <div class="form-wrapper">
-            <h2>Thông Tin Sản Phẩm <?= $row['MALSP'] ?></h2>
+            <h2>Thông Tin Sản Phẩm <?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['MALSP']; ?></h2>
             <form action="thaotacsanpham.php" class="product-form" method="post" enctype="multipart/form-data">
                 <div class="input-group">
                     <label for="product-name">Tên Sản Phẩm</label>
-                    <input type="text" id="product-name" name="product-name" placeholder="Tên sản phẩm" value="<?= $row['tensp'] ?>" required>
+                    <input type="text" id="product-name" name="product-name" placeholder="Tên sản phẩm" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['tensp']; ?>" required>
                 </div>
                 <div class="input-group">
                     <label for="pre-price">Giá vốn</label>
-                    <input type="number" id="pre-price" name="pre-price" placeholder="Giá vốn" step="10000" value="<?= $row['giavon'] ?>" required>
+                    <input type="number" id="pre-price" name="pre-price" placeholder="Giá vốn" step="10000" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['giavon']; ?>" required>
                 </div>
                 <div class="input-group">
                     <label for="price">Giá</label>
-                    <input type="number" id="price" name="price" placeholder="Giá sản phẩm" step="10000" value="<?= $row['gia'] ?>" required>
+                    <input type="number" id="price" name="price" placeholder="Giá sản phẩm" step="10000" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['gia']; ?>" required>
                 </div>
                 <div class="input-group">
                     <label for="discount">Giảm Giá</label>
-                    <input type="number" id="discount" name="discount" placeholder="Giá được giảm" step="10000" value="<?= $row['giamgia'] ?>" required>
+                    <input type="number" id="discount" name="discount" placeholder="Giá được giảm" step="10000" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['giamgia']; ?>" required>
+                </div>
+                <div class="input-group">
+                    <label for="mota">Mô tả:</label>
+                    <input type="text" id="mota" name="mota" placeholder="Mô tả" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['mota']; ?>" required>
+                </div>
+                <div class="input-group">
+                    <label for="bonhotrong">Bộ nhớ trong</label>
+                    <input type="text" id="bonhotrong" name="bonhotrong" placeholder="Bộ nhớ trong" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['bonhotrong']; ?>" required>
+                </div>
+                <div class="input-group">
+                    <label for="Pin">Pin</label>
+                    <input type="text" id="Pin" name="Pin" placeholder="Pin" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['pin']; ?>" required>
+                </div>
+                <div class="input-group">
+                    <label for="uudai">Ưu đãi</label>
+                    <input type="text" id="uudai" name="uudai" placeholder="Tên sản phẩm" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['uudai']; ?>" required>
                 </div>
                 <div class="input-group">
                     <label for="date-up">Ngày sản xuất</label>
-                    <input type="date" id="date-up" name="date-up" placeholder="Ngày sản xuất" value="<?= $row['ngaysx'] ?>" required>
+                    <input type="date" id="date-up" name="date-up" placeholder="Ngày sản xuất" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['ngaysx']; ?>" required>
                 </div>
              
                 <div class="input-group">
@@ -125,14 +141,21 @@ if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp'){
                         <?php
                          $loaisp = ['Điện thoại', "Laptop", "Đồng Hồ đeo tay","Tai nghe"];
                          $MALSP = ['00001', '00002', '00003', '00004'];
-                        for($i= 0;$i<count($loaisp);$i++){
+                         if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp'){
+                            for($i= 0;$i<count($loaisp);$i++){
                            
-                            if($row['MALSP'] == $MALSP[$i]){
-                                echo " <option  selected>".$loaisp[$i]."</option> ";
-                            }else{
+                                if($row['MALSP'] == $MALSP[$i]){
+                                    echo " <option  selected>".$loaisp[$i]."</option> ";
+                                 }else{
                                 echo " <option >".$loaisp[$i]."</option> ";
-                            }
-                        } 
+                                }
+                            } 
+                        }else{
+                            for($i= 0;$i<count($loaisp);$i++){
+                                echo " <option >".$loaisp[$i]."</option> ";
+                            } 
+
+                        }
                         ?>
                     </select>
                 </div>

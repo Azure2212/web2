@@ -93,13 +93,13 @@ function TypeProduct($id)
 
 function ConnectDB()
 {
-  //$servername = "127.0.0.1";
-  $servername = "localhost";
+  $servername = "127.0.0.1";
+  //$servername = "localhost";
   $username = "root";
   $password = "";
   $dbname = "projectforweb";
-  $port = 3309;
-  //$port = 3307;
+  //$port = 3309;
+  $port = 3307;
 
   // Create connection
   $conn = new mysqli($servername, $username, $password, $dbname, $port);
@@ -207,7 +207,7 @@ function checkTypeProduct(&$title, &$count)
 
 function productDetail()
 {
-  $sql = "select * From SANPHAM,loaisp where SANPHAM.malsp=LOAISP.malsp and sanpham.masp = '" . $_REQUEST['code'] . "'";
+  $sql = "select * From sanpham,loaisp where sanpham.MALSP=LOAISP.MALSP and sanpham.masp = '" . $_REQUEST['code'] . "'";
   return $sql;
 }
 

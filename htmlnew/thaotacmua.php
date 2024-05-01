@@ -76,6 +76,10 @@ if(isset($_POST["mua"])){
     echo($date);
     $conn=ConnectDB();
     $sum=0;
+    $address = $_SESSION['khachhang']['address'];
+    if(isset($_REQUEST['addressRecieve'])){
+        $address = $_REQUEST['addressRecieve'];
+    }
     
     $bill_id = randomUUID();
 
@@ -83,7 +87,7 @@ if(isset($_POST["mua"])){
         foreach($_SESSION["cart"] as $i){
             $sum = $sum + ($i->giamgia * $i->soLuong);
         }
-        $sql1=sprintf("insert into bill values('%s','%s',%d,'%s','%s','%s','0','%s','%s')",$bill_id,$date,$sum,$_SESSION['khachhang']['fullname'],$_SESSION['khachhang']['phone'],$_SESSION['khachhang']['address'],$date,$_SESSION['khachhang']['id']);
+        $sql1=sprintf("insert into bill values('%s','%s',%d,'%s','%s','%s','0','%s','%s')",$bill_id,$date,$sum,$_SESSION['khachhang']['fullname'],$_SESSION['khachhang']['phone'],$address,$date,$_SESSION['khachhang']['id']);
         
         $result=$conn->query($sql1);
         if ($result == false) {

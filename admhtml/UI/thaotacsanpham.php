@@ -9,11 +9,15 @@ if(isset($_REQUEST["loaithaotacsanpham"])){
         $giagiam = $_REQUEST['discount'];
         $giavon = $_REQUEST['pre-price'];
         $ngaysx = $_REQUEST['date-up'];
+        $mota = $_REQUEST['mota'];
+        $bonhotrong = $_REQUEST['bonhotrong'];
+        $pin = $_REQUEST['Pin'];
+        $uudai = $_REQUEST['uudai'];
         $MALSP = mapping_MALSP($_REQUEST['product-type']);
         $image = $_FILES['fileToUpload']['name'];
         doFile($image);
         $conn=ConnectDB();
-        $sql=sprintf("insert into sanpham values('%s','%s',%d,%d,'%s','%s','%s',%d)",$masp,$tensanpham,$gia, $giagiam,$ngaysx,$image,$MALSP,$giavon);
+        $sql=sprintf("insert into sanpham values('%s','%s',%d,%d,'%s','%s','%s',%d,0,'%s','%s','%s','%s')",$masp,$tensanpham,$gia, $giagiam,$ngaysx,$image,$MALSP,$giavon,$mota,$bonhotrong,$pin,$uudai);
         echo $sql;
         $result=$conn->query($sql);
         if ($result == false) {
@@ -30,14 +34,18 @@ if(isset($_REQUEST["loaithaotacsanpham"])){
         $giagiam = $_REQUEST['discount'];
         $giavon = $_REQUEST['pre-price'];
         $ngaysx = $_REQUEST['date-up'];
+        $mota = $_REQUEST['mota'];
+        $bonhotrong = $_REQUEST['bonhotrong'];
+        $pin = $_REQUEST['Pin'];
+        $uudai = $_REQUEST['uudai'];
         $MALSP = mapping_MALSP($_REQUEST['product-type']);
         $image = $_FILES['fileToUpload']['name'];
         $conn=ConnectDB();
        
-        $sql=sprintf("update sanpham set tensp ='%s', gia = %d, giamgia = %d, ngaysx = '%s', MALSP='%s', giavon = %d where masp ='%s'",$tensanpham,$gia,$giagiam,$ngaysx,$MALSP,$giavon,$masp);
+        $sql=sprintf("update sanpham set tensp ='%s', gia = %d, giamgia = %d, ngaysx = '%s', MALSP='%s', giavon = %d, mota = '%s', bonhotrong = '%s', pin = '%s', uudai = '%s' where masp ='%s'",$tensanpham,$gia,$giagiam,$ngaysx,$MALSP,$giavon,$mota,$bonhotrong,$pin,$uudai,$masp);
         if($image != ''){
              doFile($image);
-             $sql=sprintf("update sanpham set tensp ='%s', gia = %d, giamgia = %d, ngaysx = '%s', image ='%s', MALSP='%s', giavon = %d where masp ='%s'",$tensanpham,$gia,$giagiam,$ngaysx,$image,$MALSP,$giavon,$masp);
+             $sql=sprintf("update sanpham set tensp ='%s', gia = %d, giamgia = %d, ngaysx = '%s', image ='%s', MALSP='%s', giavon = %d, mota = '%s', bonhotrong = '%s', pin = '%s', uudai = '%s' where masp ='%s'",$tensanpham,$gia,$giagiam,$ngaysx,$image,$MALSP,$giavon,$mota,$bonhotrong,$pin,$uudai,$masp);
         }
         echo $sql;
       

@@ -89,18 +89,18 @@ if($row==null){
   
 
      <br>
-     <div class="a10"><a class="a15" href="../htmlnew/nhap.php">Trang chủ </a> > <a class="a15" href="../htmlnew/sanpham.php">Sản Phẩm </a> > <a class="a15" href="../htmlnew/sanpham.php?productType=<?=$row['tenlsp']?>"><?= $row['tenlsp']?> </a> > <a class="a15" href=""><?= $row['tensp']?> </a> </div>
+     <div class="a10"><a class="a15" href="../htmlnew/nhap.php">Trang chủ </a> > <a class="a15" href="../htmlnew/sanpham.php">Sản Phẩm </a> > <a class="a15" href="../htmlnew/sanpham.php?productType=<?=TypeProduct($row['MALSP'])?>"><?=TypeProduct($row['MALSP'])?> </a> > <a class="a15" href=""><?= $row['tensp']?> </a> </div>
      <br>
      <!-- sanpham(dien thoai iphone) -->
      <!-- hang sp 1-->
      <br>
-     <h1 class="h1-iphone" id="iphone"><img class="hinh-apple" src="../image/imagesapple.png"> <?=ucfirst($row['tenlsp'])?> </h1>
+     <h1 class="h1-iphone" id="iphone"><img class="hinh-apple" src="../image/imagesapple.png"> <?=TypeProduct($row['MALSP'])?> </h1>
      <br>
 
 <div class="sp4444">
        <div class="sp444">
        <div class="sp44">
-         <a href=""><img class="sp44-4" src="<?php echo '../admhtml/'.$row["image"]?>" alt="" width="370px" height="391px">
+         <a href=""><img class="sp44-4" src="<?php echo '../admhtml/'.str_replace('../', '', $row["image"])?>" alt="" width="370px" height="391px">
          </a>
          <div class="sp4-4">
          <h4 class="sp4-1"> <a  class="sp4-1-1" href=""><?= $row['tensp']?></a> </h4>

@@ -66,7 +66,7 @@ $conn->close();
       </li>
             
       
-            <?php } else echo "<li><a class='p1' href='../admhtml/UI/login.php'>Đăng nhập</a></li>"; ?>
+            <?php } else echo "<li><a class='p1' href='login.php'>Đăng nhập</a></li>"; ?>
     </ul>
     
         </div>

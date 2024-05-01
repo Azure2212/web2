@@ -193,6 +193,10 @@ $result = $connDB->query($sql);
                             <th>Giá vốn</th>
                             <th>Giá bán</th>
                             <th>Giá giảm</th>
+                            <th>Mô tả</th>
+                            <th>Bộ nhớ trong</th>
+                            <th>Pin</th>
+                            <th>Ưu đãi</th>
                             <th>Loại</th>
                             <th style="width: 20px;"></th>
                         </tr>
@@ -205,6 +209,10 @@ $result = $connDB->query($sql);
                                 <td><?= $row['giavon'] ?></td>
                                 <td><?= $row['gia'] ?></td>
                                 <td><?= $row['giamgia'] ?></td>
+                                <td><?= $row['mota'] ?></td>
+                                <td><?= $row['bonhotrong'] ?></td>
+                                <td><?= $row['pin'] ?></td>
+                                <td><?= $row['uudai'] ?></td>
                                 <td><?= TypeProduct($row['MALSP']) ?></td>
                                 <td>
                                     <div class="dropdown">

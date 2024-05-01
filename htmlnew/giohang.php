@@ -163,7 +163,7 @@ $sum = 0;
                 <input type="hidden" name="mua" value="1">
 
                 <div class="payment-title">
-                    <input type="text" class="form-control" placeholder="Nhập địa chỉ giao hàng của bạn" />
+                    <input type="text" name="addressRecieve" class="form-control" placeholder="Nhập địa chỉ giao hàng của bạn" />
                 </div>
 
                 <div class="modal-footer">

@@ -2,6 +2,7 @@
 require_once("library.php");
 $conn = ConnectDB();
 
+$result = $conn->query("select * from bill where userId ='".$_SESSION['khachhang']['id']."'");
 $sum = 0;
 
 
@@ -107,38 +108,14 @@ $sum = 0;
                         <h3 class="main-title">Danh Sách Đơn Đặt Hàng</h3>
                     </div>
                     <div class="table-action">
-                        <div class="gr-btn2">
-                            <button type="submit" style="background-color: blue; color: #fff;"><i class="fa-solid fa-search" style="cursor: pointer;"></i></a>
-                        </div>
+                      
                         <!-- <div class="gr-btn1">
                             <a class="btn-title" href="detail_order_form.php">Tạo đơn hàng</a>
                         </div> -->
                     </div>
                 </div>
 
-                <div class="filter-header">
-                    <div class="filter-content">
-                        <label for="fromDate" name="fromdate">Từ ngày:</label>
-                        <input type="date" id="fromDate" value="<?php if (isset($_REQUEST['fromDate'])) echo $_REQUEST['fromDate'];  ?>" name="fromDate">
-                        <label for="toDate" name="toDate">Đến ngày:</label>
-                        <input type="date" id="toDate" value="<?php if (isset($_REQUEST['toDate'])) echo $_REQUEST['toDate'];  ?>" name="toDate">
-                        <select name="status2Search">
-                            <option value="" disabled selected hidden>Trạng Thái</option>
-                            <?php
-                            $loaiTrangThai = ['Đã hủy', "Đã giao hàng", "Đang đặt"];
-                            for ($i = 0; $i < count($loaiTrangThai); $i++) {
-                                if (isset($_REQUEST['status2Search']) && $_REQUEST['status2Search'] == $loaiTrangThai[$i]) {
-                                    echo " <option  selected>" . $loaiTrangThai[$i] . "</option> ";
-                                } else {
-                                    echo " <option >" . $loaiTrangThai[$i] . "</option> ";
-                                }
-                            }
-                            ?>
-                        </select>
-                        <?php if ($errorSearch == true) echo "<h2 style='color:red;margin-left: 5%;'> Bạn tìm kiếm nhưng không chọn điều kiện! <h2>" ?>
-
-                    </div>
-                </div>
+            
 
                 <div class="table-container">
                     <table>
@@ -181,30 +158,10 @@ $sum = 0;
                     </table>
                 </div>
 
-                <ul class="pagination">
-                    <li><a href='order_m.php?page=1'>
-                            <<< /a>
-                    </li>
-                    <?php
-                    if ($_REQUEST['page'] != 1)
-                        echo sprintf("<li><a href='order_m.php?page=%d'><</a></li>", $_REQUEST['page'] - 1);
-                    else
-                        echo "<li><a href='#'><</a></li>";
-                    ?>
-                    <li><a href="#"><?= $_REQUEST['page'] . '/' . $totalPage  ?></a></li>
-                    <?php
-                    if ($_REQUEST['page'] != $totalPage)
-                        echo sprintf("<li><a href='order_m.php?page=%d'>></a></li>", $_REQUEST['page'] + 1);
-                    else
-                        echo "<li><a href='#'>></a></li>";
-                    ?>
-                    <li><a href='order_m.php?page=<?= $totalPage ?>'>>></a></li>
-
-                </ul>
             </div>
         </form>
     </div>
-    <input type="hidden" name='page' value=1>
+   
     </form>
 
 
