@@ -56,6 +56,17 @@ $conn->close();
       <li class="a1" ><a  class="hi" href=""><img class="a5-1" src="../image/icon2.png" alt=""> 0941235169</a> </li>
       <li class="p1" ><a href="daily.php" >Hệ thống phân phối </a> </li>
       <li class="p2" ><a href="giohang.php" >  <img class="a5-2" src="../image/cart-73-24.png" alt="">Giỏ Hàng </a> </li>
+      <li class="p2"><a> <img src="../admhtml/UI/assets/10_NMT.jpg" style="width: 35px; height: 35px; border-radius: 10px;"></a>
+          <div class="option">
+            <select id="selectOption">
+              <option value="#"></option>
+              <option value="../htmlnew/dangky.php">Đăng ký</option>
+              <!-- Thêm một option với giá trị là đường dẫn của trang -->
+              <option value="../admhtml/UI/login.php">Đăng nhập</option>
+              <option value="#">Đăng xuất</option>
+            </select>
+          </div>
+        </li>
     </ul>
     
         </div>

@@ -8,7 +8,8 @@ if(isset($_REQUEST["code"])){
     }
     
         $conn= ConnectDB();
-        $sql="select gia, giamgia from sanpham where masp=".$_REQUEST["code"];
+        $sql="select gia, giamgia from sanpham where masp='".$_REQUEST["code"]."'";
+        echo $sql;
         $result=$conn->query($sql);
         $row=$result->fetch_assoc();
         $code = $_REQUEST["code"];

@@ -22,13 +22,10 @@
     </head>
 
     <body>
-        <div class="header-content">
-            <a href="index.php"><i class="fas fa-sign-out"></i> Quay lại</a>
-        </div>
-
         <div class="container">
             <h2 style="text-align: center;">Đăng ký tài khoản</h2> <!-- Tiêu đề ở đây -->
-            <form id="registration-form">
+            <?php if(isset($_REQUEST['existusername'])) echo "<h2 style='color:red'>Tên đăng nhập đã tồn tại !</h2>"; ?>
+            <form id="registration-form" action="thaotacuser.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="username">Tên đăng nhập:</label>
                     <input type="text" id="username" name="username" required>
@@ -49,22 +46,19 @@
                     <label for="address">Địa chỉ:</label>
                     <input type="text" id="address" name="address" required>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="role">Vai trò:</label>
                     <select id="role" name="role" required style="width: 50%;">
                         <option value="user">Khách hàng</option>
                         <option value="admin">Quản trị viên</option>
                     </select>
-                </div>
-                <div class="form-group">
-                    <label for="dateCreated">Ngày tạo:</label>
-                    <input type="date" id="dateCreated" name="dateCreated" required>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label for="avatar">Ảnh đại diện:</label>
-                    <input type="file" id="avatar" name="avatar">
+                    <input type="file" id="avatar" name="avatar" required>
                 </div>
                 <button type="submit">Đăng Ký Ngay</button>
+                <input type='hidden' name="typeForm" value ="regist">
             </form>
         </div>
     </body>

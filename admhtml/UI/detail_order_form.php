@@ -135,7 +135,7 @@ while ($row = $sp->fetch_assoc()) {
 
                     <form action="thaotacmua.php" method="post" onsubmit="return validateForm1()">
                         <div class="modal-footer">
-                            <a href="thaotacorder.php?loaithaotacorder=book&mabill=<?= $_REQUEST['mabill'] ?>">Giao Hàng</a>
+                            <a href="thaotacorder.php?loaithaotacorder=book&mabill=<?= $_REQUEST['mabill'] ?>">Đang đặt hàng</a>
                             <a href="thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $_REQUEST['mabill'] ?>">Hủy</a>
                             <a href="thaotacorder.php?loaithaotacorder=done&mabill=<?= $_REQUEST['mabill'] ?>">Hoàn thành</a>
                         </div>
