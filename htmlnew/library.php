@@ -93,13 +93,13 @@ function TypeProduct($id)
 
 function ConnectDB()
 {
-  $servername = "127.0.0.1";
-  //$servername = "localhost";
+  //$servername = "127.0.0.1";
+  $servername = "localhost";
   $username = "root";
   $password = "";
   $dbname = "projectforweb";
-  //$port = 3309;
-  $port = 3307;
+  $port = 3309;
+  //$port = 3307;
 
   // Create connection
   $conn = new mysqli($servername, $username, $password, $dbname, $port);

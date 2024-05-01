@@ -69,33 +69,33 @@ thead {
 }
 
 th {
-    padding: 15px;
+    padding: 5px;
     text-align: left;
     border: 0.5px solid rgba(17, 49, 85, 0.486);
 }
 
-tbody {
+.bill-table tbody {
     background: #f2f2f2;
 }
 
-td {
+.bill-table td {
     padding: 15px;
     font-size: 14px;
     color: #333;
     border: 0.5px solid rgba(17, 49, 85, 0.486);
 }
 
-tr:nth-child(even) {
+.bill-table tr:nth-child(even) {
     background: #fff;
 }
 
-tfoot {
+ tfoot {
     background: rgba(17, 49, 85, 0.486);
     font-weight: bold;
     color: #fff;
 }
 
-tfoot td {
+.bill-table tfoot td {
     padding: 15px;
     color: #fff;
 }
