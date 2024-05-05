@@ -59,9 +59,22 @@ if(isset($_REQUEST["loaithaotacsanpham"])){
     }
     if($_REQUEST["loaithaotacsanpham"] == 'xoa'){
         $masp = $_REQUEST['idsp'];
-        echo "delete from sanpham where masp ='". $masp ."'";
+        echo "update sanpham set trangthai = 0 where masp ='". $masp ."'";
         $conn=ConnectDB();
-        $result=$conn->query("delete from sanpham where masp ='". $masp ."'");
+        $result=$conn->query("update sanpham set trangthai = 0 where masp ='". $masp ."'");
+        if ($result == false) {
+           echo " error! ". $conn->error;
+            exit();
+        }
+        $conn->close();
+        header("location: product_m.php?page=1");
+    }
+    if($_REQUEST["loaithaotacsanpham"] == 'khoiphuc'){
+        
+        $masp = $_REQUEST['idsp'];
+        echo "update sanpham set trangthai = 1 where masp ='". $masp ."'";
+        $conn=ConnectDB();
+        $result=$conn->query("update sanpham set trangthai = 1 where masp ='". $masp ."'");
         if ($result == false) {
            echo " error! ". $conn->error;
             exit();

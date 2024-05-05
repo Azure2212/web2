@@ -93,13 +93,13 @@ function TypeProduct($id)
 
 function ConnectDB()
 {
-  //$servername = "127.0.0.1";
-  $servername = "localhost";
+  $servername = "127.0.0.1";
+  //$servername = "localhost";
   $username = "root";
   $password = "";
   $dbname = "projectforweb";
-  $port = 3309;
-  //$port = 3307;
+  //$port = 3309;
+  $port = 3307;
 
   // Create connection
   $conn = new mysqli($servername, $username, $password, $dbname, $port);
@@ -146,40 +146,40 @@ function checkTypeProduct(&$title, &$count)
 
   if ($_REQUEST['productType'] == 'phone') {
     $sql = "SELECT * FROM sanpham, loaisp
-            where sanpham.MALSP=loaisp.MALSP and sanpham.MAlSP='00001'
+            where trangthai = 1 and sanpham.MALSP=loaisp.MALSP and sanpham.MAlSP='00001'
                                 order by MASP ASC
                                 limit " . $start . "," . $end;
-    $count = "SELECT count(*)as num FROM sanpham, loaisp
-            where sanpham.MALSP=loaisp.MALSP and sanpham.MAlSP='00001'";
+    $count = "SELECT count(*) as num FROM sanpham, loaisp
+            where trangthai = 1 and sanpham.MALSP=loaisp.MALSP and sanpham.MAlSP='00001'";
 
     $title = "phone";
   } else if ($_REQUEST['productType'] == 'All') {
 
     $sql = "SELECT * FROM sanpham, loaisp
-            where sanpham.MALSP=loaisp.MALSP 
+            where trangthai = 1 and sanpham.MALSP=loaisp.MALSP 
                                 order by Rand()
                                 limit " . $start . "," . $end;
     $count = "SELECT count(*) as num FROM sanpham, loaisp
-             where sanpham.MALSP=loaisp.MALSP ";
+             where trangthai = 1 and sanpham.MALSP=loaisp.MALSP ";
     // echo $sql;
     // exit;      
     $title = "All";
   } else if ($_REQUEST['productType'] == 'laptop') {
     $sql = "SELECT * FROM sanpham, loaisp
-          where sanpham.MALSP=loaisp.MALSP and sanpham.MAlSP='00002'
+          where trangthai = 1 and sanpham.MALSP=loaisp.MALSP and sanpham.MAlSP='00002'
                               order by MASP ASC
                               limit " . $start . "," . $end;
     $count = "SELECT count(*) as num FROM sanpham, loaisp
-           where sanpham.MALSP=loaisp.MALSP and sanpham.MAlSP='00002'";
+           where trangthai = 1 and sanpham.MALSP=loaisp.MALSP and sanpham.MAlSP='00002'";
 
     $title = "laptop";
   } else if ($_REQUEST['productType'] == 'watch') {
     $sql = "SELECT * FROM sanpham, loaisp
-          where sanpham.MALSP=loaisp.MALSP and sanpham.MAlSP='00003'
+          where trangthai = 1 and sanpham.MALSP=loaisp.MALSP and sanpham.MAlSP='00003'
                               order by MASP ASC
                               limit " . $start . "," . $end;
     $count = "SELECT count(*) as num FROM sanpham, loaisp
-             where sanpham.MALSP=loaisp.MALSP and sanpham.MAlSP='00003'";
+             where trangthai = 1 and sanpham.MALSP=loaisp.MALSP and sanpham.MAlSP='00003'";
 
     $title = "watch";
   } else if ($_REQUEST['productType'] == 'headphone') {
@@ -249,7 +249,7 @@ function getAllProductQuery($current_page, $product_per_page)
   $end = $product_per_page;
 
   $sql = "SELECT * FROM sanpham, loaisp
-  where sanpham.MALSP=loaisp.MALSP 
+  where trangthai = 1 and sanpham.MALSP=loaisp.MALSP 
                       
                       limit " . $start . "," . $end;
   return $sql;

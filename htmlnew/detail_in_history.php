@@ -2,9 +2,15 @@
 require_once("library.php");
 $conn = ConnectDB();
 
-
-$result = $conn->query("select * from bill where userId ='" . $_SESSION['khachhang']['id'] . "'");
+$result = $conn->query("select * from chitietbill where mabill ='" . $_REQUEST['mabill']. "'");
 $sum = 0;
+
+$tensp = $conn->query("select * from sanpham");
+$tensps = array();
+while ($row = $tensp->fetch_assoc()) { 
+    $tensps[$row["masp"]] = $row;
+}
+
 
 
 ?>
@@ -120,7 +126,7 @@ $sum = 0;
             <div class="table--wrapper">
                 <div class="table-title">
                     <div class="table-header">
-                        <h3 class="main-title">Danh Sách Đơn Đặt Hàng</h3>
+                        <h3 class="main-title">Danh Sách Sản phẩm đã đặt</h3>
                     </div>
                     <div class="table-action">
 
@@ -130,39 +136,25 @@ $sum = 0;
                     </div>
                 </div>
 
+
+
                 <div class="table-container">
                     <table class="bill-table">
                         <thead>
                             <tr>
-                                <th>Ngày lập</th>
-                                <th>Tổng tiền</th>
-                                <th>Tên Khách hàng</th>
-                                <th>Số điện thoại</th>
-                                <th>Địa chỉ</th>
-                                <th>Tình trạng</th>
-                                <th>Ngày cập nhất cuối cùng</th>
-                                <th style="width: 20px;"></th>
+                                <th>Hình ảnh</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php while ($row = $result->fetch_assoc()) { ?>
                                 <tr>
-                                    <td><?= $row['date'] ?></td>
+                                    <td><img src="<?= '../admhtml/' . str_replace('../', '', $tensps[$row['MASP']]['image']) ?>" style="width: 40px; height: 40px;"></td>
+                                    <td><?=  $tensps[$row['MASP']]['tensp'] ?></td>
                                     <td><?= $row['soluong'] ?></td>
-                                    <td><?= $row['name'] ?></td>
-                                    <td><?= $row['phone'] ?></td>
-                                    <td><?= $row['address'] ?></td>
-                                    <td><?= mapping_Status($row['status']) ?></td>
-                                    <td><?= $row['lastDateUpdated'] ?></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button><i class="fas fa-edit"></i></button>
-                                            <div class="dropdown-item">
-                                                <a href="detail_in_history.php?mabill=<?= $row['id'] ?>">Xem chi tiết</a>
-                                                <a href="../admhtml/thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>">Hủy</a>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <td><?= $row['soluong'] * $tensps[$row['MASP']]['giamgia'] ?></td>    
                                 </tr>
                             <?php } ?>
 

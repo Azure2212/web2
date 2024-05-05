@@ -40,6 +40,7 @@ session_unset();
                         ?>
                     </select> -->
             <button type="submit">Đăng nhập</button>
+            <a href="../admhtml/UI/register.php">Đăng ký</a>
             <input type='hidden' name="typeForm" value ="login">
             <input type='hidden' name="role" value ="Khách hàng">
         </form>

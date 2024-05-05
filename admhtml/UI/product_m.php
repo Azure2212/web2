@@ -28,12 +28,12 @@ if(isset($_REQUEST['nameProduct2Search'])){
             $condition3 =" and tensp like '%".$_REQUEST['nameProduct2Search']."%' ";
         }
         $sqlSearch = "SELECT * FROM sanpham, loaisp
-        where sanpham.MALSP=loaisp.MALSP". $condition1. $condition2. $condition3." 
+        where  sanpham.MALSP=loaisp.MALSP". $condition1. $condition2. $condition3." 
                       
                       limit " . $start . "," . $end;
 
         $sqlCount = "SELECT count(*) as total FROM sanpham, loaisp
-        where sanpham.MALSP=loaisp.MALSP". $condition1. $condition2. $condition3;
+        where  sanpham.MALSP=loaisp.MALSP". $condition1. $condition2. $condition3;
                       
         #echo $sqlSearch;
     }
@@ -220,6 +220,9 @@ $result = $connDB->query($sql);
                                         <div class="dropdown-item">
                                             <a href="thaotacsanpham.php?loaithaotacsanpham=xoa&idsp=<?= $row['masp'] ?>">Xóa</a>
                                             <a href="create_product_form.php?typePage=chinhsuasp&idsp=<?= $row['masp'] ?>">Sửa</a>
+                                            <?php if($row['trangthai']==0){ 
+                                                echo "<a href='thaotacsanpham.php?loaithaotacsanpham=khoiphuc&idsp=".$row['masp']."'>Khôi phục</a>";
+                                             } ?>
                                         </div>
                                     </div>
                                 </td>

@@ -9,21 +9,24 @@ if($_REQUEST['typeForm'] == "login"){
     $role = $_REQUEST["role"];
     $connectDB = ConnectDB();
     $result = $connectDB->query("select * from user where username ='". $username."'");
-    if($result->num_rows == 0) header("location: login.php?wronglogin=1");
+    if($result->num_rows == 0 && $row["role"] == 0) header("location: ../../htmlnew/login.php?wronglogin=1");
+    if($result->num_rows == 0 && $row["role"] == 1) header("location: login.php?wronglogin=1");
     $row = $result->fetch_assoc();
     if($row["password"] != $password) header("location: login.php?wronglogin=1");
     else{
-        if($role != mapping_userRole($row["role"])) header("location: login.php?wronglogin=1");
+        if($role != mapping_userRole($row["role"])) header("location: ../../htmlnew/nhap.php?wronglogin=1");
         else {
             echo $role;
            
             if($role == 'Quản trị viên'){
-                header("location: index.php");
                 $_SESSION['userInfor'] = $row;
+                header("location: index.php");
+                
             }
             else{
-                header("location: ../../htmlnew/nhap.php");
                 $_SESSION['khachhang'] = $row;
+                header("location: ../../htmlnew/nhap.php");
+                
             }
         }
     }
@@ -55,7 +58,7 @@ if($_REQUEST['typeForm'] == "regist"){
         exit();
     }
     $connectDB->close();
-    header("location: login.php?");
+    header("location: ../../htmlnew/login.php?");
 }
 
 

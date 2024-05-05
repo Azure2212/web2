@@ -102,9 +102,11 @@ if(isset($_POST["mua"])){
             $result=$conn->query($sql2);
         }
         $_SESSION['cart']=array();
-        header("location: giohang.php?done=1");
 
         $conn->close();
+        $path = "location: detail_in_history.php?mabill=".$bill_id."";
+        echo $path;
+        header($path);
      }
      else{
         header("location: giohang.php?done=2");
