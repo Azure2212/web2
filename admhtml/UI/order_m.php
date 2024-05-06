@@ -114,11 +114,6 @@ $result = $connDB->query($sql);
                 <h2>Quản lý đơn đặt hàng</h2>
             </div>
             <div class="user-info">
-                <div class="search-box">
-                    <i class="fa-solid fa-search">
-                    </i>
-                    <input type="text" placeholder="Search" />
-                </div>
                 <div class="dropdown">
                     <img src="<?php echo $_SESSION["userInfor"]["avatar"]; ?>" style="width: 50px; height: 50px;">
                     <div class="dropdown-item">

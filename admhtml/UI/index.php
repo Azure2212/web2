@@ -76,14 +76,6 @@ $sql5 = "select count(*) as amount_booking from bill where status =0 and date='"
                 <h2>Trang chủ</h2>
             </div>
             <div class="user-info">
-                <div class="search-box">
-                    <i class="fa-solid fa-search">
-                    </i>
-                    <input type="text" placeholder="Bạn cần tìm gì ?" />
-                </div>
-                <div class="btn-search-full">
-                    <button class="btn-search-content"><i class="fa-solid fa-search"></i></button>
-                </div>
                 <div class="dropdown">
                     <img src="<?php echo $_SESSION["userInfor"]["avatar"]; ?>" style="width: 50px; height: 50px;">
                     <div class="dropdown-item">

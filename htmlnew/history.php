@@ -141,7 +141,7 @@ $sum = 0;
                                 <th>Địa chỉ</th>
                                 <th>Tình trạng</th>
                                 <th>Ngày cập nhất cuối cùng</th>
-                                <th style="width: 20px;"></th>
+                                <th style="width: 150px;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -155,12 +155,17 @@ $sum = 0;
                                     <td><?= mapping_Status($row['status']) ?></td>
                                     <td><?= $row['lastDateUpdated'] ?></td>
                                     <td>
-                                        <div class="dropdown">
-                                            <button><i class="fas fa-edit"></i></button>
-                                            <div class="dropdown-item">
-                                                <a href="detail_in_history.php?mabill=<?= $row['id'] ?>">Xem chi tiết</a>
-                                                <a href="../admhtml/thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>">Hủy</a>
-                                            </div>
+                                        <div class="dropdown" style="text-align: center; padding: 5px;">
+                                            <!-- <button><i class="fas fa-edit"></i></button> -->
+                                           
+                                            <a class="see-h" style="color: #000000; font-weight: bold;" href="detail_in_history.php?mabill=<?= $row['id'] ?>"><h4>Xem chi tiết</h4></a>
+                                            <a class="see-h" style="color: red; font-weight: bold;" href="../admhtml/thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>"><h4>Hủy</h4></a>
+                                        
+                                            <style>
+                                                .see-h h4:hover{
+                                                   transform: scale(1.2);
+                                                }
+                                            </style>
                                         </div>
                                     </td>
                                 </tr>
@@ -388,4 +393,5 @@ $sum = 0;
         outline: 0;
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     }
+
 </style>
