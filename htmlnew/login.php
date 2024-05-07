@@ -1,4 +1,4 @@
-<?php 
+<?php
 require("library.php");
 
 session_unset();
@@ -17,13 +17,13 @@ session_unset();
 
 <body>
     <div class="login-container">
-        
+
         <form class="login-form" action="../admhtml/UI/thaotacuser.php" method='post' enctype="multipart/form-data">
-        
+
             <h2>Đăng nhập tài khoản </h2>
-            <?php if(isset($_REQUEST['wronglogin'])) echo "<div><a style='color:red;'> Sai tên đăng nhập hoặc mật khẩu</a></div>"?>
+            <?php if (isset($_REQUEST['wronglogin'])) echo "<div><a style='color:red;'> Sai tên đăng nhập hoặc mật khẩu</a></div>" ?>
             <div class="input-group">
-                <label for="username">Tên đăng nhập  </label>
+                <label for="username">Tên đăng nhập </label>
                 <input type="text" id="username" name="username" placeholder="Tên đăng nhập" required>
             </div>
             <div class="input-group">
@@ -40,9 +40,34 @@ session_unset();
                         ?>
                     </select> -->
             <button type="submit">Đăng nhập</button>
-            <a href="../admhtml/UI/register.php">Đăng ký</a>
-            <input type='hidden' name="typeForm" value ="login">
-            <input type='hidden' name="role" value ="Khách hàng">
+            <div class="btn-regist">
+                <a href="../admhtml/UI/register.php">
+                    <p>Đăng ký</p>
+                </a>
+            </div>
+            <style>
+                .btn-regist {
+                    width: 40%;
+                    height: 30px;
+                    background-color: wheat;
+                    color: #fff;
+                    border-radius: 0.3rem;
+                }
+
+                .btn-regist p {
+                    padding: 5px;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    color: #000000;
+                }
+
+                .btn-regist:hover {
+                    transform: scale(1.1);
+                }
+            </style>
+            <input type='hidden' name="typeForm" value="login">
+            <input type='hidden' name="role" value="Khách hàng">
         </form>
     </div>
 </body>
