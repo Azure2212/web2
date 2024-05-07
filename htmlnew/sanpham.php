@@ -162,7 +162,7 @@ $conn->close();
             <a class="c12"><? $row["ngaysx"] ?></a>
 
             <form action="thaotacmua.php" method="get">
-              <div class="tooltip"> <input type="submit" name="n" id="n" class="m1" value="+">
+              <div class="tooltip"> <input type="submit" name="n" id="n" class="m1" value="+" style="width: 150px; height: 40px; border-radius: 2rem;">
                 <span class="ambition">thêm vào giỏ hàng </span>
               </div>
               <input type="hidden" name="code" value="<?= $row['masp'] ?>">
@@ -187,7 +187,7 @@ $conn->close();
             <?php } ?>
             <a class="c12"><? $row["ngaysx"] ?></a>
             <form action="thaotacmua.php" method="get">
-              <div class="tooltip"> <input type="submit" name="n" id="n" class="m1" value="+">
+              <div class="tooltip"> <input type="submit" name="n" id="n" class="m1" value="+" style="width: 150px; height: 40px; border-radius: 2rem;">
                 <span class="ambition">thêm vào giỏ hàng </span>
               </div>
               <input type="hidden" name="code" value="<?= $row['masp'] ?>">
@@ -212,7 +212,7 @@ $conn->close();
             <?php } ?>
             <a class="c12"> <? $row["ngaysx"] ?></a>
             <form action="thaotacmua.php" method="get">
-              <div class="tooltip"> <input type="submit" name="n" id="n" class="m1" value="+">
+              <div class="tooltip"> <input type="submit" name="n" id="n" class="m1" value="+" style="width: 150px; height: 40px; border-radius: 2rem;">
                 <span class="ambition">thêm vào giỏ hàng </span>
               </div>
               <input type="hidden" name="code" value="<?= $row['masp'] ?>">
@@ -241,7 +241,7 @@ $conn->close();
               <?php } ?>
               <a class="c12"> <? $row["ngaysx"] ?></a>
               <form action="thaotacmua.php" method="get">
-                <div class="tooltip"> <input type="submit" name="n" id="n" class="m1" value="+">
+                <div class="tooltip"> <input type="submit" name="n" id="n" class="m1" value="+" style="width: 150px; height: 40px; border-radius: 2rem;">
                   <span class="ambition">thêm vào giỏ hàng </span>
                 </div>
                 <input type="hidden" name="code" value="<?= $row['masp'] ?>">
@@ -266,7 +266,7 @@ $conn->close();
               <?php } ?>
               <a class="c12"> <? $row["ngaysx"] ?></a>
               <form action="thaotacmua.php" method="get">
-                <div class="tooltip"> <input type="submit" name="n" id="n" class="m1" value="+">
+                <div class="tooltip"> <input type="submit" name="n" id="n" class="m1" value="+" style="width: 150px; height: 40px; border-radius: 2rem;">
                   <span class="ambition">thêm vào giỏ hàng </span>
                 </div>
                 <input type="hidden" name="code" value="<?= $row['masp'] ?>">
@@ -291,7 +291,7 @@ $conn->close();
               <?php } ?>
               <a class="c12"> <? $row["ngaysx"] ?></a>
               <form action="thaotacmua.php" method="get">
-                <div class="tooltip"> <input type="submit" name="n" id="n" class="m1" value="+">
+                <div class="tooltip"> <input type="submit" name="n" id="n" class="m1" value="+" style="width: 150px; height: 40px; border-radius: 2rem;">
                   <span class="ambition">thêm vào giỏ hàng </span>
                 </div>
                 <input type="hidden" name="code" value="<?= $row['masp'] ?>">
@@ -303,6 +303,14 @@ $conn->close();
       </div>
     </div>
     <br>
+
+    <style>
+      .m1:hover {
+        cursor: pointer;
+        background-color: blue;
+        color: #fff;
+      }
+    </style>
     <!-- nút qua trang -->
 
     <div class="pagination">

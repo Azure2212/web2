@@ -90,7 +90,7 @@ $result = $connDB->query($sql);
                 </a>
             </li>
             <li>
-                <a href="report_m.php">
+                <a href="report_m.php?page=1">
                     <i class="fas fa-chart-area">
                         <span>Báo cáo </span>
                     </i>

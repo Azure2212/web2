@@ -178,53 +178,53 @@ $sql5 = "select count(*) as amount_booking from bill where status =0 and date='"
                     </span>
                 </div>
             </div>
-        </div>
-
-        <!-- Table ne -->
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Ngày lập</th>
-                        <th>Số lượng</th>
-                        <th>Tên Khách hàng</th>
-                        <th>Số điện thoại</th>
-                        <th>Địa chỉ</th>
-                        <th>Tình trạng</th>
-                        <th>Ngày cập nhất cuối cùng</th>
-                        <th style="width: 20px;"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-
-                    $result = $connectDB->query("select * from bill where date ='" . $date . "' limit 10");
-
-
-                    while ($row = $result->fetch_assoc()) { ?>
+            <br><br>
+            <!-- Table ne -->
+            <div class="table-container" style="background-color: yellowgreen;">
+                <table>
+                    <thead>
                         <tr>
-                            <td><?= $row['date'] ?></td>
-                            <td><?= $row['soluong'] ?></td>
-                            <td><?= $row['name'] ?></td>
-                            <td><?= $row['phone'] ?></td>
-                            <td><?= $row['address'] ?></td>
-                            <td><?= mapping_Status($row['status']) ?></td>
-                            <td><?= $row['lastDateUpdated'] ?></td>
-                            <td>
-                                <div class="dropdown">
-                                    <button><i class="fas fa-edit"></i></button>
-                                    <div class="dropdown-item">
-                                        <a href="detail_order_form.php?mabill=<?= $row['id'] ?>">Xem chi tiết</a>
-                                        <a href="thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>">Hủy</a>
-                                        <a href="thaotacorder.php?loaithaotacorder=done&mabill=<?= $row['id'] ?>">Hoàn thành</a>
-                                    </div>
-                                </div>
-                            </td>
+                            <th>Ngày lập</th>
+                            <th>Số lượng</th>
+                            <th>Tên Khách hàng</th>
+                            <th>Số điện thoại</th>
+                            <th>Địa chỉ</th>
+                            <th>Tình trạng</th>
+                            <th>Ngày cập nhất cuối cùng</th>
+                            <th style="width: 20px;"></th>
                         </tr>
-                    <?php } ?>
+                    </thead>
+                    <tbody>
+                        <?php
 
-                </tbody>
-            </table>
+                        $result = $connectDB->query("select * from bill where date ='" . $date . "' limit 10");
+
+
+                        while ($row = $result->fetch_assoc()) { ?>
+                            <tr style="font-size: 16px; font-weight: bold;">
+                                <td><?= $row['date'] ?></td>
+                                <td><?= $row['soluong'] ?></td>
+                                <td><?= $row['name'] ?></td>
+                                <td><?= $row['phone'] ?></td>
+                                <td><?= $row['address'] ?></td>
+                                <td><?= mapping_Status($row['status']) ?></td>
+                                <td><?= $row['lastDateUpdated'] ?></td>
+                                <td style="font-weight: normal;">
+                                    <div class="dropdown">
+                                        <button><i class="fas fa-edit"></i></button>
+                                        <div class="dropdown-item">
+                                            <a href="detail_order_form.php?mabill=<?= $row['id'] ?>">Xem chi tiết</a>
+                                            <a href="thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>">Hủy</a>
+                                            <a href="thaotacorder.php?loaithaotacorder=done&mabill=<?= $row['id'] ?>">Hoàn thành</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php } ?>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>
@@ -252,5 +252,4 @@ $sql5 = "select count(*) as amount_booking from bill where status =0 and date='"
     .btn-search-content :hover {
         transform: scale(1.2);
     }
-
 </style>

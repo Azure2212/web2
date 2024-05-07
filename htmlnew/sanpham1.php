@@ -125,18 +125,25 @@ if ($row == null) {
           <a class="c12">Năm sản xuât: <?= $row['ngaysx'] ?></a>
 
           <form action="thaotacmua.php" method="get">
-            <div class="tooltip"> <button name="n" id="n" class="m1"> <b>+</b></button>
-              <span class="ambition">thêm vào giỏ hàng </span>
+            <div class="tooltip"> <button name="n" id="n" class="m1" style="width: 150px; height: 40px; border-radius: 2rem;"> <b style="font-size: 14px;">+</b></button>
+              <span class="ambition">Thêm vào giỏ hàng </span>
             </div>
             <input type="hidden" name="code" value="<?= $row['masp'] ?>">
           </form>
 
+          <style>
+            .m1:hover {
+              cursor: pointer;
+              background-color: blue;
+              color: #fff;
+            }
+          </style>
         </div>
       </div>
       <div class="sp44">
         <div class="cauhinh">
           <p><b>Mô tả:</b></p>
-          <p class="cauhinhmau"><?= $row['mota'] ?></p>
+          <p class="cauhinhmau" style="border-radius: 1rem; font-weight: bold; color: red; padding: 5px;"><?= $row['mota'] ?></p>
           <p><b>Bộ nhớ trong:</b> <?= $row['bonhotrong'] ?></p>
           <p><b>Pin, Sạc:</b> <?= $row['pin'] ?></p>
         </div>

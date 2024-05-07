@@ -157,13 +157,48 @@ $sum = 0;
                                     <td>
                                         <div class="dropdown" style="text-align: center; padding: 5px;">
                                             <!-- <button><i class="fas fa-edit"></i></button> -->
-                                           
-                                            <a class="see-h" style="color: #000000; font-weight: bold;" href="detail_in_history.php?mabill=<?= $row['id'] ?>"><h4>Xem chi tiết</h4></a>
-                                            <a class="see-h" style="color: red; font-weight: bold;" href="../admhtml/thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>"><h4>Hủy</h4></a>
-                                        
+
+                                            <!-- <a class="see-h" style="color: #000000; font-weight: bold;" href="detail_in_history.php?mabill=<?= $row['id'] ?>">
+                                                <h4>Xem chi tiết</h4>
+                                            </a>
+                                            <a class="see-h" style="color: red; font-weight: bold;" href="../admhtml/thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>">
+                                                <h4>Hủy</h4>
+                                            </a> -->
+
+                                            <button><i class="fas fa-edit"></i></button>
+                                            <div class="dropdown-item">
+                                                <a href="detail_in_history.php?mabill=<?= $row['id'] ?>">Xem chi tiết</a>
+                                                <a href="../admhtml/thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>">Sửa</a>
+                                            </div>
+
+
                                             <style>
-                                                .see-h h4:hover{
-                                                   transform: scale(1.2);
+                                                .dropdown-item {
+                                                    display: none;
+                                                    position: absolute;
+                                                    background-color: #f9f9f9;
+                                                    min-width: 160px;
+                                                    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+                                                    z-index: 1;
+                                                }
+
+                                                .dropdown-item a {
+                                                    color: black;
+                                                    padding: 12px 16px;
+                                                    text-decoration: none;
+                                                    display: block;
+                                                }
+
+                                                .dropdown-item a:hover {
+                                                    background-color: #f1f1f1;
+                                                }
+
+                                                .dropdown:hover .dropdown-item {
+                                                    display: block;
+                                                }
+
+                                                .dropdown:hover .fa-search {
+                                                    display: none;
                                                 }
                                             </style>
                                         </div>
@@ -393,5 +428,4 @@ $sum = 0;
         outline: 0;
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     }
-
 </style>
