@@ -11,6 +11,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="StyleSheet" href='../css/gioithieu1.css'>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&display=swap">
         <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> -->
 
         <title>Giới thiệu</title>
@@ -48,7 +50,7 @@
                         </li>
 
 
-                    <?php } else echo "<li><a class='p1' href='login.php'>Đăng nhập</a></li>"; ?>
+                    <?php } else echo "<li><a class='' href='login.php'>Đăng nhập</a></li>"; ?>
                 </ul>
             </div>
             <div class="sidebar">
@@ -78,7 +80,11 @@
                                                                                     echo "bạn chưa nhập gì cả!";
                                                                                 else
                                                                                     findSomeThing($_GET["nvn"]);
-                                                                            } else echo "Bạn tìm gì?"; ?>" name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;"><input type="submit" name="find" value="" class="b21" /></li>
+                                                                            } else echo "Bạn tìm gì?"; ?>" name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;">
+
+                            <input type="submit" name="find" value="" class="b21" /><i class="fas fa-search" style="margin-left: -15px; color: black; margin-top: 20px;  position: absolute; font-size: 10px;">
+                            </i>
+                        </li>
                         <input type="hidden" name="productType" value="find" />
                         <input type="hidden" name="page" value="1" />
 

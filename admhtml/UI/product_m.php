@@ -8,7 +8,16 @@ $connDB = connectDB();
 $errorSearch = false;
 $sqlSearch ='';
 
+$addition_filter = '';
+if(isset($_REQUEST['nameProduct2Search']) && $_REQUEST['nameProduct2Search'] =='')
+    $addition_filter = $addition_filter.'&nameProduct2Search='.$_REQUEST['nameProduct2Search'];
+if(isset($_REQUEST['status2Search']))
+    $addition_filter = $addition_filter.'&status2Search='.$_REQUEST['status2Search'];
+if(isset($_REQUEST['category2Search']))
+    $addition_filter = $addition_filter.'&category2Search='.$_REQUEST['category2Search'];
+//nameProduct2Search=a&status2Search=Hiện+hành&category2Search=Điện+thoại&page
 $sqlCount = "select count(*) as total from sanpham where trangthai = 1";
+
 if(isset($_REQUEST['nameProduct2Search'])){
     if(!isset($_REQUEST['status2Search']) && !isset($_REQUEST['category2Search']) && $_REQUEST['nameProduct2Search'] ==''){
         $errorSearch = true;
@@ -127,7 +136,7 @@ $result = $connDB->query($sql);
                 </div>
                 <div class="table-action">
                     <div class="gr-btn2">
-                    <button type="submit" style="background-color: blue; color: #fff;"><i class="fa-solid fa-search" style="cursor: pointer;"></i></a>
+                    <button type="submit" style="background-color: blue; color: #fff;"><i class="fa-solid fa-search" style="cursor: pointer; font-size: 18px;"></i></button>
                     </div>
                     <div class="gr-btn1">
                         <a class="btn-title" href="create_product_form.php">Tạo sản phẩm</a>
@@ -228,23 +237,23 @@ $result = $connDB->query($sql);
             </div>
 
             <ul class="pagination">
-                <li><a href='product_m.php?page=1'>
+                <li><a href='product_m.php?page=1&<?php echo $addition_filter;?>'>
                         <<</a>
                 </li>
                 <?php
                 if ($_REQUEST['page'] != 1)
-                    echo sprintf("<li><a href='product_m.php?page=%d'><</a></li>", $_REQUEST['page'] - 1);
+                    echo sprintf("<li><a href='product_m.php?page=%d&%s'><</a></li>", $_REQUEST['page'] - 1,$addition_filter);
                 else
-                    echo "<li><a href='#'><</a></li>";
+                    echo sprintf("<li><a href='product_m.php?page=%d&%s'><</a></li>", $_REQUEST['page'],$addition_filter);
                 ?>
                 <li><a href="#"><?= $_REQUEST['page'] . '/' . $totalPage  ?></a></li>
                 <?php
                 if ($_REQUEST['page'] != $totalPage)
-                    echo sprintf("<li><a href='product_m.php?page=%d'>></a></li>", $_REQUEST['page'] + 1);
+                    echo sprintf("<li><a href='product_m.php?page=%d&%s'>></a></li>", $_REQUEST['page'] + 1,$addition_filter);
                 else
-                    echo "<li><a href='#'>></a></li>";
+                echo sprintf("<li><a href='product_m.php?page=%d&%s'><</a></li>", $_REQUEST['page'],$addition_filter);
                 ?>
-                <li><a href='product_m.php?page=<?= $totalPage ?>'>>></a></li>
+                <li><a href='product_m.php?page=<?php echo $totalPage."&".$addition_filter; ?>'>>></a></li>
 
             </ul>
         </div>

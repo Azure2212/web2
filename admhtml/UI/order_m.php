@@ -7,6 +7,15 @@ $productPerPage = 20;
 
 $errorSearch = false;
 
+$addition_filter = '';
+if(isset($_REQUEST['fromDate']))
+    $addition_filter = $addition_filter.'&fromDate='.$_REQUEST['fromDate'];
+if(isset($_REQUEST['toDate']))
+    $addition_filter = $addition_filter.'&toDate='.$_REQUEST['toDate'];
+if(isset($_REQUEST['status2Search']))
+    $addition_filter = $addition_filter.'&status2Search='.$_REQUEST['status2Search'];
+//fromDate=2024-05-01&toDate=2024-05-01&status2Search=%C4%90%C3%A3+giao+h%C3%A0ng&page=1
+
 $sqlSearch = '';
 $queryCount = "select count(*) as total from bill";
 if (isset($_REQUEST['fromDate'])) {
@@ -132,7 +141,7 @@ $result = $connDB->query($sql);
                     </div>
                     <div class="table-action">
                         <div class="gr-btn2">
-                            <button type="submit" style="background-color: blue; color: #fff;"><i class="fa-solid fa-search" style="cursor: pointer;"></i></a>
+                        <button type="submit" style="background-color: blue; color: #fff;"><i class="fa-solid fa-search" style="cursor: pointer; font-size: 18px;"></i></button>
                         </div>
                         <!-- <div class="gr-btn1">
                             <a class="btn-title" href="detail_order_form.php">Tạo đơn hàng</a>
@@ -206,23 +215,23 @@ $result = $connDB->query($sql);
                 </div>
                 
                 <ul class="pagination">
-                    <li><a href='order_m.php?page=1'>
+                    <li><a href='order_m.php?page=1&<?php echo $addition_filter;?>'>
                             <<</a>
                     </li>
                     <?php
                     if ($_REQUEST['page'] != 1)
-                        echo sprintf("<li><a href='order_m.php?page=%d'><</a></li>", $_REQUEST['page'] - 1);
+                        echo sprintf("<li><a href='order_m.php?page=%d&%s'><</a></li>", $_REQUEST['page'] - 1,$addition_filter);
                     else
-                        echo "<li><a href='#'><</a></li>";
+                        echo sprintf("<li><a href='order_m.php?page=%d&%s'><</a></li>", $_REQUEST['page'],$addition_filter);;
                     ?>
                     <li><a href="#"><?= $_REQUEST['page'] . '/' . $totalPage  ?></a></li>
                     <?php
                     if ($_REQUEST['page'] != $totalPage)
-                        echo sprintf("<li><a href='order_m.php?page=%d'>></a></li>", $_REQUEST['page'] + 1);
+                        echo sprintf("<li><a href='order_m.php?page=%d&%s'>></a></li>", $_REQUEST['page'] + 1,$addition_filter);
                     else
-                        echo "<li><a href='#'>></a></li>";
+                        echo sprintf("<li><a href='order_m.php?page=%d&%s'>></a></li>", $_REQUEST['page'],$addition_filter);
                     ?>
-                    <li><a href='order_m.php?page=<?= $totalPage ?>'>>></a></li>
+                    <li><a href='order_m.php?page=<?php echo $totalPage."&".$addition_filter; ?>'>>></a></li>
 
                 </ul>
             </div>

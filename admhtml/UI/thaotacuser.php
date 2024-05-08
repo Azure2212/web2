@@ -12,13 +12,21 @@ if($_REQUEST['typeForm'] == "login"){
     if($result->num_rows == 0 && $row["role"] == 0) header("location: ../../htmlnew/login.php?wronglogin=1");
     if($result->num_rows == 0 && $row["role"] == 1) header("location: login.php?wronglogin=1");
     $row = $result->fetch_assoc();
-    if($row["password"] != $password) header("location: login.php?wronglogin=1");
+    if($row["password"] != $password){
+        header("location: login.php?wronglogin=1");
+    }
     else{
-        if($role != mapping_userRole($row["role"])) header("location: ../../htmlnew/nhap.php?wronglogin=1");
+
+        if($role != mapping_userRole($row["role"])) 
+        {   
+            header("location: ../../htmlnew/login.php?wronglogin=1");
+            
+        }
         else {
             if($role == 'Quản trị viên'){
                 $_SESSION['userInfor'] = $row;
                 header("location: index.php");
+                return;
                 
             }
             else{

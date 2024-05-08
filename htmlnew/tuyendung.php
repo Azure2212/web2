@@ -46,7 +46,7 @@
           </li>
 
 
-        <?php } else echo "<li><a class='p1' href='login.php'>Đăng nhập</a></li>"; ?>
+        <?php } else echo "<li><a class='' href='login.php'>Đăng nhập</a></li>"; ?>
       </ul>
 
     </div>
@@ -77,7 +77,11 @@
                                                                 echo "bạn chưa nhập gì cả!";
                                                               else
                                                                 findSomeThing($_GET["nvn"]);
-                                                            } else echo "Bạn tìm gì?"; ?>" name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;"><input type="submit" name="find" value="" class="b21" /></li>
+                                                            } else echo "Bạn tìm gì?"; ?>" name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;">
+
+            <input type="submit" name="find" value="" class="b21" /><i class="fas fa-search" style="margin-right: 10px; margin-top: 20px; position: absolute; font-size: 10px;">
+            </i>
+          </li>
           <input type="hidden" name="productType" value="find" />
           <input type="hidden" name="page" value="1" />
 
@@ -89,12 +93,8 @@
   <br>
   <div class="a10"><a class="a15" href="../html/nhap.php">Trang chủ </a> > <a class="a15" href="../htmlnew/tintuc.php">Tuyển dụng</a></div>
   <br>
-  <video controls class="video">
-    <source src="../video/tuyendung.mp4">
-  </video>
-  <br>
-  <br>
-  <img class="hinhtuyendung" src="../image/tuyendung.jpg">
+
+  <img class="hinhtuyendung" src="../admhtml/images/tuyendung.jpg">
   <div class="thongtintd">
     <ol>
       <p>Mô tả công việc</p>

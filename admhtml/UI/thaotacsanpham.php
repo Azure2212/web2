@@ -17,7 +17,7 @@ if(isset($_REQUEST["loaithaotacsanpham"])){
         $image = $_FILES['fileToUpload']['name'];
         doFile($image);
         $conn=ConnectDB();
-        $sql=sprintf("insert into sanpham values('%s','%s',%d,%d,'%s','%s','%s',%d,0,'%s','%s','%s','%s')",$masp,$tensanpham,$gia, $giagiam,$ngaysx,$image,$MALSP,$giavon,$mota,$bonhotrong,$pin,$uudai);
+        $sql=sprintf("insert into sanpham values('%s','%s',%d,%d,'%s','%s','%s',%d,1,'%s','%s','%s','%s')",$masp,$tensanpham,$gia, $giagiam,$ngaysx,$image,$MALSP,$giavon,$mota,$bonhotrong,$pin,$uudai);
         echo $sql;
         $result=$conn->query($sql);
         if ($result == false) {

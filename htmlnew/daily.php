@@ -44,7 +44,7 @@
           </li>
 
 
-        <?php } else echo "<li><a class='p1' href='login.php'>Đăng nhập</a></li>"; ?>
+        <?php } else echo "<li><a class='' href='login.php'>Đăng nhập</a></li>"; ?>
       </ul>
 
     </div>
@@ -75,7 +75,11 @@
                                                                 echo "bạn chưa nhập gì cả!";
                                                               else
                                                                 findSomeThing($_GET["nvn"]);
-                                                            } else echo "Bạn tìm gì?"; ?>" name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;"><input type="submit" name="find" value="" class="b21" /></li>
+                                                            } else echo "Bạn tìm gì?"; ?>" name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;">
+
+            <input type="submit" name="find" value="" class="b21" /><i class="fas fa-search" style=" margin-top: 20px; margin-left: -15px; color: black; position: absolute; font-size: 10px;">
+            </i>
+          </li>
           <input type="hidden" name="productType" value="find" />
           <input type="hidden" name="page" value="1" />
 

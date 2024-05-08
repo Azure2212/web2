@@ -68,7 +68,7 @@ $conn->close();
           </li>
 
 
-        <?php } else echo "<li><a class='p1' href='login.php'>Đăng nhập</a></li>"; ?>
+        <?php } else echo "<li><a class='' href='login.php'>Đăng nhập</a></li>"; ?>
       </ul>
 
     </div>
@@ -97,8 +97,13 @@ $conn->close();
           <li> <input type="text" class="a6" placeholder=" <?php if (isset($_GET["nvn"])) {
                                                               if (strlen(str_replace(" ", "", $_GET["nvn"])) == 0)
                                                                 echo "bạn chưa nhập gì cả!";
-                                                              else echo "Bạn cần tìm gì?";
-                                                            } else echo "Bạn cần tìm gì?"; ?>" name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;"><input type="submit" name="find" value="" class="b21" /></li>
+                                                              else
+                                                                findSomeThing($_GET["nvn"]);
+                                                            } else echo "Bạn tìm gì?"; ?>" name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;">
+
+            <input type="submit" name="find" value="" class="b21" /><i class="fas fa-search" style="margin-left: -15px; color: black; margin-top: 20px;  position: absolute; font-size: 10px;">
+            </i>
+          </li>
           <input type="hidden" name="productType" value="find" />
           <input type="hidden" name="page" value="1" />
 
@@ -124,12 +129,12 @@ $conn->close();
 
 
   <br>
-  <div class="a10"><a class="a15" href="../htmlnew/nhap.php">Trang chủ </a> > <a class="a15" href="../htmlnew/sanpham.php">Sản Phẩm </a> > <a class="a15" href=""><?php echo $title ?> </a> </div>
+  <div class="a10"><a class="a15" href="../htmlnew/nhap.php">Trang chủ </a> > <a class="a15" href="">Sản Phẩm </a> > <a class="a15" href=""><?php echo $title ?> </a> </div>
   <br>
   <!-- sanpham(dien thoai iphone) -->
   <!-- hang sp 1-->
   <br>
-  <h1 class="h1-iphone" id="iphone"><img class="hinh-apple" src="../image/imagesapple.png"> <?php echo $title ?> </h1>
+  <h1 class="h1-iphone" id="iphone"><img class="hinh-apple" src="../admhtml/images/imagesapple.png"> <?php echo $title ?> </h1>
   <br>
 
   <?php
@@ -312,6 +317,23 @@ $conn->close();
       }
     </style>
     <!-- nút qua trang -->
+
+    <style>
+      .pagination a {
+        background-color: #424245;
+        color: #fff;
+      }
+
+      .pagination a:hover {
+        color: #000000;
+      }
+
+      .pagination a {
+        padding: 8px;
+        border-radius: 1rem;
+        height: 55px;
+      }
+    </style>
 
     <div class="pagination">
       <?php

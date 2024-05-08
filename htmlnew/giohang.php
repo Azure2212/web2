@@ -67,7 +67,7 @@ $sum = 0;
                     </li>
 
 
-                <?php } else echo "<li><a class='p1' href='login.php'>Đăng nhập</a></li>"; ?>
+                <?php } else echo "<li><a class='' href='login.php'>Đăng nhập</a></li>"; ?>
             </ul>
 
         </div>
@@ -98,7 +98,11 @@ $sum = 0;
                                                                                 echo "bạn chưa nhập gì cả!";
                                                                             else
                                                                                 findSomeThing($_GET["nvn"]);
-                                                                        } else echo "Bạn tìm gì?"; ?>" name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;"><input type="submit" name="find" value="" class="b21" /></li>
+                                                                        } else echo "Bạn tìm gì?"; ?>" name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;">
+
+                        <input type="submit" name="find" value="" class="b21" /><i class="fas fa-search" style="margin-right: 10px; color: black; margin-top: 20px;  position: absolute; font-size: 10px;">
+                        </i>
+                    </li>
                     <input type="hidden" name="productType" value="find" />
                     <input type="hidden" name="page" value="1" />
 

@@ -25,7 +25,7 @@ if (isset($_REQUEST['fromDate'])) {
          " . $condition1 . $condition2 . $condition3 . "   group by user.id order by tongmua DESC 
                       limit " . $start . "," . $end;
 
-        $sqlCount = "SELECT count(*) as total FROM(".$sqlSearch.") as tb";
+        $sqlCount = "SELECT count(*) as total FROM(" . $sqlSearch . ") as tb";
     }
 }
 $connDB = connectDB();
@@ -123,7 +123,7 @@ $result = $connDB->query($sql);
                     </div>
                     <div class="table-action">
                         <div class="gr-btn2">
-                            <button type="submit" style="background-color: blue; color: #fff;"><i class="fa-solid fa-search" style="cursor: pointer;"></i></a>
+                            <button type="submit" style="background-color: blue; color: #fff;"><i class="fa-solid fa-search" style="cursor: pointer; font-size: 18px;"></i></button>
                         </div>
                         <!-- <div class="gr-btn1">
                             <a class="btn-title" href="detail_order_form.php">Tạo đơn hàng</a>

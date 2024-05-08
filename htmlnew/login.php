@@ -2,6 +2,8 @@
 require("library.php");
 
 unset($_SESSION['khachhang']);
+
+unset($_SESSION['cart']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +11,7 @@ unset($_SESSION['khachhang']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập tài khoản</title>
+    <title>Đăng nhập tài khoản Khách hàng</title>
     <link href="../css/login.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&display=swap">
@@ -20,13 +22,13 @@ unset($_SESSION['khachhang']);
 
         <form class="login-form" action="../admhtml/UI/thaotacuser.php" method='post' enctype="multipart/form-data">
 
-            <h2>Đăng nhập tài khoản </h2>
+            <h2>Đăng nhập tài khoản Khách hàng </h2>
             <?php if (isset($_REQUEST['wronglogin'])) echo "<div><a style='color:red;'> Sai tên đăng nhập hoặc mật khẩu</a></div>" ?>
-            <div class="input-group">
+            <div class="input-group" style="width: 93%;">
                 <label for="username">Tên đăng nhập </label>
                 <input type="text" id="username" name="username" placeholder="Tên đăng nhập" required>
             </div>
-            <div class="input-group">
+            <div class="input-group" style="width: 93%;">
                 <label for="password">Mật khẩu</label>
                 <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
             </div>
@@ -47,7 +49,7 @@ unset($_SESSION['khachhang']);
             </div>
             <style>
                 .btn-regist {
-                    width: 40%;
+                    width: 50%;
                     height: 30px;
                     background-color: wheat;
                     color: #fff;

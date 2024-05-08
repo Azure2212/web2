@@ -45,7 +45,6 @@ if ($row == null) {
 
 <body>
   <form action="" method="get" name="frm1" onsubmit="return validateForm()">
-
     <div class="menutren">
       <ul class="menungang">
         <li class="a2"><a href=""><img class="a5" src="../admhtml/images/icon1.png" alt="erro"> SVT@gmail.com</a> </li>
@@ -68,32 +67,47 @@ if ($row == null) {
 
     </div>
     <div class="sidebar">
-      <div class="logo"> <a href="../htmlnew/nhap.php"> <img class="aa" src="../image/ganmac.jpg" alt=""></a></div>
+      <div class="logo"> <a href="../htmlnew/nhap.php"> <img class="aa" src="../admhtml/images/ganmac.jpg" alt=""></a></div>
       <nav>
         <ul>
           <li> <a href="../htmlnew/gioithieu.php" class="b1">Giới thiệu</a>
           </li>
+
           <li><a href="../htmlnew/sanpham.php?productType=All&page=1" class="b2">Sản Phẩm</a>
             <ul class="cap_2">
+
               <li> <a href="../htmlnew/sanpham.php?productType=phone&page=1"> Phone</a> </li>
               <li> <a href="../htmlnew/sanpham.php?productType=laptop&page=1"> Latop</a> </li>
               <li> <a href="../htmlnew/sanpham.php?productType=watch&page=1"> Watch</a> </li>
               <li> <a href="../htmlnew/sanpham.php?productType=headphone&page=1"> HeadPhone</a> </li>
+
+
             </ul>
           </li>
+
           <li><a href="../htmlnew/tuyendung.php">Tuyển Dụng</a></li>
           <li><a href="../htmlnew/tintuc.php">Tin Tức</a></li>
+
           <li> <input type="text" class="a6" placeholder=" <?php if (isset($_GET["nvn"])) {
                                                               if (strlen(str_replace(" ", "", $_GET["nvn"])) == 0)
                                                                 echo "bạn chưa nhập gì cả!";
                                                               else
                                                                 findSomeThing($_GET["nvn"]);
-                                                            } else echo "Bạn tìm gì?"; ?>" name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;"><input type="submit" name="find" value="" class="b21" /></li>
+                                                            } else echo "Bạn tìm gì?"; ?>" name="nvn" id="nvn" style="height: 30px; padding-top: 5px; border:none;width:auto;">
+
+            <input type="submit" name="find" value="" class="b21" /><i class="fas fa-search" style="margin-right: 10px; color: black; margin-top: 20px;  position: absolute; font-size: 10px;">
+            </i>
+          </li>
           <input type="hidden" name="productType" value="find" />
+          <input type="hidden" name="page" value="1" />
+
         </ul>
       </nav>
     </div>
+
   </form>
+
+
   </ul>
   </nav>
   </div>
@@ -107,7 +121,7 @@ if ($row == null) {
   <!-- sanpham(dien thoai iphone) -->
   <!-- hang sp 1-->
   <br>
-  <h1 class="h1-iphone" id="iphone"><img class="hinh-apple" src="../image/imagesapple.png"> <?= TypeProduct($row['MALSP']) ?> </h1>
+  <h1 class="h1-iphone" id="iphone"><img class="hinh-apple" src="../admhtml/images/imagesapple.png"> <?= TypeProduct($row['MALSP']) ?> </h1>
   <br>
 
   <div class="sp4444">
@@ -143,7 +157,7 @@ if ($row == null) {
       <div class="sp44">
         <div class="cauhinh">
           <p><b>Mô tả:</b></p>
-          <p class="cauhinhmau" style="border-radius: 1rem; font-weight: bold; color: red; padding: 5px;"><?= $row['mota'] ?></p>
+          <p><?= $row['mota'] ?></p>
           <p><b>Bộ nhớ trong:</b> <?= $row['bonhotrong'] ?></p>
           <p><b>Pin, Sạc:</b> <?= $row['pin'] ?></p>
         </div>
