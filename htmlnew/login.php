@@ -1,7 +1,7 @@
 <?php
 require("library.php");
 
-session_unset();
+unset($_SESSION['khachhang']);
 ?>
 <!DOCTYPE html>
 <html lang="en">

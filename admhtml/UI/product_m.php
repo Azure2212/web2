@@ -95,7 +95,7 @@ $result = $connDB->query($sql);
                 </a>
             </li>
             <li class="logout">
-                <a href="#">
+                <a href="login.php">
                     <i class="fas fa-sign-out">
                         <span>Đăng xuất</span>
                     </i>

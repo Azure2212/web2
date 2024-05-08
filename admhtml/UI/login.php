@@ -1,7 +1,7 @@
 <?php 
 require("../../htmlnew/library.php");
 
-session_unset();
+unset($_SESSION['userInfor']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,9 +21,9 @@ session_unset();
         <form class="login-form" action="thaotacuser.php" method='post' enctype="multipart/form-data">
         
             <h2>Đăng nhập tài khoản </h2>
-            <?php if(isset($_REQUEST['wronglogin'])) echo "<div><a style='color:red;'> Sai tên đăng nhập hoặc mật khẩu</a></div>"?>
+            <?php if(isset($_REQUEST['wronglogin'])) echo "<div><a style='color:red;'> Sai tên đăng nhập hoặc mật khẩu</a></div>"; ?>
             <div class="input-group">
-                <label for="username">Tên đăng nhập  </label>
+                <label for="username">Tên đăng nhập</label>
                 <input type="text" id="username" name="username" placeholder="Tên đăng nhập" required>
             </div>
             <div class="input-group">

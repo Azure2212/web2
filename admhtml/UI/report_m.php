@@ -7,7 +7,6 @@ $productPerPage = 5;
 $errorSearch = false;
 
 $sqlSearch = '';
-$queryCount = "select count(*) as total from bill";
 if (isset($_REQUEST['fromDate'])) {
 
     if ($_REQUEST['fromDate'] == '' && $_REQUEST['toDate'] == '') {
@@ -22,7 +21,7 @@ if (isset($_REQUEST['fromDate'])) {
         if ($_REQUEST['toDate'] != '') {
             $condition3 = " and bill.lastDateUpdated <= '" . $_REQUEST['toDate'] . "' ";
         }
-        $sqlSearch = "select user.id,fullname,user.address,user.phone,dateCreated, sum(bill.soluong) as tongmua from user,bill where user.id=bill.userId
+        $sqlSearch = "select user.id,fullname,user.address,user.phone,dateCreated, sum(bill.soluong) as tongmua, lastDateUpdated from user,bill where user.id=bill.userId
          " . $condition1 . $condition2 . $condition3 . "   group by user.id order by tongmua DESC 
                       limit " . $start . "," . $end;
 
@@ -31,11 +30,12 @@ if (isset($_REQUEST['fromDate'])) {
 }
 $connDB = connectDB();
 #cho phân trang
+$sql = "select user.id,fullname,user.address,user.phone,dateCreated, sum(bill.soluong) as tongmua, lastDateUpdated from user,bill where user.id=bill.userId group by user.id order by tongmua DESC";
+
+$queryCount = sprintf("select count(*) as total from (%s) as t", $sql);
 $productAmount = $connDB->query($queryCount);
 $productAmount = $productAmount->fetch_assoc()["total"];
-
 $totalPage = Ceil($productAmount / $productPerPage);
-$sql = "select user.id,fullname,user.address,user.phone,dateCreated, sum(bill.soluong) as tongmua from user,bill where user.id=bill.userId group by user.id order by tongmua DESC";
 if ($sqlSearch != '') $sql = $sqlSearch;
 $result = $connDB->query($sql);
 
@@ -49,7 +49,7 @@ $result = $connDB->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý đơn đặt hàng</title>
+    <title>Quản lý khách hàng</title>
     <link href="style.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&display=swap">
@@ -74,21 +74,21 @@ $result = $connDB->query($sql);
                 </a>
             </li>
             <li>
-                <a href="order_m.php?page=1">
+                <a href="report_m.php?page=1">
                     <i class="fas fa-tag">
                         <span>Quản Lý Đơn Hàng </span>
                     </i>
                 </a>
             </li>
             <li>
-                <a href="report_m.php">
+                <a href="report_m.php?page=1">
                     <i class="fas fa-chart-area">
                         <span>Báo cáo </span>
                     </i>
                 </a>
             </li>
             <li class="logout">
-                <a href="#">
+                <a href="login.php">
                     <i class="fas fa-sign-out">
                         <span>Đăng xuất</span>
                     </i>
@@ -102,14 +102,9 @@ $result = $connDB->query($sql);
         <div class="header-wrapper">
             <div class="header-title">
                 <span>Danh mục</span>
-                <h2>Quản lý Khách hàng</h2>
+                <h2>Quản lý Khách hàng thân quen</h2>
             </div>
             <div class="user-info">
-                <div class="search-box">
-                    <i class="fa-solid fa-search">
-                    </i>
-                    <input type="text" placeholder="Search" />
-                </div>
                 <div class="dropdown">
                     <img src="<?php echo $_SESSION["userInfor"]["avatar"]; ?>" style="width: 50px; height: 50px;">
                     <div class="dropdown-item">
@@ -124,7 +119,7 @@ $result = $connDB->query($sql);
             <div class="table--wrapper">
                 <div class="table-title">
                     <div class="table-header">
-                        <h3 class="main-title">Danh sách khách hàng</h3>
+                        <h3 class="main-title">Danh sách khách hàng </h3>
                     </div>
                     <div class="table-action">
                         <div class="gr-btn2">
@@ -154,9 +149,10 @@ $result = $connDB->query($sql);
                                 <th>Tên khách hàng</th>
                                 <th>Địa chỉ</th>
                                 <th>Số điện thoại</th>
-                                <th>Ngày tạo</th>
+                                <th>Ngày tạo tài khoản</th>
+                                <th>Lần cuối thao tác</th>
                                 <th>Tổng tiền mua</th>
-                                <th style="width: 20px;"></th>
+                                <!-- <th style="width: 20px;"></th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -166,15 +162,16 @@ $result = $connDB->query($sql);
                                     <td><?= $row['address'] ?></td>
                                     <td><?= $row['phone'] ?></td>
                                     <td><?= $row['dateCreated'] ?></td>
+                                    <td><?= $row['lastDateUpdated'] ?></td>
                                     <td><?= $row['tongmua'] ?></td>
-                                    <td>
+                                    <!-- <td>
                                         <div class="dropdown">
                                             <button><i class="fas fa-edit"></i></button>
                                             <div class="dropdown-item">
                                               
                                             </div>
                                         </div>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             <?php } ?>
 
@@ -182,23 +179,23 @@ $result = $connDB->query($sql);
                     </table>
                 </div>
                 <ul class="pagination">
-                    <li><a href='order_m.php?page=1'>
-                            <<</a>
+                    <li><a href='report_m.php?page=1'>
+                            << </a>
                     </li>
                     <?php
                     if ($_REQUEST['page'] != 1)
-                        echo sprintf("<li><a href='order_m.php?page=%d'><</a></li>", $_REQUEST['page'] - 1);
+                        echo sprintf("<li><a href='report_m.php?page=%d'><</a></li>", $_REQUEST['page'] - 1);
                     else
                         echo "<li><a href='#'><</a></li>";
                     ?>
                     <li><a href="#"><?= $_REQUEST['page'] . '/' . $totalPage  ?></a></li>
                     <?php
                     if ($_REQUEST['page'] != $totalPage)
-                        echo sprintf("<li><a href='order_m.php?page=%d'>></a></li>", $_REQUEST['page'] + 1);
+                        echo sprintf("<li><a href='report_m.php?page=%d'>></a></li>", $_REQUEST['page'] + 1);
                     else
                         echo "<li><a href='#'>></a></li>";
                     ?>
-                    <li><a href='order_m.php?page=<?= $totalPage ?>'>>></a></li>
+                    <li><a href='report_m.php?page=<?= $totalPage ?>'>>></a></li>
 
                 </ul>
             </div>

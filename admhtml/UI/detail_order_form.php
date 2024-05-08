@@ -49,14 +49,14 @@ while ($row = $sp->fetch_assoc()) {
                 </a>
             </li>
             <li>
-                <a href="order_m.php">
+                <a href="order_m.php?page=1">
                     <i class="fas fa-tag">
                         <span>Quản Lý Đơn Hàng </span>
                     </i>
                 </a>
             </li>
             <li>
-                <a href="report_m.php">
+                <a href="report_m.php?page=1">
                     <i class="fas fa-chart-area">
                         <span>Báo cáo </span>
                     </i>

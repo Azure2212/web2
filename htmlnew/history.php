@@ -168,7 +168,7 @@ $sum = 0;
                                             <button><i class="fas fa-edit"></i></button>
                                             <div class="dropdown-item">
                                                 <a href="detail_in_history.php?mabill=<?= $row['id'] ?>">Xem chi tiết</a>
-                                                <a href="../admhtml/thaotacorder.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>">Sửa</a>
+                                                <a href="thaotaclichsu.php?loaithaotacorder=cancel&mabill=<?= $row['id'] ?>">Hủy</a>
                                             </div>
 
 

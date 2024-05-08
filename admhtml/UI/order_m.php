@@ -97,7 +97,7 @@ $result = $connDB->query($sql);
                 </a>
             </li>
             <li class="logout">
-                <a href="#">
+                    <a href="login.php">
                     <i class="fas fa-sign-out">
                         <span>Đăng xuất</span>
                     </i>
@@ -207,7 +207,7 @@ $result = $connDB->query($sql);
                 
                 <ul class="pagination">
                     <li><a href='order_m.php?page=1'>
-                            <<< /a>
+                            <<</a>
                     </li>
                     <?php
                     if ($_REQUEST['page'] != 1)

@@ -16,8 +16,6 @@ if($_REQUEST['typeForm'] == "login"){
     else{
         if($role != mapping_userRole($row["role"])) header("location: ../../htmlnew/nhap.php?wronglogin=1");
         else {
-            echo $role;
-           
             if($role == 'Quản trị viên'){
                 $_SESSION['userInfor'] = $row;
                 header("location: index.php");
