@@ -104,15 +104,15 @@ if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp'){
                 </div>
                 <div class="input-group">
                     <label for="pre-price">Giá vốn</label>
-                    <input type="number" id="pre-price" name="pre-price" placeholder="Giá vốn" step="10000" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['giavon']; ?>" required>
+                    <input type="number" min="0" id="pre-price" name="pre-price" placeholder="Giá vốn" step="10000" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['giavon']; ?>" required>
                 </div>
                 <div class="input-group">
                     <label for="price">Giá</label>
-                    <input type="number" id="price" name="price" placeholder="Giá sản phẩm" step="10000" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['gia']; ?>" required>
+                    <input type="number" min="0" id="price" name="price" placeholder="Giá sản phẩm" step="10000" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['gia']; ?>" required>
                 </div>
                 <div class="input-group">
                     <label for="discount">Giảm Giá</label>
-                    <input type="number" id="discount" name="discount" placeholder="Giá được giảm" step="10000" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['giamgia']; ?>" required>
+                    <input type="number" min="0" id="discount" name="discount" placeholder="Giá được giảm" step="10000" value="<?php if(isset($_REQUEST['typePage']) && $_REQUEST['typePage'] =='chinhsuasp') echo $row['giamgia']; ?>" required>
                 </div>
                 <div class="input-group">
                     <label for="mota">Mô tả:</label>
